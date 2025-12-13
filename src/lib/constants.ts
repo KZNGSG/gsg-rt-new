@@ -26,20 +26,29 @@ export const SITE_CONFIG = {
 
 export const MAIN_NAV: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
   {
+    label: 'Виды сертификации',
+    href: '/vidy-sertifikacii',
+    children: [
+      { label: 'Декларирование', href: '/vidy-sertifikacii/deklarirovanie' },
+      { label: 'Сертификат ТР ТС', href: '/vidy-sertifikacii/sertifikat-tr-ts' },
+      { label: 'Сертификат ГОСТ Р', href: '/vidy-sertifikacii/gost-r' },
+      { label: 'СГР', href: '/vidy-sertifikacii/sgr' },
+      { label: 'Сертификация ISO', href: '/vidy-sertifikacii/iso' },
+      { label: 'ХАССП', href: '/vidy-sertifikacii/hassp' },
+    ],
+  },
+  {
     label: 'Сертификат на товар',
     href: '/sertifikat-na-tovar',
     children: [
-      { label: 'Сертификат ТР ТС', href: '/sertifikat-tr-ts' },
-      { label: 'Декларация ТР ТС', href: '/deklaratsiya-tr-ts' },
-      { label: 'Сертификат ГОСТ Р', href: '/sertifikat-gost-r' },
-      { label: 'Декларация ГОСТ Р', href: '/deklaratsiya-gost-r' },
-      { label: 'СГР', href: '/sgr' },
-      { label: 'Отказное письмо', href: '/otkaznoye-pismo' },
+      { label: 'Бытовая техника', href: '/sertifikat-na-tovar/bytovaya-tekhnika' },
+      { label: 'Детские товары', href: '/sertifikat-na-tovar/detskie-tovary' },
+      { label: 'Косметика', href: '/sertifikat-na-tovar/kosmetika' },
+      { label: 'Продукты питания', href: '/sertifikat-na-tovar/produkty-pitaniya' },
+      { label: 'Одежда и обувь', href: '/sertifikat-na-tovar/odezhda' },
     ],
   },
-  { label: 'Видеоблог', href: '/videoblog' },
   { label: 'О нас', href: '/o-nas' },
-  { label: 'Цены', href: '/tseny' },
   { label: 'Контакты', href: '/kontakty' },
 ];
 

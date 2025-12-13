@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large data files
+data/all_urls.txt
+data/all_subdomains_urls.txt
+data/clean_urls.txt
+data/unique_paths.txt

@@ -1,11 +1,19 @@
+import Link from 'next/link';
 import { Hero } from '@/components/sections/Hero';
+
+const SERVICES = [
+  { title: 'Сертификат ТР ТС', price: 'от 12 000 ₽', icon: '📜', slug: 'sertifikat-tr-ts' },
+  { title: 'Декларация ТР ТС', price: 'от 8 000 ₽', icon: '📋', slug: 'deklarirovanie' },
+  { title: 'Сертификат ГОСТ Р', price: 'от 15 000 ₽', icon: '🏆', slug: 'gost-r' },
+  { title: 'СГР', price: 'от 25 000 ₽', icon: '🔬', slug: 'sgr' },
+];
 
 export default function Home() {
   return (
     <>
       <Hero />
 
-      {/* Секция услуг - TODO */}
+      {/* Секция услуг */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -18,23 +26,31 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { title: 'Сертификат ТР ТС', price: 'от 12 000 ₽', icon: '📜' },
-              { title: 'Декларация ТР ТС', price: 'от 8 000 ₽', icon: '📋' },
-              { title: 'Сертификат ГОСТ Р', price: 'от 15 000 ₽', icon: '🏆' },
-              { title: 'СГР', price: 'от 25 000 ₽', icon: '🔬' },
-            ].map((service, i) => (
-              <div
-                key={i}
-                className="group bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-xl hover:border-blue-200 transition-all duration-300 cursor-pointer"
+            {SERVICES.map((service) => (
+              <Link
+                key={service.slug}
+                href={`/vidy-sertifikacii/${service.slug}`}
+                className="group bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-xl hover:border-blue-200 transition-all duration-300"
               >
                 <div className="text-4xl mb-4">{service.icon}</div>
                 <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {service.title}
                 </h3>
                 <p className="text-blue-600 font-semibold">{service.price}</p>
-              </div>
+              </Link>
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              href="/vidy-sertifikacii"
+              className="inline-flex items-center gap-2 text-blue-600 font-semibold hover:text-blue-700 transition-colors"
+            >
+              Смотреть все услуги
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
