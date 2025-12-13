@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { SITE_CONFIG, MAIN_NAV } from '@/lib/constants';
 import { cn } from '@/lib/utils';
@@ -37,14 +38,15 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20">
           {/* Логотип */}
-          <Link href="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">ГС</span>
-            </div>
-            <div className="hidden sm:block">
-              <div className="font-bold text-xl text-slate-900">ГОСТСЕРТГРУПП</div>
-              <div className="text-xs text-slate-500">Центр сертификации</div>
-            </div>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/logo.svg"
+              alt="ГОСТСЕРТГРУПП - Центр сертификации"
+              width={200}
+              height={50}
+              className="h-12 w-auto"
+              priority
+            />
           </Link>
 
           {/* Десктопное меню */}
