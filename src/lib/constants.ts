@@ -24,7 +24,12 @@ export const SITE_CONFIG = {
   },
 } as const;
 
-export const MAIN_NAV: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
+export const MAIN_NAV: { label: string; href: string; highlight?: boolean; children?: { label: string; href: string }[] }[] = [
+  {
+    label: 'Определитель ТН ВЭД',
+    href: '/tn-ved',
+    highlight: true, // Выделяем как ключевую фичу
+  },
   {
     label: 'Виды сертификации',
     href: '/vidy-sertifikacii',

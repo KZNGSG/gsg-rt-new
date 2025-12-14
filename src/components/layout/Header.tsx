@@ -62,9 +62,16 @@ export function Header() {
                   href={item.href}
                   className={cn(
                     'px-4 py-2 rounded-lg font-medium transition-colors',
-                    'hover:bg-slate-100 text-slate-700 hover:text-blue-600'
+                    item.highlight
+                      ? 'bg-blue-600 text-white hover:bg-blue-700'
+                      : 'hover:bg-slate-100 text-slate-700 hover:text-blue-600'
                   )}
                 >
+                  {item.highlight && (
+                    <svg className="inline-block w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  )}
                   {item.label}
                   {item.children && (
                     <svg className="inline-block w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -130,9 +137,19 @@ export function Header() {
               <div key={item.href} className="border-b border-slate-100 last:border-0">
                 <Link
                   href={item.href}
-                  className="block py-3 font-medium text-slate-700"
+                  className={cn(
+                    'block py-3 font-medium',
+                    item.highlight
+                      ? 'text-blue-600 flex items-center gap-2'
+                      : 'text-slate-700'
+                  )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
+                  {item.highlight && (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  )}
                   {item.label}
                 </Link>
                 {item.children && (
