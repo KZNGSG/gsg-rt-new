@@ -1,49 +1,42 @@
 'use client';
 
-import { useState, useMemo } from 'react';
-import { searchTNVED, getAllGroups, getItemsByGroup, TECHNICAL_REGULATIONS, type TNVEDItem } from '@/data/tn-ved-database';
-import { TNVEDResults } from './TNVEDResults';
+import { useState, useMemo, useCallback } from 'react';
+import { searchTNVED, getGroups, getMarkingInfo, type TNVEDCode } from '@/data/tn-ved-full';
+import { TECHNICAL_REGULATIONS } from '@/data/tn-ved-database';
+import { TNVEDResultsNew } from './TNVEDResultsNew';
 
 export function TNVEDSearch() {
   const [query, setQuery] = useState('');
-  const [selectedGroup, setSelectedGroup] = useState<string | null>(null);
-  const [selectedItem, setSelectedItem] = useState<TNVEDItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<TNVEDCode | null>(null);
+  const [isSearching, setIsSearching] = useState(false);
 
-  const groups = useMemo(() => getAllGroups(), []);
-
+  // Debounced поиск
   const searchResults = useMemo(() => {
     if (query.length >= 2) {
       return searchTNVED(query);
     }
-    if (selectedGroup) {
-      return getItemsByGroup(selectedGroup);
-    }
     return [];
-  }, [query, selectedGroup]);
+  }, [query]);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const groups = useMemo(() => getGroups().slice(0, 20), []); // Топ-20 групп
+
+  const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
-    setSelectedGroup(null);
     setSelectedItem(null);
-  };
+  }, []);
 
-  const handleGroupSelect = (groupCode: string) => {
-    setSelectedGroup(groupCode);
-    setQuery('');
-    setSelectedItem(null);
-  };
-
-  const handleItemSelect = (item: TNVEDItem) => {
+  const handleItemSelect = useCallback((item: TNVEDCode) => {
     setSelectedItem(item);
-  };
+  }, []);
 
-  const handleBack = () => {
-    if (selectedItem) {
-      setSelectedItem(null);
-    } else if (selectedGroup) {
-      setSelectedGroup(null);
-    }
-  };
+  const handleBack = useCallback(() => {
+    setSelectedItem(null);
+  }, []);
+
+  const handleExampleClick = useCallback((example: string) => {
+    setQuery(example);
+    setSelectedItem(null);
+  }, []);
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -74,14 +67,14 @@ export function TNVEDSearch() {
       </div>
 
       {/* Примеры поиска */}
-      {!query && !selectedGroup && !selectedItem && (
+      {!query && !selectedItem && (
         <div className="mb-8">
           <p className="text-sm text-slate-500 mb-3">Примеры поиска:</p>
           <div className="flex flex-wrap gap-2">
-            {['8418', 'телевизор', 'одежда', 'косметика', 'игрушки', 'мебель'].map((example) => (
+            {['8418', '6109', 'телевизор', 'одежда', 'косметика', 'молоко', 'мебель', 'обувь'].map((example) => (
               <button
                 key={example}
-                onClick={() => setQuery(example)}
+                onClick={() => handleExampleClick(example)}
                 className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-full text-sm hover:bg-blue-100 hover:text-blue-600 transition-colors"
               >
                 {example}
@@ -92,7 +85,7 @@ export function TNVEDSearch() {
       )}
 
       {/* Кнопка назад */}
-      {(selectedGroup || selectedItem) && (
+      {selectedItem && (
         <button
           onClick={handleBack}
           className="flex items-center gap-2 text-blue-600 font-medium mb-6 hover:text-blue-700 transition-colors"
@@ -100,37 +93,46 @@ export function TNVEDSearch() {
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Назад
+          Назад к поиску
         </button>
       )}
 
       {/* Результаты поиска или выбранный товар */}
       {selectedItem ? (
-        <TNVEDResults item={selectedItem} />
+        <TNVEDResultsNew item={selectedItem} />
       ) : searchResults.length > 0 ? (
         <div className="space-y-3">
           <p className="text-sm text-slate-500 mb-4">
-            {query ? `Найдено результатов: ${searchResults.length}` : `Товары в категории: ${searchResults.length}`}
+            Найдено результатов: {searchResults.length}{searchResults.length >= 50 ? '+' : ''}
           </p>
-          {searchResults.map((item) => (
+          {searchResults.map((item, index) => (
             <button
-              key={item.code}
+              key={`${item.code}-${index}`}
               onClick={() => handleItemSelect(item)}
               className="w-full text-left p-4 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all group"
             >
               <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="font-mono text-blue-600 font-semibold">{item.code}</span>
-                    <span className="text-slate-300">|</span>
-                    <span className="font-medium text-slate-900 group-hover:text-blue-600 transition-colors">
-                      {item.name}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-3 mb-1 flex-wrap">
+                    <span className="font-mono text-blue-600 font-semibold whitespace-nowrap">
+                      {item.code_formatted}
                     </span>
+                    {item.requires_marking && (
+                      <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs rounded-full">
+                        Маркировка
+                      </span>
+                    )}
+                    {item.is_experimental && (
+                      <span className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">
+                        Эксперимент
+                      </span>
+                    )}
                   </div>
-                  <p className="text-sm text-slate-500 line-clamp-1">{item.description}</p>
+                  <p className="text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {item.name}
+                  </p>
                 </div>
-                <div className="flex items-center gap-2 text-slate-400 group-hover:text-blue-500 transition-colors">
-                  <span className="text-sm">{item.documents.length} док.</span>
+                <div className="flex items-center text-slate-400 group-hover:text-blue-500 transition-colors flex-shrink-0">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
@@ -144,31 +146,31 @@ export function TNVEDSearch() {
           <div className="text-6xl mb-4">🔍</div>
           <h3 className="text-xl font-semibold text-slate-900 mb-2">Ничего не найдено</h3>
           <p className="text-slate-500 mb-6">
-            Попробуйте изменить запрос или выберите категорию ниже
+            Попробуйте изменить запрос или введите код ТН ВЭД
           </p>
         </div>
       ) : null}
 
-      {/* Категории товаров */}
-      {!query && !selectedGroup && !selectedItem && (
+      {/* Популярные группы */}
+      {!query && !selectedItem && (
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Популярные категории</h3>
+          <h3 className="text-lg font-semibold text-slate-900 mb-4">Популярные группы ТН ВЭД</h3>
           <div className="grid md:grid-cols-2 gap-3">
             {groups.map((group) => (
               <button
                 key={group.code}
-                onClick={() => handleGroupSelect(group.code)}
+                onClick={() => handleExampleClick(group.code)}
                 className="p-4 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all text-left group"
               >
                 <div className="flex items-center justify-between">
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <span className="font-mono text-blue-600 font-semibold">{group.code}</span>
-                    <h4 className="font-medium text-slate-900 group-hover:text-blue-600 transition-colors">
+                    <p className="text-sm text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
                       {group.name}
-                    </h4>
+                    </p>
                   </div>
-                  <div className="text-sm text-slate-400">
-                    {group.itemCount} поз.
+                  <div className="text-sm text-slate-400 flex-shrink-0 ml-2">
+                    {group.count} поз.
                   </div>
                 </div>
               </button>
@@ -177,26 +179,35 @@ export function TNVEDSearch() {
         </div>
       )}
 
+      {/* Статистика базы */}
+      {!query && !selectedItem && (
+        <div className="mt-8 p-4 bg-slate-100 rounded-xl text-center">
+          <p className="text-slate-600">
+            В базе <span className="font-bold text-blue-600">16 376</span> кодов ТН ВЭД
+          </p>
+        </div>
+      )}
+
       {/* Информационный блок */}
       {!selectedItem && (
-        <div className="mt-12 p-6 bg-blue-50 rounded-2xl">
+        <div className="mt-8 p-6 bg-blue-50 rounded-2xl">
           <h3 className="font-semibold text-slate-900 mb-2">Как работает определитель?</h3>
           <ul className="text-sm text-slate-600 space-y-2">
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">1.</span>
-              Введите код ТН ВЭД или название товара
+              Введите код ТН ВЭД (например, 8418) или название товара
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">2.</span>
-              Система покажет применимые технические регламенты
+              Выберите нужную позицию из результатов поиска
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">3.</span>
-              Узнайте, какие документы нужны и их примерную стоимость
+              Узнайте требования по сертификации и маркировке
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">4.</span>
-              Оставьте заявку для точного расчёта
+              Оставьте заявку для точного расчёта стоимости
             </li>
           </ul>
         </div>
