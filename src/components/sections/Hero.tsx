@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { searchTNVED, TNVEDItem } from '@/data/tn-ved-database';
+import { searchTNVEDFull, TNVEDCode, getTNVEDCount } from '@/lib/tnved-search';
 
 const CATEGORIES = [
   { name: 'Пищевая продукция', slug: 'pishchevaya-produktsiya', icon: 'food' },
@@ -63,19 +63,20 @@ function CategoryIcon({ type }: { type: string }) {
 export function Hero() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<TNVEDItem[]>([]);
+  const [suggestions, setSuggestions] = useState<TNVEDCode[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<TNVEDItem | null>(null);
+  const [selectedItem, setSelectedItem] = useState<TNVEDCode | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
   const [certType, setCertType] = useState(CERT_TYPES[0]);
   const [product, setProduct] = useState('');
   const [urgency, setUrgency] = useState<'normal' | 'urgent'>('normal');
+  const totalCodes = getTNVEDCount();
 
-  // Поиск при вводе
+  // Поиск при вводе по полной базе 16376 кодов
   useEffect(() => {
     if (searchQuery.trim().length >= 2) {
-      const results = searchTNVED(searchQuery);
-      setSuggestions(results.slice(0, 6)); // Максимум 6 подсказок
+      const results = searchTNVEDFull(searchQuery, 8);
+      setSuggestions(results);
       setShowSuggestions(results.length > 0);
     } else {
       setSuggestions([]);
@@ -101,7 +102,7 @@ export function Hero() {
     }
   };
 
-  const handleSelectSuggestion = (item: TNVEDItem) => {
+  const handleSelectSuggestion = (item: TNVEDCode) => {
     setSelectedItem(item);
     setSearchQuery(item.name);
     setShowSuggestions(false);
@@ -152,7 +153,10 @@ export function Hero() {
 
                 {/* Выпадающий список подсказок */}
                 {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-96 overflow-y-auto">
+                    <div className="px-4 py-2 bg-slate-50 border-b border-slate-200">
+                      <span className="text-xs text-slate-500">Найдено в базе {totalCodes.toLocaleString()} кодов ТН ВЭД</span>
+                    </div>
                     {suggestions.map((item, index) => (
                       <button
                         key={item.code + index}
@@ -163,12 +167,17 @@ export function Hero() {
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex-1 min-w-0">
                             <div className="font-medium text-slate-900 truncate">{item.name}</div>
-                            <div className="text-sm text-slate-500 truncate">{item.description}</div>
+                            <div className="text-sm text-slate-500">{item.code_formatted}</div>
                           </div>
-                          <div className="flex-shrink-0">
+                          <div className="flex-shrink-0 flex flex-col items-end gap-1">
                             <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded">
                               {item.code}
                             </span>
+                            {item.requires_marking && (
+                              <span className="inline-block px-2 py-0.5 bg-orange-100 text-orange-700 text-xs rounded">
+                                Маркировка
+                              </span>
+                            )}
                           </div>
                         </div>
                       </button>
@@ -184,7 +193,7 @@ export function Hero() {
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div>
                     <div className="text-white font-semibold">{selectedItem.name}</div>
-                    <div className="text-blue-200 text-sm">Код ТН ВЭД: {selectedItem.code}</div>
+                    <div className="text-blue-200 text-sm">Код ТН ВЭД: {selectedItem.code_formatted}</div>
                   </div>
                   <button
                     onClick={() => setSelectedItem(null)}
@@ -195,32 +204,53 @@ export function Hero() {
                     </svg>
                   </button>
                 </div>
-                <div className="text-sm text-white/90 mb-3">Требуемые документы:</div>
-                <div className="space-y-2">
-                  {selectedItem.documents.map((doc, i) => (
-                    <div key={i} className="flex items-center justify-between bg-white/10 rounded-lg px-3 py-2">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${doc.type === 'certificate' ? 'bg-green-400' : doc.type === 'declaration' ? 'bg-blue-400' : 'bg-orange-400'}`} />
-                        <span className="text-white text-sm">{doc.name}</span>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-orange-300 font-semibold text-sm">{doc.price}</div>
-                        <div className="text-blue-200 text-xs">{doc.duration}</div>
-                      </div>
-                    </div>
-                  ))}
+
+                {/* Статус маркировки */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {selectedItem.requires_marking ? (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-500/20 text-orange-300 text-sm rounded-lg">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      Требуется маркировка
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-500/20 text-green-300 text-sm rounded-lg">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Маркировка не требуется
+                    </span>
+                  )}
+                  {selectedItem.is_experimental && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-lg">
+                      Экспериментальный режим
+                    </span>
+                  )}
                 </div>
-                {selectedItem.notes && (
-                  <div className="mt-3 text-xs text-yellow-200 bg-yellow-500/20 rounded-lg px-3 py-2">
-                    {selectedItem.notes}
-                  </div>
-                )}
-                <button
-                  onClick={() => router.push(`/tn-ved?q=${encodeURIComponent(selectedItem.code)}`)}
-                  className="mt-4 w-full bg-white text-blue-600 font-semibold py-3 rounded-lg hover:bg-blue-50 transition-colors"
-                >
-                  Подробнее о требованиях
-                </button>
+
+                <div className="text-sm text-white/90 mb-3">Для определения требуемых документов:</div>
+                <div className="text-xs text-blue-200 mb-4">
+                  Точные требования зависят от характеристик товара. Наш эксперт бесплатно определит необходимые сертификаты и декларации.
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => router.push(`/tn-ved?q=${encodeURIComponent(selectedItem.code)}`)}
+                    className="flex-1 bg-white/20 hover:bg-white/30 text-white font-semibold py-3 rounded-lg transition-colors"
+                  >
+                    Подробнее
+                  </button>
+                  <button
+                    onClick={() => {
+                      setProduct(selectedItem.name);
+                      setSelectedItem(null);
+                    }}
+                    className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition-colors"
+                  >
+                    Рассчитать стоимость
+                  </button>
+                </div>
               </div>
             )}
 
