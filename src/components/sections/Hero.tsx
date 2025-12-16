@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { searchTNVEDFull, TNVEDCode, getTNVEDCount } from '@/lib/tnved-search';
-import { determineCertification, CertificationResult, getDocumentTypeColor } from '@/lib/certification-rules';
+import { determineCertification, CertificationResult, DocumentType } from '@/lib/certification-rules';
 
 const CATEGORIES = [
   { name: 'Пищевая продукция', slug: 'pishchevaya-produktsiya', icon: 'food' },
@@ -15,6 +15,14 @@ const CATEGORIES = [
 ];
 
 const POPULAR = ['косметика', 'БАДы', 'детские игрушки', 'одежда', 'медицинские маски', 'продукты питания'];
+
+// Дополнительные услуги
+const ADDITIONAL_SERVICES = [
+  { id: 'protocol', name: 'Протокол испытаний', price: 8000, description: 'Лабораторные испытания продукции' },
+  { id: 'urgent', name: 'Срочное оформление', multiplier: 1.5, description: 'Ускоренное оформление за 1-3 дня' },
+  { id: 'marking', name: 'Помощь с маркировкой', price: 5000, description: 'Разработка этикетки по ТР ТС' },
+  { id: 'consult', name: 'Консультация эксперта', price: 0, description: 'Бесплатно при оформлении' },
+];
 
 function CategoryIcon({ type }: { type: string }) {
   const icons: Record<string, React.ReactElement> = {
@@ -52,19 +60,155 @@ function CategoryIcon({ type }: { type: string }) {
   return icons[type] || icons.food;
 }
 
+// Визуализация документа
+function DocumentVisual({ type, name, regulation }: { type: DocumentType; name: string; regulation?: string }) {
+  const colors: Record<DocumentType, { bg: string; border: string; accent: string }> = {
+    certificate: { bg: 'from-green-50 to-emerald-50', border: 'border-green-400', accent: 'text-green-600' },
+    declaration: { bg: 'from-blue-50 to-indigo-50', border: 'border-blue-400', accent: 'text-blue-600' },
+    sgr: { bg: 'from-purple-50 to-violet-50', border: 'border-purple-400', accent: 'text-purple-600' },
+    registration: { bg: 'from-orange-50 to-amber-50', border: 'border-orange-400', accent: 'text-orange-600' },
+    rejection: { bg: 'from-slate-50 to-gray-50', border: 'border-slate-300', accent: 'text-slate-600' },
+  };
+
+  const color = colors[type];
+  const docTitle = type === 'certificate' ? 'СЕРТИФИКАТ СООТВЕТСТВИЯ' :
+                   type === 'declaration' ? 'ДЕКЛАРАЦИЯ О СООТВЕТСТВИИ' :
+                   type === 'sgr' ? 'СВИДЕТЕЛЬСТВО' :
+                   type === 'registration' ? 'РЕГИСТРАЦИОННОЕ УДОСТОВЕРЕНИЕ' :
+                   'ОТКАЗНОЕ ПИСЬМО';
+
+  return (
+    <div className={`relative bg-gradient-to-br ${color.bg} rounded-xl border-2 ${color.border} p-4 shadow-lg overflow-hidden`}>
+      {/* Фоновый паттерн */}
+      <div className="absolute inset-0 opacity-5">
+        <svg className="w-full h-full" viewBox="0 0 100 100">
+          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+          </pattern>
+          <rect width="100" height="100" fill="url(#grid)" />
+        </svg>
+      </div>
+
+      {/* Заголовок документа */}
+      <div className="relative text-center mb-3">
+        <div className="flex justify-center mb-2">
+          <div className="w-8 h-8 rounded-full bg-white/80 flex items-center justify-center">
+            <svg className={`w-5 h-5 ${color.accent}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+        </div>
+        <div className={`text-[10px] font-bold tracking-wider ${color.accent}`}>
+          {docTitle}
+        </div>
+        {regulation && (
+          <div className="text-[9px] text-slate-500 mt-0.5">{regulation}</div>
+        )}
+      </div>
+
+      {/* Линии документа (имитация текста) */}
+      <div className="relative space-y-1.5 mb-3">
+        <div className="h-1.5 bg-slate-200/60 rounded w-full"></div>
+        <div className="h-1.5 bg-slate-200/60 rounded w-4/5"></div>
+        <div className="h-1.5 bg-slate-200/60 rounded w-full"></div>
+        <div className="h-1.5 bg-slate-200/60 rounded w-3/4"></div>
+      </div>
+
+      {/* Нижняя часть - печать и QR */}
+      <div className="relative flex items-end justify-between">
+        {/* Печать */}
+        <div className="relative">
+          <div className={`w-12 h-12 rounded-full border-2 ${color.border} flex items-center justify-center bg-white/50 rotate-[-8deg]`}>
+            <div className="text-center">
+              <div className={`text-[6px] font-bold ${color.accent}`}>ЕАЭС</div>
+              <div className="text-[5px] text-slate-500">РФ</div>
+            </div>
+          </div>
+          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 rounded-full opacity-80"></div>
+        </div>
+
+        {/* QR код */}
+        <div className="bg-white p-1 rounded shadow-sm">
+          <div className="w-10 h-10 grid grid-cols-5 gap-[1px]">
+            {Array.from({ length: 25 }).map((_, i) => (
+              <div
+                key={i}
+                className={`${Math.random() > 0.5 ? 'bg-slate-800' : 'bg-white'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Блик */}
+      <div className="absolute top-0 right-0 w-16 h-16 bg-white/30 rounded-bl-full"></div>
+    </div>
+  );
+}
+
+// Timeline этапов
+function TimelineStages({ currentStage, duration }: { currentStage: number; duration: string }) {
+  const stages = [
+    { name: 'Заявка', day: '1 день' },
+    { name: 'Документы', day: '2-3 дня' },
+    { name: 'Испытания', day: duration.includes('60') || duration.includes('90') ? '30-60 дн.' : '3-5 дней' },
+    { name: 'Выдача', day: 'финал' },
+  ];
+
+  return (
+    <div className="relative">
+      {/* Линия */}
+      <div className="absolute top-3 left-3 right-3 h-0.5 bg-slate-200 rounded"></div>
+      <div
+        className="absolute top-3 left-3 h-0.5 bg-blue-500 rounded transition-all duration-500"
+        style={{ width: `${(currentStage / (stages.length - 1)) * 100}%`, maxWidth: 'calc(100% - 24px)' }}
+      ></div>
+
+      {/* Точки */}
+      <div className="relative flex justify-between">
+        {stages.map((stage, i) => (
+          <div key={i} className="flex flex-col items-center">
+            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
+              i <= currentStage
+                ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
+                : 'bg-slate-200 text-slate-400'
+            }`}>
+              {i < currentStage ? (
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                i + 1
+              )}
+            </div>
+            <div className="mt-1.5 text-center">
+              <div className={`text-[10px] font-medium ${i <= currentStage ? 'text-slate-700' : 'text-slate-400'}`}>
+                {stage.name}
+              </div>
+              <div className="text-[9px] text-slate-400">{stage.day}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function Hero() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState<TNVEDCode[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<TNVEDCode | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
+
+  // Состояние конструктора
   const [calcProduct, setCalcProduct] = useState('');
   const [calcResult, setCalcResult] = useState<CertificationResult | null>(null);
   const [isForChildren, setIsForChildren] = useState(false);
   const [calcSuggestions, setCalcSuggestions] = useState<TNVEDCode[]>([]);
   const [showCalcSuggestions, setShowCalcSuggestions] = useState(false);
   const [selectedCalcItem, setSelectedCalcItem] = useState<TNVEDCode | null>(null);
+  const [selectedServices, setSelectedServices] = useState<string[]>(['consult']);
   const calcRef = useRef<HTMLDivElement>(null);
   const totalCodes = getTNVEDCount();
 
@@ -136,15 +280,71 @@ export function Hero() {
     }
   };
 
+  // При выборе из левого поиска - сразу перекидываем в конструктор справа
   const handleSelectSuggestion = (item: TNVEDCode) => {
-    setSelectedItem(item);
-    setSearchQuery(item.name);
+    setSearchQuery('');
     setShowSuggestions(false);
+    // Перекидываем в конструктор
+    setSelectedCalcItem(item);
+    setCalcProduct(item.name);
+    const productName = isForChildren ? 'детский ' + item.name : item.name;
+    const result = determineCertification(item.code, productName);
+    setCalcResult(result);
   };
 
   const handleQuickSearch = (term: string) => {
     router.push(`/tn-ved?q=${encodeURIComponent(term)}`);
   };
+
+  const toggleService = (serviceId: string) => {
+    setSelectedServices(prev =>
+      prev.includes(serviceId)
+        ? prev.filter(id => id !== serviceId)
+        : [...prev, serviceId]
+    );
+  };
+
+  // Расчёт итоговой стоимости
+  const calculateTotal = () => {
+    if (!calcResult || calcResult.documents.length === 0) return { min: 0, max: 0 };
+
+    // Базовая цена из первого документа
+    const basePrice = calcResult.documents[0].price;
+    const priceMatch = basePrice.match(/(\d[\d\s]*)/);
+    let baseMin = priceMatch ? parseInt(priceMatch[1].replace(/\s/g, '')) : 0;
+    let baseMax = baseMin;
+
+    // Если несколько документов, суммируем
+    calcResult.documents.forEach((doc, i) => {
+      if (i > 0) {
+        const match = doc.price.match(/(\d[\d\s]*)/);
+        if (match) {
+          baseMin += parseInt(match[1].replace(/\s/g, ''));
+          baseMax += parseInt(match[1].replace(/\s/g, ''));
+        }
+      }
+    });
+
+    // Добавляем услуги
+    let additional = 0;
+    selectedServices.forEach(serviceId => {
+      const service = ADDITIONAL_SERVICES.find(s => s.id === serviceId);
+      if (service && service.price) {
+        additional += service.price;
+      }
+    });
+
+    let total = baseMin + additional;
+
+    // Множитель за срочность
+    if (selectedServices.includes('urgent')) {
+      total = Math.round(total * 1.5);
+    }
+
+    return { min: total, max: Math.round(total * 1.2) };
+  };
+
+  const totalPrice = calculateTotal();
 
   return (
     <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 py-12 lg:py-16">
@@ -171,7 +371,7 @@ export function Hero() {
                     <input
                       type="text"
                       value={searchQuery}
-                      onChange={(e) => { setSearchQuery(e.target.value); setSelectedItem(null); }}
+                      onChange={(e) => setSearchQuery(e.target.value)}
                       onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
                       placeholder="Название товара или код ТН ВЭД..."
                       className="w-full py-4 text-slate-700 placeholder-slate-400 focus:outline-none"
@@ -221,76 +421,6 @@ export function Hero() {
               </div>
             </form>
 
-            {/* Карточка с результатом поиска */}
-            {selectedItem && (
-              <div className="mb-6 bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <div>
-                    <div className="text-white font-semibold">{selectedItem.name}</div>
-                    <div className="text-blue-200 text-sm">Код ТН ВЭД: {selectedItem.code_formatted}</div>
-                  </div>
-                  <button
-                    onClick={() => setSelectedItem(null)}
-                    className="text-white/60 hover:text-white transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Статус маркировки */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {selectedItem.requires_marking ? (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-orange-500/20 text-orange-300 text-sm rounded-lg">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                      </svg>
-                      Требуется маркировка
-                    </span>
-                  ) : (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-500/20 text-green-300 text-sm rounded-lg">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      Маркировка не требуется
-                    </span>
-                  )}
-                  {selectedItem.is_experimental && (
-                    <span className="inline-flex items-center gap-1 px-3 py-1 bg-purple-500/20 text-purple-300 text-sm rounded-lg">
-                      Экспериментальный режим
-                    </span>
-                  )}
-                </div>
-
-                <div className="text-sm text-white/90 mb-3">Для определения требуемых документов:</div>
-                <div className="text-xs text-blue-200 mb-4">
-                  Точные требования зависят от характеристик товара. Наш эксперт бесплатно определит необходимые сертификаты и декларации.
-                </div>
-
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => router.push(`/tn-ved?q=${encodeURIComponent(selectedItem.code)}`)}
-                    className="flex-1 bg-white/20 hover:bg-white/30 text-white font-semibold py-3 rounded-lg transition-colors"
-                  >
-                    Подробнее
-                  </button>
-                  <button
-                    onClick={() => {
-                      setCalcProduct(selectedItem.name);
-                      setSelectedCalcItem(selectedItem);
-                      const result = determineCertification(selectedItem.code, selectedItem.name);
-                      setCalcResult(result);
-                      setSelectedItem(null);
-                    }}
-                    className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition-colors"
-                  >
-                    Рассчитать
-                  </button>
-                </div>
-              </div>
-            )}
-
             {/* Популярные запросы */}
             <div className="flex flex-wrap items-center gap-2 mb-8">
               <span className="text-blue-200 text-sm">Популярное:</span>
@@ -322,128 +452,206 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Правая часть - умный калькулятор */}
+          {/* Правая часть - WOW конструктор */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl p-6 shadow-2xl">
-              <h3 className="text-lg font-bold text-slate-800 mb-1">Какой документ нужен?</h3>
-              <p className="text-sm text-slate-500 mb-4">Узнайте за 10 секунд</p>
+            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+              {/* Заголовок */}
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-4">
+                <h3 className="text-lg font-bold text-white">Конструктор документов</h3>
+                <p className="text-blue-100 text-sm">Узнайте стоимость за 10 секунд</p>
+              </div>
 
-              <div className="space-y-4">
-                {/* Поле ввода продукции с автоподсказками */}
-                <div ref={calcRef} className="relative">
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Ваша продукция</label>
-                  <input
-                    type="text"
-                    value={calcProduct}
-                    onChange={(e) => { setCalcProduct(e.target.value); setSelectedCalcItem(null); setCalcResult(null); }}
-                    onFocus={() => calcSuggestions.length > 0 && setShowCalcSuggestions(true)}
-                    placeholder="Введите название или код ТН ВЭД"
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 placeholder-slate-400"
-                  />
+              <div className="p-5">
+                {/* Если нет результата - показываем форму ввода */}
+                {!calcResult ? (
+                  <div className="space-y-4">
+                    {/* Поле ввода продукции */}
+                    <div ref={calcRef} className="relative">
+                      <label className="block text-sm font-medium text-slate-700 mb-1">Ваша продукция</label>
+                      <input
+                        type="text"
+                        value={calcProduct}
+                        onChange={(e) => { setCalcProduct(e.target.value); setSelectedCalcItem(null); setCalcResult(null); }}
+                        onFocus={() => calcSuggestions.length > 0 && setShowCalcSuggestions(true)}
+                        placeholder="Введите название или код ТН ВЭД"
+                        className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 placeholder-slate-400"
+                      />
 
-                  {/* Подсказки */}
-                  {showCalcSuggestions && calcSuggestions.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden z-50 max-h-48 overflow-y-auto">
-                      {calcSuggestions.map((item, index) => (
-                        <button
-                          key={item.code + index}
-                          type="button"
-                          onClick={() => handleSelectCalcItem(item)}
-                          className="w-full px-3 py-2 text-left hover:bg-blue-50 border-b border-slate-100 last:border-0"
-                        >
-                          <div className="text-sm font-medium text-slate-900 truncate">{item.name}</div>
-                          <div className="text-xs text-slate-500">{item.code_formatted}</div>
-                        </button>
-                      ))}
+                      {/* Подсказки */}
+                      {showCalcSuggestions && calcSuggestions.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden z-50 max-h-48 overflow-y-auto">
+                          {calcSuggestions.map((item, index) => (
+                            <button
+                              key={item.code + index}
+                              type="button"
+                              onClick={() => handleSelectCalcItem(item)}
+                              className="w-full px-3 py-2 text-left hover:bg-blue-50 border-b border-slate-100 last:border-0"
+                            >
+                              <div className="text-sm font-medium text-slate-900 truncate">{item.name}</div>
+                              <div className="text-xs text-slate-500">{item.code_formatted}</div>
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                {/* Чекбокс "Для детей" */}
-                <label className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={isForChildren}
-                    onChange={(e) => { setIsForChildren(e.target.checked); setCalcResult(null); }}
-                    className="w-5 h-5 text-blue-600 rounded"
-                  />
-                  <div>
-                    <span className="text-sm font-medium text-slate-700">Продукция для детей</span>
-                    <p className="text-xs text-slate-500">Детские товары требуют сертификации</p>
+                    {/* Чекбокс "Для детей" */}
+                    <label className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={isForChildren}
+                        onChange={(e) => setIsForChildren(e.target.checked)}
+                        className="w-5 h-5 text-blue-600 rounded"
+                      />
+                      <div>
+                        <span className="text-sm font-medium text-slate-700">Продукция для детей</span>
+                        <p className="text-xs text-slate-500">Детские товары требуют сертификации</p>
+                      </div>
+                    </label>
+
+                    {/* Кнопка расчёта */}
+                    <button
+                      onClick={handleCalculate}
+                      disabled={!calcProduct.trim()}
+                      className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-orange-500/30"
+                    >
+                      Рассчитать стоимость
+                    </button>
+
+                    {/* Подсказка */}
+                    <p className="text-center text-xs text-slate-400">
+                      Или выберите товар из поиска слева
+                    </p>
                   </div>
-                </label>
-
-                {/* Кнопка расчёта */}
-                {!calcResult && (
-                  <button
-                    onClick={handleCalculate}
-                    disabled={!calcProduct.trim()}
-                    className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-orange-500/30"
-                  >
-                    Определить документ
-                  </button>
-                )}
-
-                {/* Результат расчёта */}
-                {calcResult && (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-slate-600">Результат:</span>
+                ) : (
+                  /* Результат - интерактивный конструктор */
+                  <div className="space-y-4">
+                    {/* Выбранный товар */}
+                    <div className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2">
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium text-slate-700 truncate">{calcProduct}</div>
+                        {selectedCalcItem && (
+                          <div className="text-xs text-slate-500">Код: {selectedCalcItem.code_formatted}</div>
+                        )}
+                      </div>
                       <button
-                        onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); }}
-                        className="text-xs text-blue-600 hover:underline"
+                        onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); setSelectedServices(['consult']); }}
+                        className="ml-2 text-slate-400 hover:text-slate-600"
                       >
-                        Сбросить
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                       </button>
                     </div>
 
-                    {calcResult.category && (
-                      <div className="text-xs text-slate-500 bg-slate-50 px-3 py-1 rounded">
-                        Категория: {calcResult.category}
-                      </div>
+                    {/* Визуализация документа */}
+                    {calcResult.documents.length > 0 && (
+                      <DocumentVisual
+                        type={calcResult.documents[0].type}
+                        name={calcResult.documents[0].name}
+                        regulation={calcResult.documents[0].regulation}
+                      />
                     )}
 
-                    {/* Список документов */}
-                    <div className="space-y-2">
-                      {calcResult.documents.map((doc, i) => (
-                        <div key={i} className={`p-3 rounded-lg border-l-4 ${
-                          doc.type === 'certificate' ? 'bg-green-50 border-green-500' :
-                          doc.type === 'declaration' ? 'bg-blue-50 border-blue-500' :
-                          doc.type === 'sgr' ? 'bg-purple-50 border-purple-500' :
-                          doc.type === 'registration' ? 'bg-orange-50 border-orange-500' :
-                          'bg-slate-50 border-slate-400'
-                        }`}>
-                          <div className="font-semibold text-slate-800 text-sm">{doc.name}</div>
+                    {/* Основной документ */}
+                    <div className={`p-3 rounded-lg border-l-4 ${
+                      calcResult.documents[0]?.type === 'certificate' ? 'bg-green-50 border-green-500' :
+                      calcResult.documents[0]?.type === 'declaration' ? 'bg-blue-50 border-blue-500' :
+                      calcResult.documents[0]?.type === 'sgr' ? 'bg-purple-50 border-purple-500' :
+                      calcResult.documents[0]?.type === 'registration' ? 'bg-orange-50 border-orange-500' :
+                      'bg-slate-50 border-slate-400'
+                    }`}>
+                      <div className="flex items-center gap-2">
+                        <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <div className="flex-1">
+                          <div className="font-semibold text-slate-800 text-sm">{calcResult.documents[0]?.name}</div>
                           <div className="flex items-center justify-between mt-1">
-                            <span className="text-orange-600 font-bold text-sm">{doc.price}</span>
-                            <span className="text-slate-500 text-xs">{doc.duration}</span>
+                            <span className="text-orange-600 font-bold text-sm">{calcResult.documents[0]?.price}</span>
+                            <span className="text-slate-500 text-xs">{calcResult.documents[0]?.duration}</span>
                           </div>
                         </div>
-                      ))}
+                      </div>
                     </div>
 
-                    {/* Примечания */}
-                    {calcResult.notes.length > 0 && (
-                      <div className="text-xs text-amber-700 bg-amber-50 p-2 rounded">
-                        {calcResult.notes.map((note, i) => (
-                          <div key={i}>• {note}</div>
+                    {/* Дополнительные услуги */}
+                    <div>
+                      <div className="text-sm font-medium text-slate-700 mb-2">Дополнительные услуги</div>
+                      <div className="space-y-2">
+                        {ADDITIONAL_SERVICES.map(service => (
+                          <label
+                            key={service.id}
+                            className={`flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-all ${
+                              selectedServices.includes(service.id)
+                                ? 'bg-blue-50 border border-blue-200'
+                                : 'bg-slate-50 border border-transparent hover:bg-slate-100'
+                            }`}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={selectedServices.includes(service.id)}
+                              onChange={() => toggleService(service.id)}
+                              className="w-4 h-4 text-blue-600 rounded"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-slate-700">{service.name}</div>
+                              <div className="text-xs text-slate-500">{service.description}</div>
+                            </div>
+                            <div className="text-sm font-semibold text-slate-600">
+                              {service.price ? `+${service.price.toLocaleString()} ₽` : service.multiplier ? '+50%' : 'Бесплатно'}
+                            </div>
+                          </label>
                         ))}
                       </div>
-                    )}
+                    </div>
 
-                    {/* Нужна консультация */}
-                    {calcResult.needsExpertReview && (
-                      <div className="text-xs text-blue-700 bg-blue-50 p-2 rounded flex items-start gap-2">
-                        <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>Рекомендуем консультацию эксперта для точного определения</span>
+                    {/* Timeline */}
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <div className="text-sm font-medium text-slate-700 mb-3">Этапы оформления</div>
+                      <TimelineStages
+                        currentStage={0}
+                        duration={calcResult.documents[0]?.duration || '7-14 дней'}
+                      />
+                    </div>
+
+                    {/* Итого */}
+                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-4 text-white">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-blue-100">Итого:</span>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold">
+                            от {totalPrice.min.toLocaleString()} ₽
+                          </div>
+                          <div className="text-xs text-blue-200">
+                            срок: {calcResult.documents[0]?.duration}
+                          </div>
+                        </div>
                       </div>
-                    )}
 
-                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors">
-                      Оставить заявку
-                    </button>
+                      {/* Примечания */}
+                      {calcResult.notes.length > 0 && (
+                        <div className="text-xs text-blue-200 mb-3 bg-white/10 rounded p-2">
+                          {calcResult.notes[0]}
+                        </div>
+                      )}
+
+                      <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                        <span>Оформить заявку</span>
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Телефон */}
+                    <div className="text-center">
+                      <div className="text-xs text-slate-500 mb-1">Или позвоните нам</div>
+                      <a href="tel:88005505288" className="text-lg font-bold text-blue-600 hover:text-blue-700">
+                        8 800 550-52-88
+                      </a>
+                      <div className="text-xs text-slate-400">Бесплатно по России</div>
+                    </div>
                   </div>
                 )}
               </div>
