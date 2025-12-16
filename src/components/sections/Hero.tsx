@@ -16,12 +16,12 @@ const CATEGORIES = [
 
 const POPULAR = ['косметика', 'БАДы', 'детские игрушки', 'одежда', 'медицинские маски', 'продукты питания'];
 
-// Дополнительные услуги
+// Дополнительные услуги (компактно)
 const ADDITIONAL_SERVICES = [
-  { id: 'protocol', name: 'Протокол испытаний', price: 8000, description: 'Лабораторные испытания продукции' },
-  { id: 'urgent', name: 'Срочное оформление', multiplier: 1.5, description: 'Ускоренное оформление за 1-3 дня' },
-  { id: 'marking', name: 'Помощь с маркировкой', price: 5000, description: 'Разработка этикетки по ТР ТС' },
-  { id: 'consult', name: 'Консультация эксперта', price: 0, description: 'Бесплатно при оформлении' },
+  { id: 'protocol', name: 'Протоколы', price: 8000 },
+  { id: 'urgent', name: 'Срочно', multiplier: 1.5 },
+  { id: 'marking', name: 'Маркировка', price: 5000 },
+  { id: 'consult', name: 'Консультация', price: 0 },
 ];
 
 function CategoryIcon({ type }: { type: string }) {
@@ -60,136 +60,130 @@ function CategoryIcon({ type }: { type: string }) {
   return icons[type] || icons.food;
 }
 
-// Визуализация документа
-function DocumentVisual({ type, name, regulation }: { type: DocumentType; name: string; regulation?: string }) {
-  const colors: Record<DocumentType, { bg: string; border: string; accent: string }> = {
-    certificate: { bg: 'from-green-50 to-emerald-50', border: 'border-green-400', accent: 'text-green-600' },
-    declaration: { bg: 'from-blue-50 to-indigo-50', border: 'border-blue-400', accent: 'text-blue-600' },
-    sgr: { bg: 'from-purple-50 to-violet-50', border: 'border-purple-400', accent: 'text-purple-600' },
-    registration: { bg: 'from-orange-50 to-amber-50', border: 'border-orange-400', accent: 'text-orange-600' },
-    rejection: { bg: 'from-slate-50 to-gray-50', border: 'border-slate-300', accent: 'text-slate-600' },
-  };
-
-  const color = colors[type];
-  const docTitle = type === 'certificate' ? 'СЕРТИФИКАТ СООТВЕТСТВИЯ' :
-                   type === 'declaration' ? 'ДЕКЛАРАЦИЯ О СООТВЕТСТВИИ' :
-                   type === 'sgr' ? 'СВИДЕТЕЛЬСТВО' :
-                   type === 'registration' ? 'РЕГИСТРАЦИОННОЕ УДОСТОВЕРЕНИЕ' :
-                   'ОТКАЗНОЕ ПИСЬМО';
-
+// Пустое состояние - красивая иллюстрация с документами
+function EmptyStateIllustration() {
   return (
-    <div className={`relative bg-gradient-to-br ${color.bg} rounded-xl border-2 ${color.border} p-4 shadow-lg overflow-hidden`}>
-      {/* Фоновый паттерн */}
-      <div className="absolute inset-0 opacity-5">
-        <svg className="w-full h-full" viewBox="0 0 100 100">
-          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" strokeWidth="0.5"/>
-          </pattern>
-          <rect width="100" height="100" fill="url(#grid)" />
-        </svg>
-      </div>
-
-      {/* Заголовок документа */}
-      <div className="relative text-center mb-3">
-        <div className="flex justify-center mb-2">
-          <div className="w-8 h-8 rounded-full bg-white/80 flex items-center justify-center">
-            <svg className={`w-5 h-5 ${color.accent}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    <div className="relative py-6">
+      {/* Три документа с анимацией */}
+      <div className="relative flex justify-center items-end gap-3 h-32">
+        {/* Документ 1 - Сертификат (зелёный) */}
+        <div className="relative w-16 h-20 bg-gradient-to-br from-green-100 to-green-50 rounded-lg border-2 border-green-300 shadow-lg transform -rotate-6 hover:rotate-0 transition-transform duration-300 animate-float-slow">
+          <div className="absolute top-2 left-2 right-2">
+            <div className="h-1 bg-green-300/60 rounded mb-1"></div>
+            <div className="h-1 bg-green-300/40 rounded w-3/4"></div>
+          </div>
+          <div className="absolute bottom-2 left-2 w-4 h-4 rounded-full border border-green-400 flex items-center justify-center">
+            <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+          </div>
+          <div className="absolute bottom-2 right-2 w-3 h-3 bg-green-200 rounded-sm"></div>
+          <div className="absolute -top-2 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center shadow-md">
+            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
           </div>
         </div>
-        <div className={`text-[10px] font-bold tracking-wider ${color.accent}`}>
-          {docTitle}
-        </div>
-        {regulation && (
-          <div className="text-[9px] text-slate-500 mt-0.5">{regulation}</div>
-        )}
-      </div>
 
-      {/* Линии документа (имитация текста) */}
-      <div className="relative space-y-1.5 mb-3">
-        <div className="h-1.5 bg-slate-200/60 rounded w-full"></div>
-        <div className="h-1.5 bg-slate-200/60 rounded w-4/5"></div>
-        <div className="h-1.5 bg-slate-200/60 rounded w-full"></div>
-        <div className="h-1.5 bg-slate-200/60 rounded w-3/4"></div>
-      </div>
-
-      {/* Нижняя часть - печать и QR */}
-      <div className="relative flex items-end justify-between">
-        {/* Печать */}
-        <div className="relative">
-          <div className={`w-12 h-12 rounded-full border-2 ${color.border} flex items-center justify-center bg-white/50 rotate-[-8deg]`}>
-            <div className="text-center">
-              <div className={`text-[6px] font-bold ${color.accent}`}>ЕАЭС</div>
-              <div className="text-[5px] text-slate-500">РФ</div>
+        {/* Документ 2 - Декларация (синий) - в центре, выше */}
+        <div className="relative w-20 h-24 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg border-2 border-blue-300 shadow-xl transform hover:scale-105 transition-transform duration-300 -mt-4 z-10 animate-float">
+          <div className="absolute top-1 left-0 right-0 flex justify-center">
+            <div className="w-6 h-6 rounded-full bg-blue-200 flex items-center justify-center">
+              <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
             </div>
           </div>
-          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 rounded-full opacity-80"></div>
+          <div className="absolute top-9 left-2 right-2">
+            <div className="h-1 bg-blue-300/60 rounded mb-1"></div>
+            <div className="h-1 bg-blue-300/40 rounded"></div>
+            <div className="h-1 bg-blue-300/30 rounded w-2/3 mt-1"></div>
+          </div>
+          <div className="absolute bottom-2 left-2 right-2 flex justify-between items-end">
+            <div className="w-5 h-5 rounded-full border-2 border-blue-400 flex items-center justify-center bg-white/50 rotate-[-8deg]">
+              <span className="text-[5px] text-blue-600 font-bold">ЕАЭС</span>
+            </div>
+            <div className="w-4 h-4 bg-slate-700 rounded-sm grid grid-cols-2 gap-[1px] p-0.5">
+              <div className="bg-white"></div>
+              <div className="bg-slate-700"></div>
+              <div className="bg-slate-700"></div>
+              <div className="bg-white"></div>
+            </div>
+          </div>
         </div>
 
-        {/* QR код */}
-        <div className="bg-white p-1 rounded shadow-sm">
-          <div className="w-10 h-10 grid grid-cols-5 gap-[1px]">
-            {Array.from({ length: 25 }).map((_, i) => (
-              <div
-                key={i}
-                className={`${Math.random() > 0.5 ? 'bg-slate-800' : 'bg-white'}`}
-              />
-            ))}
+        {/* Документ 3 - СГР (фиолетовый) */}
+        <div className="relative w-16 h-20 bg-gradient-to-br from-purple-100 to-purple-50 rounded-lg border-2 border-purple-300 shadow-lg transform rotate-6 hover:rotate-0 transition-transform duration-300 animate-float-slow-reverse">
+          <div className="absolute top-2 left-2 right-2">
+            <div className="h-1 bg-purple-300/60 rounded mb-1"></div>
+            <div className="h-1 bg-purple-300/40 rounded w-4/5"></div>
+          </div>
+          <div className="absolute bottom-2 left-2 w-4 h-4 rounded-full border border-purple-400 flex items-center justify-center">
+            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+          </div>
+          <div className="absolute bottom-2 right-2 w-3 h-3 bg-purple-200 rounded-sm"></div>
+        </div>
+      </div>
+
+      {/* Текст под иллюстрацией */}
+      <div className="text-center mt-4">
+        <p className="text-slate-600 text-sm font-medium">Введите товар для расчёта</p>
+        <p className="text-slate-400 text-xs mt-1">или выберите из поиска слева</p>
+      </div>
+
+      {/* Стрелка указывающая на поиск */}
+      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 text-blue-400 animate-pulse hidden lg:block">
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// Компактная визуализация документа
+function DocumentVisualCompact({ type, regulation }: { type: DocumentType; regulation?: string }) {
+  const config: Record<DocumentType, { bg: string; border: string; accent: string; title: string }> = {
+    certificate: { bg: 'from-green-50 to-emerald-50', border: 'border-green-400', accent: 'text-green-600', title: 'СЕРТИФИКАТ' },
+    declaration: { bg: 'from-blue-50 to-indigo-50', border: 'border-blue-400', accent: 'text-blue-600', title: 'ДЕКЛАРАЦИЯ' },
+    sgr: { bg: 'from-purple-50 to-violet-50', border: 'border-purple-400', accent: 'text-purple-600', title: 'СГР' },
+    registration: { bg: 'from-orange-50 to-amber-50', border: 'border-orange-400', accent: 'text-orange-600', title: 'РУ' },
+    rejection: { bg: 'from-slate-50 to-gray-50', border: 'border-slate-300', accent: 'text-slate-600', title: 'ОТКАЗНОЕ' },
+  };
+
+  const c = config[type];
+
+  return (
+    <div className={`relative bg-gradient-to-br ${c.bg} rounded-lg border ${c.border} p-3 shadow-md overflow-hidden`}>
+      <div className="flex items-start justify-between gap-2">
+        {/* Левая часть - иконка и текст */}
+        <div className="flex items-center gap-2">
+          <div className={`w-8 h-8 rounded-full bg-white/80 flex items-center justify-center flex-shrink-0`}>
+            <svg className={`w-5 h-5 ${c.accent}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div>
+            <div className={`text-xs font-bold ${c.accent}`}>{c.title}</div>
+            {regulation && <div className="text-[10px] text-slate-500">{regulation}</div>}
+          </div>
+        </div>
+
+        {/* Правая часть - печать и QR */}
+        <div className="flex items-center gap-1.5">
+          <div className={`w-6 h-6 rounded-full border ${c.border} flex items-center justify-center bg-white/50 rotate-[-8deg]`}>
+            <span className="text-[4px] font-bold text-slate-600">ЕАЭС</span>
+          </div>
+          <div className="w-5 h-5 bg-white rounded p-0.5">
+            <div className="w-full h-full grid grid-cols-3 gap-[1px]">
+              {Array.from({ length: 9 }).map((_, i) => (
+                <div key={i} className={`${[0,2,4,6,8].includes(i) ? 'bg-slate-800' : 'bg-white'}`} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Блик */}
-      <div className="absolute top-0 right-0 w-16 h-16 bg-white/30 rounded-bl-full"></div>
-    </div>
-  );
-}
-
-// Timeline этапов
-function TimelineStages({ currentStage, duration }: { currentStage: number; duration: string }) {
-  const stages = [
-    { name: 'Заявка', day: '1 день' },
-    { name: 'Документы', day: '2-3 дня' },
-    { name: 'Испытания', day: duration.includes('60') || duration.includes('90') ? '30-60 дн.' : '3-5 дней' },
-    { name: 'Выдача', day: 'финал' },
-  ];
-
-  return (
-    <div className="relative">
-      {/* Линия */}
-      <div className="absolute top-3 left-3 right-3 h-0.5 bg-slate-200 rounded"></div>
-      <div
-        className="absolute top-3 left-3 h-0.5 bg-blue-500 rounded transition-all duration-500"
-        style={{ width: `${(currentStage / (stages.length - 1)) * 100}%`, maxWidth: 'calc(100% - 24px)' }}
-      ></div>
-
-      {/* Точки */}
-      <div className="relative flex justify-between">
-        {stages.map((stage, i) => (
-          <div key={i} className="flex flex-col items-center">
-            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
-              i <= currentStage
-                ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/30'
-                : 'bg-slate-200 text-slate-400'
-            }`}>
-              {i < currentStage ? (
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                </svg>
-              ) : (
-                i + 1
-              )}
-            </div>
-            <div className="mt-1.5 text-center">
-              <div className={`text-[10px] font-medium ${i <= currentStage ? 'text-slate-700' : 'text-slate-400'}`}>
-                {stage.name}
-              </div>
-              <div className="text-[9px] text-slate-400">{stage.day}</div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <div className="absolute top-0 right-0 w-12 h-12 bg-white/20 rounded-bl-full"></div>
     </div>
   );
 }
@@ -267,7 +261,6 @@ export function Hero() {
     setSelectedCalcItem(item);
     setCalcProduct(item.name);
     setShowCalcSuggestions(false);
-    // Автоматически рассчитать
     const productName = isForChildren ? 'детский ' + item.name : item.name;
     const result = determineCertification(item.code, productName);
     setCalcResult(result);
@@ -280,11 +273,9 @@ export function Hero() {
     }
   };
 
-  // При выборе из левого поиска - сразу перекидываем в конструктор справа
   const handleSelectSuggestion = (item: TNVEDCode) => {
     setSearchQuery('');
     setShowSuggestions(false);
-    // Перекидываем в конструктор
     setSelectedCalcItem(item);
     setCalcProduct(item.name);
     const productName = isForChildren ? 'детский ' + item.name : item.name;
@@ -306,62 +297,47 @@ export function Hero() {
 
   // Расчёт итоговой стоимости
   const calculateTotal = () => {
-    if (!calcResult || calcResult.documents.length === 0) return { min: 0, max: 0 };
+    if (!calcResult || calcResult.documents.length === 0) return 0;
 
-    // Базовая цена из первого документа
     const basePrice = calcResult.documents[0].price;
     const priceMatch = basePrice.match(/(\d[\d\s]*)/);
-    let baseMin = priceMatch ? parseInt(priceMatch[1].replace(/\s/g, '')) : 0;
-    let baseMax = baseMin;
+    let total = priceMatch ? parseInt(priceMatch[1].replace(/\s/g, '')) : 0;
 
-    // Если несколько документов, суммируем
     calcResult.documents.forEach((doc, i) => {
       if (i > 0) {
         const match = doc.price.match(/(\d[\d\s]*)/);
-        if (match) {
-          baseMin += parseInt(match[1].replace(/\s/g, ''));
-          baseMax += parseInt(match[1].replace(/\s/g, ''));
-        }
+        if (match) total += parseInt(match[1].replace(/\s/g, ''));
       }
     });
 
-    // Добавляем услуги
-    let additional = 0;
     selectedServices.forEach(serviceId => {
       const service = ADDITIONAL_SERVICES.find(s => s.id === serviceId);
-      if (service && service.price) {
-        additional += service.price;
-      }
+      if (service && service.price) total += service.price;
     });
 
-    let total = baseMin + additional;
+    if (selectedServices.includes('urgent')) total = Math.round(total * 1.5);
 
-    // Множитель за срочность
-    if (selectedServices.includes('urgent')) {
-      total = Math.round(total * 1.5);
-    }
-
-    return { min: total, max: Math.round(total * 1.2) };
+    return total;
   };
 
   const totalPrice = calculateTotal();
 
   return (
-    <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 py-12 lg:py-16">
+    <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 py-10 lg:py-14">
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-5 gap-8 items-start">
+        <div className="grid lg:grid-cols-5 gap-6 items-start">
           {/* Левая часть - поиск */}
           <div className="lg:col-span-3">
-            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 leading-tight">
               Какие документы нужны<br />
               <span className="text-orange-400">на ваш товар?</span>
             </h1>
-            <p className="text-blue-100 text-lg mb-6">
+            <p className="text-blue-100 text-lg mb-5">
               Узнайте требования к сертификации за 30 секунд
             </p>
 
-            {/* Поисковая строка с автоподсказками */}
-            <form onSubmit={handleSearch} className="mb-4">
+            {/* Поисковая строка */}
+            <form onSubmit={handleSearch} className="mb-3">
               <div ref={searchRef} className="relative">
                 <div className="flex bg-white rounded-xl overflow-hidden shadow-xl">
                   <div className="flex-1 flex items-center px-4">
@@ -385,34 +361,26 @@ export function Hero() {
                   </button>
                 </div>
 
-                {/* Выпадающий список подсказок */}
                 {showSuggestions && suggestions.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-96 overflow-y-auto">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 max-h-80 overflow-y-auto">
                     <div className="px-4 py-2 bg-slate-50 border-b border-slate-200">
-                      <span className="text-xs text-slate-500">Найдено в базе {totalCodes.toLocaleString()} кодов ТН ВЭД</span>
+                      <span className="text-xs text-slate-500">Найдено в базе {totalCodes.toLocaleString()} кодов</span>
                     </div>
                     {suggestions.map((item, index) => (
                       <button
                         key={item.code + index}
                         type="button"
                         onClick={() => handleSelectSuggestion(item)}
-                        className="w-full px-4 py-3 text-left hover:bg-blue-50 border-b border-slate-100 last:border-0 transition-colors"
+                        className="w-full px-4 py-2.5 text-left hover:bg-blue-50 border-b border-slate-100 last:border-0 transition-colors"
                       >
-                        <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center justify-between gap-3">
                           <div className="flex-1 min-w-0">
-                            <div className="font-medium text-slate-900 truncate">{item.name}</div>
-                            <div className="text-sm text-slate-500">{item.code_formatted}</div>
+                            <div className="font-medium text-slate-900 text-sm truncate">{item.name}</div>
+                            <div className="text-xs text-slate-500">{item.code_formatted}</div>
                           </div>
-                          <div className="flex-shrink-0 flex flex-col items-end gap-1">
-                            <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded">
-                              {item.code}
-                            </span>
-                            {item.requires_marking && (
-                              <span className="inline-block px-2 py-0.5 bg-orange-100 text-orange-700 text-xs rounded">
-                                Маркировка
-                              </span>
-                            )}
-                          </div>
+                          <span className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs font-medium rounded">
+                            {item.code}
+                          </span>
                         </div>
                       </button>
                     ))}
@@ -421,8 +389,8 @@ export function Hero() {
               </div>
             </form>
 
-            {/* Популярные запросы */}
-            <div className="flex flex-wrap items-center gap-2 mb-8">
+            {/* Популярные */}
+            <div className="flex flex-wrap items-center gap-2 mb-6">
               <span className="text-blue-200 text-sm">Популярное:</span>
               {POPULAR.map((term) => (
                 <button
@@ -436,50 +404,48 @@ export function Hero() {
             </div>
 
             {/* Категории */}
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {CATEGORIES.map((cat) => (
                 <button
                   key={cat.slug}
                   onClick={() => router.push(`/tn-ved?category=${cat.slug}`)}
-                  className="flex flex-col items-center gap-2 p-3 bg-white/10 hover:bg-white/20 rounded-xl transition-all group"
+                  className="flex flex-col items-center gap-1.5 p-2.5 bg-white/10 hover:bg-white/20 rounded-xl transition-all group"
                 >
-                  <div className="w-10 h-10 flex items-center justify-center bg-white/20 group-hover:bg-white/30 rounded-lg text-white transition-colors">
+                  <div className="w-9 h-9 flex items-center justify-center bg-white/20 group-hover:bg-white/30 rounded-lg text-white transition-colors">
                     <CategoryIcon type={cat.icon} />
                   </div>
-                  <span className="text-xs text-white/90 text-center leading-tight">{cat.name}</span>
+                  <span className="text-[11px] text-white/90 text-center leading-tight">{cat.name}</span>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Правая часть - WOW конструктор */}
+          {/* Правая часть - компактный конструктор */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
               {/* Заголовок */}
-              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-4">
-                <h3 className="text-lg font-bold text-white">Конструктор документов</h3>
-                <p className="text-blue-100 text-sm">Узнайте стоимость за 10 секунд</p>
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-3">
+                <h3 className="text-base font-bold text-white">Конструктор документов</h3>
+                <p className="text-blue-100 text-xs">Узнайте стоимость за 10 секунд</p>
               </div>
 
-              <div className="p-5">
-                {/* Если нет результата - показываем форму ввода */}
+              <div className="p-4">
                 {!calcResult ? (
-                  <div className="space-y-4">
-                    {/* Поле ввода продукции */}
+                  /* Пустое состояние */
+                  <div className="space-y-3">
+                    {/* Поле ввода */}
                     <div ref={calcRef} className="relative">
-                      <label className="block text-sm font-medium text-slate-700 mb-1">Ваша продукция</label>
                       <input
                         type="text"
                         value={calcProduct}
-                        onChange={(e) => { setCalcProduct(e.target.value); setSelectedCalcItem(null); setCalcResult(null); }}
+                        onChange={(e) => { setCalcProduct(e.target.value); setSelectedCalcItem(null); }}
                         onFocus={() => calcSuggestions.length > 0 && setShowCalcSuggestions(true)}
-                        placeholder="Введите название или код ТН ВЭД"
-                        className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 placeholder-slate-400"
+                        placeholder="Введите товар..."
+                        className="w-full px-3 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 placeholder-slate-400 text-sm"
                       />
 
-                      {/* Подсказки */}
                       {showCalcSuggestions && calcSuggestions.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden z-50 max-h-48 overflow-y-auto">
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden z-50 max-h-40 overflow-y-auto">
                           {calcSuggestions.map((item, index) => (
                             <button
                               key={item.code + index}
@@ -495,162 +461,128 @@ export function Hero() {
                       )}
                     </div>
 
-                    {/* Чекбокс "Для детей" */}
-                    <label className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition-colors">
+                    {/* Чекбокс детей */}
+                    <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={isForChildren}
                         onChange={(e) => setIsForChildren(e.target.checked)}
-                        className="w-5 h-5 text-blue-600 rounded"
+                        className="w-4 h-4 text-blue-600 rounded"
                       />
-                      <div>
-                        <span className="text-sm font-medium text-slate-700">Продукция для детей</span>
-                        <p className="text-xs text-slate-500">Детские товары требуют сертификации</p>
-                      </div>
+                      Продукция для детей
                     </label>
 
-                    {/* Кнопка расчёта */}
+                    {/* Иллюстрация */}
+                    <EmptyStateIllustration />
+
+                    {/* Кнопка */}
                     <button
                       onClick={handleCalculate}
                       disabled={!calcProduct.trim()}
-                      className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-orange-500/30"
+                      className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-colors shadow-lg shadow-orange-500/30"
                     >
-                      Рассчитать стоимость
+                      Рассчитать
                     </button>
-
-                    {/* Подсказка */}
-                    <p className="text-center text-xs text-slate-400">
-                      Или выберите товар из поиска слева
-                    </p>
                   </div>
                 ) : (
-                  /* Результат - интерактивный конструктор */
-                  <div className="space-y-4">
-                    {/* Выбранный товар */}
+                  /* Результат - компактный */
+                  <div className="space-y-3">
+                    {/* Товар */}
                     <div className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2">
                       <div className="flex-1 min-w-0">
                         <div className="text-sm font-medium text-slate-700 truncate">{calcProduct}</div>
                         {selectedCalcItem && (
-                          <div className="text-xs text-slate-500">Код: {selectedCalcItem.code_formatted}</div>
+                          <div className="text-xs text-slate-500">{selectedCalcItem.code_formatted}</div>
                         )}
                       </div>
                       <button
                         onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); setSelectedServices(['consult']); }}
                         className="ml-2 text-slate-400 hover:text-slate-600"
                       >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     </div>
 
-                    {/* Визуализация документа */}
+                    {/* Визуал документа */}
                     {calcResult.documents.length > 0 && (
-                      <DocumentVisual
+                      <DocumentVisualCompact
                         type={calcResult.documents[0].type}
-                        name={calcResult.documents[0].name}
                         regulation={calcResult.documents[0].regulation}
                       />
                     )}
 
                     {/* Основной документ */}
-                    <div className={`p-3 rounded-lg border-l-4 ${
+                    <div className={`p-2.5 rounded-lg border-l-4 ${
                       calcResult.documents[0]?.type === 'certificate' ? 'bg-green-50 border-green-500' :
                       calcResult.documents[0]?.type === 'declaration' ? 'bg-blue-50 border-blue-500' :
                       calcResult.documents[0]?.type === 'sgr' ? 'bg-purple-50 border-purple-500' :
                       calcResult.documents[0]?.type === 'registration' ? 'bg-orange-50 border-orange-500' :
                       'bg-slate-50 border-slate-400'
                     }`}>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        <div className="flex-1">
-                          <div className="font-semibold text-slate-800 text-sm">{calcResult.documents[0]?.name}</div>
-                          <div className="flex items-center justify-between mt-1">
-                            <span className="text-orange-600 font-bold text-sm">{calcResult.documents[0]?.price}</span>
-                            <span className="text-slate-500 text-xs">{calcResult.documents[0]?.duration}</span>
-                          </div>
-                        </div>
+                      <div className="flex items-center justify-between">
+                        <div className="font-semibold text-slate-800 text-sm">{calcResult.documents[0]?.name}</div>
+                        <span className="text-orange-600 font-bold text-sm">{calcResult.documents[0]?.price}</span>
                       </div>
+                      <div className="text-xs text-slate-500 mt-0.5">{calcResult.documents[0]?.duration}</div>
                     </div>
 
-                    {/* Дополнительные услуги */}
-                    <div>
-                      <div className="text-sm font-medium text-slate-700 mb-2">Дополнительные услуги</div>
-                      <div className="space-y-2">
-                        {ADDITIONAL_SERVICES.map(service => (
-                          <label
-                            key={service.id}
-                            className={`flex items-center gap-3 p-2.5 rounded-lg cursor-pointer transition-all ${
-                              selectedServices.includes(service.id)
-                                ? 'bg-blue-50 border border-blue-200'
-                                : 'bg-slate-50 border border-transparent hover:bg-slate-100'
-                            }`}
-                          >
-                            <input
-                              type="checkbox"
-                              checked={selectedServices.includes(service.id)}
-                              onChange={() => toggleService(service.id)}
-                              className="w-4 h-4 text-blue-600 rounded"
-                            />
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-slate-700">{service.name}</div>
-                              <div className="text-xs text-slate-500">{service.description}</div>
-                            </div>
-                            <div className="text-sm font-semibold text-slate-600">
-                              {service.price ? `+${service.price.toLocaleString()} ₽` : service.multiplier ? '+50%' : 'Бесплатно'}
-                            </div>
-                          </label>
-                        ))}
-                      </div>
+                    {/* Услуги в 2 колонки */}
+                    <div className="grid grid-cols-2 gap-1.5">
+                      {ADDITIONAL_SERVICES.map(service => (
+                        <label
+                          key={service.id}
+                          className={`flex items-center gap-1.5 p-2 rounded-lg cursor-pointer transition-all text-xs ${
+                            selectedServices.includes(service.id)
+                              ? 'bg-blue-50 border border-blue-200'
+                              : 'bg-slate-50 border border-transparent hover:bg-slate-100'
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={selectedServices.includes(service.id)}
+                            onChange={() => toggleService(service.id)}
+                            className="w-3.5 h-3.5 text-blue-600 rounded"
+                          />
+                          <span className="text-slate-700 font-medium truncate">{service.name}</span>
+                          <span className="text-slate-500 ml-auto">
+                            {service.price ? `+${(service.price/1000)}к` : service.multiplier ? '+50%' : '0'}
+                          </span>
+                        </label>
+                      ))}
                     </div>
 
-                    {/* Timeline */}
-                    <div className="bg-slate-50 rounded-lg p-3">
-                      <div className="text-sm font-medium text-slate-700 mb-3">Этапы оформления</div>
-                      <TimelineStages
-                        currentStage={0}
-                        duration={calcResult.documents[0]?.duration || '7-14 дней'}
-                      />
+                    {/* Этапы - компактная версия */}
+                    <div className="flex items-center justify-between text-xs text-slate-500 bg-slate-50 rounded-lg px-3 py-2">
+                      <span>Заявка</span>
+                      <span className="text-slate-300">→</span>
+                      <span>Проверка</span>
+                      <span className="text-slate-300">→</span>
+                      <span>Выдача</span>
+                      <span className="text-blue-600 font-medium ml-2">{calcResult.documents[0]?.duration}</span>
                     </div>
 
                     {/* Итого */}
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-4 text-white">
+                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-3 text-white">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-blue-100">Итого:</span>
-                        <div className="text-right">
-                          <div className="text-2xl font-bold">
-                            от {totalPrice.min.toLocaleString()} ₽
-                          </div>
-                          <div className="text-xs text-blue-200">
-                            срок: {calcResult.documents[0]?.duration}
-                          </div>
-                        </div>
+                        <span className="text-blue-100 text-sm">Итого:</span>
+                        <span className="text-xl font-bold">от {totalPrice.toLocaleString()} ₽</span>
                       </div>
-
-                      {/* Примечания */}
-                      {calcResult.notes.length > 0 && (
-                        <div className="text-xs text-blue-200 mb-3 bg-white/10 rounded p-2">
-                          {calcResult.notes[0]}
-                        </div>
-                      )}
-
-                      <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                      <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
                         <span>Оформить заявку</span>
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                       </button>
                     </div>
 
                     {/* Телефон */}
-                    <div className="text-center">
-                      <div className="text-xs text-slate-500 mb-1">Или позвоните нам</div>
-                      <a href="tel:88005505288" className="text-lg font-bold text-blue-600 hover:text-blue-700">
+                    <div className="text-center text-xs">
+                      <span className="text-slate-400">Или: </span>
+                      <a href="tel:88005505288" className="font-bold text-blue-600 hover:text-blue-700">
                         8 800 550-52-88
                       </a>
-                      <div className="text-xs text-slate-400">Бесплатно по России</div>
                     </div>
                   </div>
                 )}
@@ -660,7 +592,7 @@ export function Hero() {
         </div>
 
         {/* Статистика */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-8 border-t border-white/20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10 pt-6 border-t border-white/20">
           {[
             { value: '12+', label: 'лет опыта' },
             { value: '60+', label: 'филиалов' },
@@ -674,6 +606,31 @@ export function Hero() {
           ))}
         </div>
       </div>
+
+      {/* CSS для анимаций */}
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-6px); }
+        }
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0px) rotate(-6deg); }
+          50% { transform: translateY(-4px) rotate(-6deg); }
+        }
+        @keyframes float-slow-reverse {
+          0%, 100% { transform: translateY(0px) rotate(6deg); }
+          50% { transform: translateY(-4px) rotate(6deg); }
+        }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        .animate-float-slow {
+          animation: float-slow 4s ease-in-out infinite;
+        }
+        .animate-float-slow-reverse {
+          animation: float-slow-reverse 4s ease-in-out infinite 0.5s;
+        }
+      `}</style>
     </section>
   );
 }
