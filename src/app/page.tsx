@@ -1,67 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Hero } from '@/components/sections/Hero';
 
 const SERVICES = [
-  {
-    title: 'Сертификат ТР ТС',
-    desc: 'Обязательная сертификация продукции',
-    price: 'от 12 000',
-    slug: 'sertifikat-tr-ts',
-    icon: 'certificate'
-  },
-  {
-    title: 'Декларация ТР ТС',
-    desc: 'Декларирование соответствия',
-    price: 'от 8 000',
-    slug: 'deklarirovanie',
-    icon: 'declaration'
-  },
-  {
-    title: 'Регистрация медизделий',
-    desc: 'РУ Росздравнадзора',
-    price: 'от 80 000',
-    slug: 'registratsiya-medizdeliy',
-    icon: 'medical'
-  },
-  {
-    title: 'ХАССП',
-    desc: 'Система пищевой безопасности',
-    price: 'от 25 000',
-    slug: 'hassp',
-    icon: 'haccp'
-  },
-  {
-    title: 'СГР',
-    desc: 'Государственная регистрация',
-    price: 'от 25 000',
-    slug: 'sgr',
-    icon: 'sgr'
-  },
-  {
-    title: 'ГОСТ Р',
-    desc: 'Добровольная сертификация',
-    price: 'от 15 000',
-    slug: 'gost-r',
-    icon: 'gost'
-  },
-  {
-    title: 'Эко-сертификат',
-    desc: 'Экологическая сертификация',
-    price: 'от 20 000',
-    slug: 'eco',
-    icon: 'eco'
-  },
-  {
-    title: 'Отказное письмо',
-    desc: 'Письмо об отсутствии необходимости сертификации',
-    price: 'от 5 000',
-    slug: 'otkaznoe-pismo',
-    icon: 'letter'
-  },
+  { title: 'Сертификат ТР ТС', desc: 'Обязательная сертификация продукции', price: 'от 12 000', slug: 'sertifikat-tr-ts', icon: 'certificate' },
+  { title: 'Декларация ТР ТС', desc: 'Декларирование соответствия', price: 'от 8 000', slug: 'deklarirovanie', icon: 'declaration' },
+  { title: 'Регистрация медизделий', desc: 'РУ Росздравнадзора', price: 'от 80 000', slug: 'registratsiya-medizdeliy', icon: 'medical' },
+  { title: 'ХАССП', desc: 'Система пищевой безопасности', price: 'от 25 000', slug: 'hassp', icon: 'haccp' },
+  { title: 'СГР', desc: 'Государственная регистрация', price: 'от 25 000', slug: 'sgr', icon: 'sgr' },
+  { title: 'ГОСТ Р', desc: 'Добровольная сертификация', price: 'от 15 000', slug: 'gost-r', icon: 'gost' },
+  { title: 'Эко-сертификат', desc: 'Экологическая сертификация', price: 'от 20 000', slug: 'eco', icon: 'eco' },
+  { title: 'Отказное письмо', desc: 'Письмо об отсутствии необходимости сертификации', price: 'от 5 000', slug: 'otkaznoe-pismo', icon: 'letter' },
 ];
 
 const CLIENTS = [
@@ -72,27 +23,26 @@ const CLIENTS = [
   { name: 'Eriell', logo: 'https://gsg-rt.ru/upload/iblock/005/eriell.png' },
 ];
 
-const TESTIMONIALS = [
-  {
-    company: 'Лукойл',
-    image: 'https://gsg-rt.ru/images/seo/благодарст._лукойл1.jpg',
-    alt: 'Благодарственное письмо от Лукойл'
-  },
-  {
-    company: 'Касперский',
-    image: 'https://gsg-rt.ru/images/seo/благодарст._касперский.jpg',
-    alt: 'Благодарственное письмо от Касперского'
-  },
-  {
-    company: 'Газпром',
-    image: 'https://gsg-rt.ru/images/seo/gaz_b.jpg',
-    alt: 'Благодарственное письмо от Газпром'
-  },
-  {
-    company: 'Партнёр',
-    image: 'https://gsg-rt.ru/images/seo/_5058837.jpg',
-    alt: 'Благодарственное письмо'
-  },
+const REVIEWS = [
+  { company: 'Астекс', image: '/reviews/asteks-otzyv-scaled.jpg' },
+  { company: 'Ивита', image: '/reviews/ivita-otzyv.jpeg' },
+  { company: 'КинТекс', image: '/reviews/ooo-kinteks-otzyv.jpg' },
+  { company: 'СИН', image: '/reviews/ooo-sin-otzyv.jpg' },
+  { company: 'Ситимед', image: '/reviews/blagodarnost-za-ru1-1.jpg' },
+  { company: 'Фарос Гигиена', image: '/reviews/otzyv-faros-gigiena-maska-odnorazovaya.jpg' },
+  { company: 'Фарос Гигиена', image: '/reviews/otzyv-faros-gigena-respirator.jpg' },
+  { company: 'Краснодарский МЗ', image: '/reviews/otzyv-krasnodarskii-masochnyi-zavod.jpg' },
+  { company: 'Раунд Логистик', image: '/reviews/otzyv-raund-logistik.jpg' },
+  { company: 'Чусовская ШФ', image: '/reviews/otzyv-chusovskaya-shvei-naya-fabrika.jpeg' },
+  { company: 'Бегельманн', image: '/reviews/informatsionnoe-pismo-31_page-0001.jpg' },
+  { company: 'У-У ППО', image: '/reviews/otzyv-ao-u-u-ppo.jpg' },
+  { company: 'Медпромторг', image: '/reviews/otzyv-medpromtorg.jpg' },
+  { company: 'ПКФ Астекс-Мед', image: '/reviews/otzy-gsg-1.jpg' },
+  { company: 'СПИН', image: '/reviews/otzyv-1.jpg' },
+  { company: 'Сфера', image: '/reviews/ooo-sfera-blagodarstvennoe-pismo_page-0001.jpg' },
+  { company: 'Обнинская ТК', image: '/reviews/obninskaya-tekstilnaya-kompaniya-blagodarstvennoe-pismo_page-0001.jpg' },
+  { company: 'Чусовская ШФ', image: '/reviews/ooo-chusovskaya-shvejnaya-fabrika.jpeg' },
+  { company: 'КАРО', image: '/reviews/blagodarstvennoe-pismo_page-0001.jpg' },
 ];
 
 function ServiceIcon({ type }: { type: string }) {
@@ -141,94 +91,60 @@ function ServiceIcon({ type }: { type: string }) {
   return icons[type] || icons.certificate;
 }
 
-function TestimonialsSlider() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+function ReviewsCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState('');
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % TESTIMONIALS.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const openModal = (image: string) => {
-    setModalImage(image);
-    setIsModalOpen(true);
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % TESTIMONIALS.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 300;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
   };
 
   return (
     <>
       <div className="relative">
-        {/* Slider container */}
-        <div className="overflow-hidden rounded-2xl">
-          <div
-            className="flex transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {TESTIMONIALS.map((item, index) => (
-              <div
-                key={index}
-                className="w-full flex-shrink-0 px-2"
-              >
-                <div
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow"
-                  onClick={() => openModal(item.image)}
-                >
-                  <div className="aspect-[3/4] relative">
-                    <img
-                      src={item.image}
-                      alt={item.alt}
-                      className="w-full h-full object-contain bg-slate-50 p-4"
-                    />
-                  </div>
-                  <div className="p-4 text-center border-t">
-                    <p className="font-medium text-slate-700">{item.company}</p>
-                    <p className="text-sm text-slate-500">Благодарственное письмо</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Navigation arrows */}
+        {/* Scroll buttons */}
         <button
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-slate-50 transition-colors z-10"
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all"
         >
-          <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         <button
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-slate-50 transition-colors z-10"
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all"
         >
-          <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
 
-        {/* Dots */}
-        <div className="flex justify-center gap-2 mt-6">
-          {TESTIMONIALS.map((_, index) => (
-            <button
+        {/* Scrollable container */}
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto scrollbar-hide px-8 py-2 scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {REVIEWS.map((review, index) => (
+            <div
               key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                index === currentSlide ? 'bg-blue-600' : 'bg-slate-300 hover:bg-slate-400'
-              }`}
-            />
+              onClick={() => { setModalImage(review.image); setIsModalOpen(true); }}
+              className="flex-shrink-0 w-24 h-32 bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-xl hover:scale-105 transition-all border border-slate-100"
+            >
+              <img
+                src={review.image}
+                alt={`Отзыв ${review.company}`}
+                className="w-full h-full object-cover"
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -249,7 +165,7 @@ function TestimonialsSlider() {
           </button>
           <img
             src={modalImage}
-            alt="Благодарственное письмо"
+            alt="Отзыв"
             className="max-w-full max-h-[90vh] object-contain rounded-lg"
             onClick={(e) => e.stopPropagation()}
           />
@@ -268,13 +184,8 @@ export default function Home() {
       <section className="py-16 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
-              Наши услуги
-            </h2>
-            <Link
-              href="/vidy-sertifikacii"
-              className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors"
-            >
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900">Наши услуги</h2>
+            <Link href="/vidy-sertifikacii" className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors">
               Все услуги
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -292,17 +203,13 @@ export default function Home() {
                 <div className="w-12 h-12 flex items-center justify-center bg-blue-50 group-hover:bg-blue-100 rounded-xl mb-4 text-blue-600 transition-colors">
                   <ServiceIcon type={service.icon} />
                 </div>
-                <h3 className="font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-                  {service.title}
-                </h3>
+                <h3 className="font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">{service.title}</h3>
                 <p className="text-slate-500 text-sm mb-3 line-clamp-2">{service.desc}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-blue-600 font-semibold">{service.price} ₽</span>
-                  <span className="text-slate-400 group-hover:text-blue-600 transition-colors">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
+                  <svg className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </div>
               </Link>
             ))}
@@ -311,50 +218,20 @@ export default function Home() {
       </section>
 
       {/* Преимущества */}
-      <section className="py-16 bg-white">
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                  </svg>
-                ),
-                title: 'Аккредитованные органы',
-                desc: 'Работаем с официальными органами сертификации',
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
-                  </svg>
-                ),
-                title: 'Фиксированные цены',
-                desc: 'Без скрытых платежей и доплат',
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-                  </svg>
-                ),
-                title: 'Юридическая поддержка',
-                desc: 'Консультируем по всем вопросам',
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                ),
-                title: 'Оформление от 1 дня',
-                desc: 'Срочное оформление документов',
-              },
+              { icon: 'M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z', title: 'Аккредитованные органы', desc: 'Работаем с официальными органами' },
+              { icon: 'M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z', title: 'Фиксированные цены', desc: 'Без скрытых платежей' },
+              { icon: 'M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155', title: 'Поддержка 24/7', desc: 'Консультируем по всем вопросам' },
+              { icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z', title: 'От 1 дня', desc: 'Срочное оформление' },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4 p-4">
                 <div className="w-12 h-12 flex items-center justify-center bg-green-50 text-green-600 rounded-xl flex-shrink-0">
-                  {item.icon}
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
+                  </svg>
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
@@ -366,39 +243,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Клиенты - логотипы */}
-      <section className="py-12 bg-slate-50 border-y border-slate-100">
+      {/* Клиенты - логотипы (цветные) */}
+      <section className="py-10 bg-slate-50">
         <div className="container mx-auto px-4">
-          <p className="text-center text-slate-500 mb-8">Нам доверяют крупнейшие компании России</p>
+          <p className="text-center text-slate-500 text-sm mb-6">Нам доверяют крупнейшие компании России</p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {CLIENTS.map((client) => (
-              <div key={client.name} className="grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all">
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="h-10 md:h-12 w-auto object-contain"
-                />
-              </div>
+              <img key={client.name} src={client.logo} alt={client.name} className="h-8 md:h-10 w-auto object-contain" />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Благодарственные письма - слайдер */}
-      <section className="py-16 bg-white">
+      {/* Отзывы - горизонтальная лента */}
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
-              Благодарственные письма
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl md:text-2xl font-bold text-slate-900">
+              Отзывы клиентов
+              <span className="ml-2 text-sm font-normal text-slate-500">({REVIEWS.length}+)</span>
             </h2>
-            <p className="text-slate-500">
-              Отзывы наших клиентов о сотрудничестве
-            </p>
           </div>
-
-          <div className="max-w-md mx-auto">
-            <TestimonialsSlider />
-          </div>
+          <ReviewsCarousel />
         </div>
       </section>
 
@@ -407,18 +273,11 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                Нужна консультация?
-              </h2>
-              <p className="text-blue-100">
-                Позвоните нам или оставьте заявку — перезвоним за 5 минут
-              </p>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Нужна консультация?</h2>
+              <p className="text-blue-100">Позвоните нам или оставьте заявку — перезвоним за 5 минут</p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <a
-                href="tel:88005505288"
-                className="text-2xl font-bold text-white hover:text-orange-300 transition-colors"
-              >
+              <a href="tel:88005505288" className="text-2xl font-bold text-white hover:text-orange-300 transition-colors">
                 8 800 550-52-88
               </a>
               <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-lg">
