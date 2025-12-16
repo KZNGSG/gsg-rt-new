@@ -16,12 +16,12 @@ const CATEGORIES = [
 
 const POPULAR = ['косметика', 'БАДы', 'детские игрушки', 'одежда', 'медицинские маски', 'продукты питания'];
 
-// Дополнительные услуги (компактно)
-const ADDITIONAL_SERVICES = [
-  { id: 'protocol', name: 'Протоколы', price: 8000 },
-  { id: 'urgent', name: 'Срочно', multiplier: 1.5 },
-  { id: 'marking', name: 'Маркировка', price: 5000 },
-  { id: 'consult', name: 'Консультация', price: 0 },
+// Что может понадобиться (информационно)
+const POSSIBLE_NEEDS = [
+  { id: 'protocol', name: 'Протоколы испытаний', icon: '🔬' },
+  { id: 'urgent', name: 'Срочное оформление', icon: '⚡' },
+  { id: 'marking', name: 'Помощь с маркировкой', icon: '🏷️' },
+  { id: 'docs', name: 'Подготовка документов', icon: '📋' },
 ];
 
 function CategoryIcon({ type }: { type: string }) {
@@ -130,7 +130,6 @@ export function Hero() {
   const [calcProduct, setCalcProduct] = useState('');
   const [calcResult, setCalcResult] = useState<CertificationResult | null>(null);
   const [selectedCalcItem, setSelectedCalcItem] = useState<TNVEDCode | null>(null);
-  const [selectedServices, setSelectedServices] = useState<string[]>(['consult']);
   const totalCodes = getTNVEDCount();
 
   // Поиск при вводе по полной базе 16376 кодов
@@ -175,41 +174,6 @@ export function Hero() {
   const handleQuickSearch = (term: string) => {
     router.push(`/tn-ved?q=${encodeURIComponent(term)}`);
   };
-
-  const toggleService = (serviceId: string) => {
-    setSelectedServices(prev =>
-      prev.includes(serviceId)
-        ? prev.filter(id => id !== serviceId)
-        : [...prev, serviceId]
-    );
-  };
-
-  // Расчёт итоговой стоимости
-  const calculateTotal = () => {
-    if (!calcResult || calcResult.documents.length === 0) return 0;
-
-    const basePrice = calcResult.documents[0].price;
-    const priceMatch = basePrice.match(/(\d[\d\s]*)/);
-    let total = priceMatch ? parseInt(priceMatch[1].replace(/\s/g, '')) : 0;
-
-    calcResult.documents.forEach((doc, i) => {
-      if (i > 0) {
-        const match = doc.price.match(/(\d[\d\s]*)/);
-        if (match) total += parseInt(match[1].replace(/\s/g, ''));
-      }
-    });
-
-    selectedServices.forEach(serviceId => {
-      const service = ADDITIONAL_SERVICES.find(s => s.id === serviceId);
-      if (service && service.price) total += service.price;
-    });
-
-    if (selectedServices.includes('urgent')) total = Math.round(total * 1.5);
-
-    return total;
-  };
-
-  const totalPrice = calculateTotal();
 
   return (
     <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 py-10 lg:py-14">
@@ -382,7 +346,7 @@ export function Hero() {
                         )}
                       </div>
                       <button
-                        onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); setSelectedServices(['consult']); }}
+                        onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); }}
                         className="ml-2 text-slate-400 hover:text-slate-600"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -414,58 +378,48 @@ export function Hero() {
                       <div className="text-xs text-slate-500 mt-0.5">{calcResult.documents[0]?.duration}</div>
                     </div>
 
-                    {/* Услуги в 2 колонки */}
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {ADDITIONAL_SERVICES.map(service => (
-                        <label
-                          key={service.id}
-                          className={`flex items-center gap-1.5 p-2 rounded-lg cursor-pointer transition-all text-xs ${
-                            selectedServices.includes(service.id)
-                              ? 'bg-blue-50 border border-blue-200'
-                              : 'bg-slate-50 border border-transparent hover:bg-slate-100'
-                          }`}
-                        >
-                          <input
-                            type="checkbox"
-                            checked={selectedServices.includes(service.id)}
-                            onChange={() => toggleService(service.id)}
-                            className="w-3.5 h-3.5 text-blue-600 rounded"
-                          />
-                          <span className="text-slate-700 font-medium truncate">{service.name}</span>
-                          <span className="text-slate-500 ml-auto">
-                            {service.price ? `+${(service.price/1000)}к` : service.multiplier ? '+50%' : '0'}
-                          </span>
-                        </label>
-                      ))}
-                    </div>
-
-                    {/* Этапы - компактная версия */}
-                    <div className="flex items-center justify-between text-xs text-slate-500 bg-slate-50 rounded-lg px-3 py-2">
-                      <span>Заявка</span>
-                      <span className="text-slate-300">→</span>
-                      <span>Проверка</span>
-                      <span className="text-slate-300">→</span>
-                      <span>Выдача</span>
-                      <span className="text-blue-600 font-medium ml-2">{calcResult.documents[0]?.duration}</span>
-                    </div>
-
-                    {/* Итого */}
-                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-3 text-white">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-blue-100 text-sm">Итого:</span>
-                        <span className="text-xl font-bold">от {totalPrice.toLocaleString()} ₽</span>
+                    {/* Что может понадобиться */}
+                    <div className="bg-slate-50 rounded-lg p-3">
+                      <div className="text-xs font-medium text-slate-600 mb-2">Возможно понадобится:</div>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {POSSIBLE_NEEDS.map(item => (
+                          <div key={item.id} className="flex items-center gap-1.5 text-xs text-slate-500">
+                            <span>{item.icon}</span>
+                            <span>{item.name}</span>
+                          </div>
+                        ))}
                       </div>
-                      <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
-                        <span>Оформить заявку</span>
+                    </div>
+
+                    {/* Блок с ценой и призывом */}
+                    <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-4 text-white">
+                      <div className="text-center mb-3">
+                        <div className="text-blue-200 text-xs mb-1">Ориентировочная стоимость</div>
+                        <div className="text-2xl font-bold">{calcResult.documents[0]?.price}</div>
+                        <div className="text-blue-200 text-xs">срок: {calcResult.documents[0]?.duration}</div>
+                      </div>
+
+                      {/* Пояснение */}
+                      <div className="bg-white/10 rounded-lg p-2 mb-3 text-xs text-blue-100">
+                        Точную стоимость рассчитает эксперт после получения данных о продукции
+                      </div>
+
+                      <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
+                        <span>Получить точный расчёт</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                       </button>
                     </div>
 
+                    {/* Что нужно прислать */}
+                    <div className="text-center text-xs text-slate-500 bg-slate-50 rounded-lg p-2">
+                      <span className="font-medium">Для расчёта пришлите:</span> описание товара, фото, тех. документацию
+                    </div>
+
                     {/* Телефон */}
                     <div className="text-center text-xs">
-                      <span className="text-slate-400">Или: </span>
+                      <span className="text-slate-400">Или позвоните: </span>
                       <a href="tel:88005505288" className="font-bold text-blue-600 hover:text-blue-700">
                         8 800 550-52-88
                       </a>
