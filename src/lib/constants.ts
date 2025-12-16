@@ -26,11 +26,6 @@ export const SITE_CONFIG = {
 
 export const MAIN_NAV: { label: string; href: string; highlight?: boolean; children?: { label: string; href: string }[] }[] = [
   {
-    label: 'Определитель ТН ВЭД',
-    href: '/tn-ved',
-    highlight: true, // Выделяем как ключевую фичу
-  },
-  {
     label: 'Виды сертификации',
     href: '/vidy-sertifikacii',
     children: [
@@ -53,19 +48,24 @@ export const MAIN_NAV: { label: string; href: string; highlight?: boolean; child
       { label: 'Одежда и обувь', href: '/sertifikat-na-tovar/odezhda' },
     ],
   },
+  {
+    label: 'Академия',
+    href: '/akademiya',
+    highlight: true,
+  },
   { label: 'О нас', href: '/o-nas' },
   { label: 'Контакты', href: '/kontakty' },
 ];
 
 export const SERVICE_CATEGORIES = [
-  { id: 'sertifikat-tr-ts', name: 'Сертификат ТР ТС', icon: '📜' },
-  { id: 'deklaratsiya-tr-ts', name: 'Декларация ТР ТС', icon: '📋' },
-  { id: 'sertifikat-gost-r', name: 'Сертификат ГОСТ Р', icon: '🏆' },
-  { id: 'deklaratsiya-gost-r', name: 'Декларация ГОСТ Р', icon: '📄' },
-  { id: 'sgr', name: 'СГР (Свидетельство о гос. регистрации)', icon: '🔬' },
-  { id: 'sts', name: 'СТС (Свободная продажа)', icon: '🌍' },
-  { id: 'protokol-ispytaniy', name: 'Протокол испытаний', icon: '🧪' },
-  { id: 'otkaznoye-pismo', name: 'Отказное письмо', icon: '✉️' },
+  { id: 'sertifikat-tr-ts', name: 'Сертификат ТР ТС', icon: 'certificate' },
+  { id: 'deklaratsiya-tr-ts', name: 'Декларация ТР ТС', icon: 'declaration' },
+  { id: 'sertifikat-gost-r', name: 'Сертификат ГОСТ Р', icon: 'gost' },
+  { id: 'deklaratsiya-gost-r', name: 'Декларация ГОСТ Р', icon: 'declaration' },
+  { id: 'sgr', name: 'СГР (Свидетельство о гос. регистрации)', icon: 'sgr' },
+  { id: 'sts', name: 'СТС (Свободная продажа)', icon: 'globe' },
+  { id: 'protokol-ispytaniy', name: 'Протокол испытаний', icon: 'test' },
+  { id: 'otkaznoye-pismo', name: 'Отказное письмо', icon: 'letter' },
 ] as const;
 
 // Цвета бренда
