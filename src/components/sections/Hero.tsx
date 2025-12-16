@@ -1,153 +1,235 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
-import { SITE_CONFIG, ADVANTAGES } from '@/lib/constants';
+import { useRouter } from 'next/navigation';
+
+const POPULAR_SEARCHES = [
+  'косметика',
+  'БАДы',
+  'детские игрушки',
+  'одежда',
+  'медицинские маски',
+  'продукты питания',
+];
+
+const CATEGORIES = [
+  {
+    id: 'food',
+    name: 'Пищевая продукция',
+    icon: 'food',
+    href: '/vidy-sertifikacii/pishevaya-produktsiya'
+  },
+  {
+    id: 'medical',
+    name: 'Медицинские изделия',
+    icon: 'medical',
+    href: '/vidy-sertifikacii/meditsinskie-izdeliya'
+  },
+  {
+    id: 'children',
+    name: 'Детские товары',
+    icon: 'children',
+    href: '/vidy-sertifikacii/detskie-tovary'
+  },
+  {
+    id: 'cosmetics',
+    name: 'Косметика',
+    icon: 'cosmetics',
+    href: '/vidy-sertifikacii/kosmetika'
+  },
+  {
+    id: 'equipment',
+    name: 'Оборудование',
+    icon: 'equipment',
+    href: '/vidy-sertifikacii/oborudovanie'
+  },
+  {
+    id: 'clothing',
+    name: 'Одежда и обувь',
+    icon: 'clothing',
+    href: '/vidy-sertifikacii/odezhda'
+  },
+  {
+    id: 'chemistry',
+    name: 'Бытовая химия',
+    icon: 'chemistry',
+    href: '/vidy-sertifikacii/bytovaya-khimiya'
+  },
+  {
+    id: 'other',
+    name: 'Другое',
+    icon: 'other',
+    href: '/vidy-sertifikacii'
+  },
+];
+
+function CategoryIcon({ type }: { type: string }) {
+  const icons: Record<string, JSX.Element> = {
+    food: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+      </svg>
+    ),
+    medical: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    children: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+      </svg>
+    ),
+    cosmetics: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+      </svg>
+    ),
+    equipment: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
+      </svg>
+    ),
+    clothing: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+      </svg>
+    ),
+    chemistry: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5" />
+      </svg>
+    ),
+    other: (
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+      </svg>
+    ),
+  };
+  return icons[type] || icons.other;
+}
 
 export function Hero() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push('/tn-ved?q=' + encodeURIComponent(searchQuery.trim()));
+    }
+  };
+
+  const handlePopularClick = (term: string) => {
+    router.push('/tn-ved?q=' + encodeURIComponent(term));
+  };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      {/* Фоновый паттерн */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-      </div>
+    <section className="relative bg-gradient-to-b from-slate-50 to-white">
+      <div className="container mx-auto px-4 py-16 lg:py-24">
 
-      {/* Градиентные шары */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500 rounded-full filter blur-[120px] opacity-20" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-orange-500 rounded-full filter blur-[150px] opacity-15" />
+        {/* Главный блок с поиском */}
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight">
+            Какие документы нужны
+            <span className="block text-blue-600">на ваш товар?</span>
+          </h1>
 
-      <div className="container mx-auto px-4 py-20 lg:py-32 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Левая часть - текст */}
-          <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-blue-200 text-sm font-medium">
-                Работаем с {SITE_CONFIG.foundedYear} года
-              </span>
-            </div>
+          <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+            Узнайте требования к сертификации за 30 секунд.
+            Введите название товара или код ТН ВЭД.
+          </p>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Сертификация
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                товаров и услуг
-              </span>
-            </h1>
-
-            <p className="text-xl text-slate-300 mb-8 max-w-xl mx-auto lg:mx-0">
-              Оформим сертификаты, декларации, СГР и другую разрешительную документацию.
-              <strong className="text-white"> От 1 дня. </strong>
-              Гарантия 100%.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-              <Button
-                variant="secondary"
-                size="xl"
-                onClick={() => setIsModalOpen(true)}
-                rightIcon={
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                }
-              >
-                Бесплатная консультация
-              </Button>
-              <Button
-                variant="outline"
-                size="xl"
-                className="border-white/30 text-white hover:bg-white hover:text-slate-900"
-              >
-                Рассчитать стоимость
-              </Button>
-            </div>
-
-            {/* Преимущества */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {ADVANTAGES.map((item, index) => (
-                <div key={index} className="text-center lg:text-left">
-                  <div className="text-2xl font-bold text-white">{item.title.split(' ')[0]}</div>
-                  <div className="text-sm text-slate-400">{item.title.split(' ').slice(1).join(' ')}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Правая часть - форма */}
-          <div className="lg:pl-12">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md mx-auto">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl font-bold text-slate-900 mb-2">
-                  Получите расчёт стоимости
-                </h2>
-                <p className="text-slate-600">
-                  Ответим в течение 15 минут
-                </p>
+          {/* Поисковая строка */}
+          <form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-6">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
               </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Например: детские игрушки, крем для лица, 8471..."
+                className="w-full pl-12 pr-32 py-4 text-lg border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+              />
+              <button
+                type="submit"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors"
+              >
+                Узнать
+              </button>
+            </div>
+          </form>
 
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
-                    Ваше имя
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Как к вам обращаться?"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-colors"
-                  />
+          {/* Популярные запросы */}
+          <div className="flex flex-wrap justify-center gap-2">
+            <span className="text-sm text-slate-500">Популярное:</span>
+            {POPULAR_SEARCHES.map((term) => (
+              <button
+                key={term}
+                onClick={() => handlePopularClick(term)}
+                className="text-sm text-blue-600 hover:text-blue-700 hover:underline transition-colors"
+              >
+                {term}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Разделитель */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <div className="flex items-center gap-4">
+            <div className="flex-1 h-px bg-slate-200"></div>
+            <span className="text-sm text-slate-400 font-medium">или выберите категорию</span>
+            <div className="flex-1 h-px bg-slate-200"></div>
+          </div>
+        </div>
+
+        {/* Категории */}
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {CATEGORIES.map((category) => (
+              <a
+                key={category.id}
+                href={category.href}
+                className="group flex flex-col items-center p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-lg transition-all"
+              >
+                <div className="w-12 h-12 flex items-center justify-center bg-slate-100 group-hover:bg-blue-50 rounded-xl mb-3 transition-colors text-slate-600 group-hover:text-blue-600">
+                  <CategoryIcon type={category.icon} />
                 </div>
+                <span className="text-sm font-medium text-slate-700 group-hover:text-blue-600 text-center transition-colors">
+                  {category.name}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
-                    Телефон *
-                  </label>
-                  <input
-                    type="tel"
-                    placeholder="+7 (___) ___-__-__"
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-colors"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
-                    Что нужно сертифицировать?
-                  </label>
-                  <textarea
-                    placeholder="Опишите вашу продукцию..."
-                    rows={3}
-                    className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-colors resize-none"
-                  />
-                </div>
-
-                <Button variant="primary" size="lg" className="w-full">
-                  Получить расчёт бесплатно
-                </Button>
-
-                <p className="text-xs text-slate-500 text-center">
-                  Нажимая кнопку, вы соглашаетесь с{' '}
-                  <a href="/politika-konfidencialnosti" className="text-blue-600 hover:underline">
-                    политикой конфиденциальности
-                  </a>
-                </p>
-              </form>
+        {/* Статистика */}
+        <div className="max-w-3xl mx-auto mt-16">
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-slate-900">12+</div>
+              <div className="text-sm text-slate-500">лет опыта</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-slate-900">60+</div>
+              <div className="text-sm text-slate-500">филиалов</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-slate-900">50 000+</div>
+              <div className="text-sm text-slate-500">документов</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-slate-900">от 1 дня</div>
+              <div className="text-sm text-slate-500">оформление</div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Волна внизу */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
-          <path
-            d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-            fill="white"
-          />
-        </svg>
       </div>
     </section>
   );
