@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { searchTNVEDFull, TNVEDCode, getTNVEDCount } from '@/lib/tnved-search';
+import { determineCertification, CertificationResult, getDocumentTypeColor } from '@/lib/certification-rules';
 
 const CATEGORIES = [
   { name: 'Пищевая продукция', slug: 'pishchevaya-produktsiya', icon: 'food' },
@@ -14,15 +15,6 @@ const CATEGORIES = [
 ];
 
 const POPULAR = ['косметика', 'БАДы', 'детские игрушки', 'одежда', 'медицинские маски', 'продукты питания'];
-
-const CERT_TYPES = [
-  'Сертификат ТР ТС',
-  'Декларация ТР ТС',
-  'Сертификат ГОСТ Р',
-  'СГР',
-  'Регистрация медизделий',
-  'ХАССП',
-];
 
 function CategoryIcon({ type }: { type: string }) {
   const icons: Record<string, React.ReactElement> = {
@@ -67,9 +59,13 @@ export function Hero() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedItem, setSelectedItem] = useState<TNVEDCode | null>(null);
   const searchRef = useRef<HTMLDivElement>(null);
-  const [certType, setCertType] = useState(CERT_TYPES[0]);
-  const [product, setProduct] = useState('');
-  const [urgency, setUrgency] = useState<'normal' | 'urgent'>('normal');
+  const [calcProduct, setCalcProduct] = useState('');
+  const [calcResult, setCalcResult] = useState<CertificationResult | null>(null);
+  const [isForChildren, setIsForChildren] = useState(false);
+  const [calcSuggestions, setCalcSuggestions] = useState<TNVEDCode[]>([]);
+  const [showCalcSuggestions, setShowCalcSuggestions] = useState(false);
+  const [selectedCalcItem, setSelectedCalcItem] = useState<TNVEDCode | null>(null);
+  const calcRef = useRef<HTMLDivElement>(null);
   const totalCodes = getTNVEDCount();
 
   // Поиск при вводе по полной базе 16376 кодов
@@ -84,16 +80,54 @@ export function Hero() {
     }
   }, [searchQuery]);
 
-  // Закрытие при клике вне
+  // Закрытие при клике вне (оба поиска)
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
       }
+      if (calcRef.current && !calcRef.current.contains(event.target as Node)) {
+        setShowCalcSuggestions(false);
+      }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Поиск в калькуляторе
+  useEffect(() => {
+    if (calcProduct.trim().length >= 2) {
+      const results = searchTNVEDFull(calcProduct, 5);
+      setCalcSuggestions(results);
+      setShowCalcSuggestions(results.length > 0);
+    } else {
+      setCalcSuggestions([]);
+      setShowCalcSuggestions(false);
+    }
+  }, [calcProduct]);
+
+  // Расчёт документов при выборе товара
+  const handleCalculate = () => {
+    if (selectedCalcItem || calcProduct.trim()) {
+      const code = selectedCalcItem?.code || '';
+      let productName = calcProduct;
+      if (isForChildren && !productName.toLowerCase().includes('детск')) {
+        productName = 'детский ' + productName;
+      }
+      const result = determineCertification(code, productName);
+      setCalcResult(result);
+    }
+  };
+
+  const handleSelectCalcItem = (item: TNVEDCode) => {
+    setSelectedCalcItem(item);
+    setCalcProduct(item.name);
+    setShowCalcSuggestions(false);
+    // Автоматически рассчитать
+    const productName = isForChildren ? 'детский ' + item.name : item.name;
+    const result = determineCertification(item.code, productName);
+    setCalcResult(result);
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -243,12 +277,15 @@ export function Hero() {
                   </button>
                   <button
                     onClick={() => {
-                      setProduct(selectedItem.name);
+                      setCalcProduct(selectedItem.name);
+                      setSelectedCalcItem(selectedItem);
+                      const result = determineCertification(selectedItem.code, selectedItem.name);
+                      setCalcResult(result);
                       setSelectedItem(null);
                     }}
                     className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition-colors"
                   >
-                    Рассчитать стоимость
+                    Рассчитать
                   </button>
                 </div>
               </div>
@@ -285,66 +322,130 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Правая часть - форма расчёта */}
+          {/* Правая часть - умный калькулятор */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-2xl p-6 shadow-2xl">
-              <h3 className="text-lg font-bold text-slate-800 mb-1">Экспресс-расчёт</h3>
-              <p className="text-sm text-slate-500 mb-4">стоимости сертификата</p>
+              <h3 className="text-lg font-bold text-slate-800 mb-1">Какой документ нужен?</h3>
+              <p className="text-sm text-slate-500 mb-4">Узнайте за 10 секунд</p>
 
               <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Вид документа</label>
-                  <select
-                    value={certType}
-                    onChange={(e) => setCertType(e.target.value)}
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700"
-                  >
-                    {CERT_TYPES.map((type) => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
+                {/* Поле ввода продукции с автоподсказками */}
+                <div ref={calcRef} className="relative">
                   <label className="block text-sm font-medium text-slate-700 mb-1">Ваша продукция</label>
                   <input
                     type="text"
-                    value={product}
-                    onChange={(e) => setProduct(e.target.value)}
-                    placeholder="Например: крем для лица"
+                    value={calcProduct}
+                    onChange={(e) => { setCalcProduct(e.target.value); setSelectedCalcItem(null); setCalcResult(null); }}
+                    onFocus={() => calcSuggestions.length > 0 && setShowCalcSuggestions(true)}
+                    placeholder="Введите название или код ТН ВЭД"
                     className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 placeholder-slate-400"
                   />
+
+                  {/* Подсказки */}
+                  {showCalcSuggestions && calcSuggestions.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden z-50 max-h-48 overflow-y-auto">
+                      {calcSuggestions.map((item, index) => (
+                        <button
+                          key={item.code + index}
+                          type="button"
+                          onClick={() => handleSelectCalcItem(item)}
+                          className="w-full px-3 py-2 text-left hover:bg-blue-50 border-b border-slate-100 last:border-0"
+                        >
+                          <div className="text-sm font-medium text-slate-900 truncate">{item.name}</div>
+                          <div className="text-xs text-slate-500">{item.code_formatted}</div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Срочность</label>
-                  <div className="flex gap-4">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="urgency"
-                        checked={urgency === 'normal'}
-                        onChange={() => setUrgency('normal')}
-                        className="w-4 h-4 text-blue-600"
-                      />
-                      <span className="text-sm text-slate-600">Обычная (от 3 дней)</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="urgency"
-                        checked={urgency === 'urgent'}
-                        onChange={() => setUrgency('urgent')}
-                        className="w-4 h-4 text-blue-600"
-                      />
-                      <span className="text-sm text-slate-600">Срочная (от 1 дня)</span>
-                    </label>
+                {/* Чекбокс "Для детей" */}
+                <label className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg cursor-pointer hover:bg-slate-100 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={isForChildren}
+                    onChange={(e) => { setIsForChildren(e.target.checked); setCalcResult(null); }}
+                    className="w-5 h-5 text-blue-600 rounded"
+                  />
+                  <div>
+                    <span className="text-sm font-medium text-slate-700">Продукция для детей</span>
+                    <p className="text-xs text-slate-500">Детские товары требуют сертификации</p>
                   </div>
-                </div>
+                </label>
 
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-orange-500/30">
-                  Рассчитать стоимость
-                </button>
+                {/* Кнопка расчёта */}
+                {!calcResult && (
+                  <button
+                    onClick={handleCalculate}
+                    disabled={!calcProduct.trim()}
+                    className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-orange-500/30"
+                  >
+                    Определить документ
+                  </button>
+                )}
+
+                {/* Результат расчёта */}
+                {calcResult && (
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-slate-600">Результат:</span>
+                      <button
+                        onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); }}
+                        className="text-xs text-blue-600 hover:underline"
+                      >
+                        Сбросить
+                      </button>
+                    </div>
+
+                    {calcResult.category && (
+                      <div className="text-xs text-slate-500 bg-slate-50 px-3 py-1 rounded">
+                        Категория: {calcResult.category}
+                      </div>
+                    )}
+
+                    {/* Список документов */}
+                    <div className="space-y-2">
+                      {calcResult.documents.map((doc, i) => (
+                        <div key={i} className={`p-3 rounded-lg border-l-4 ${
+                          doc.type === 'certificate' ? 'bg-green-50 border-green-500' :
+                          doc.type === 'declaration' ? 'bg-blue-50 border-blue-500' :
+                          doc.type === 'sgr' ? 'bg-purple-50 border-purple-500' :
+                          doc.type === 'registration' ? 'bg-orange-50 border-orange-500' :
+                          'bg-slate-50 border-slate-400'
+                        }`}>
+                          <div className="font-semibold text-slate-800 text-sm">{doc.name}</div>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-orange-600 font-bold text-sm">{doc.price}</span>
+                            <span className="text-slate-500 text-xs">{doc.duration}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Примечания */}
+                    {calcResult.notes.length > 0 && (
+                      <div className="text-xs text-amber-700 bg-amber-50 p-2 rounded">
+                        {calcResult.notes.map((note, i) => (
+                          <div key={i}>• {note}</div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Нужна консультация */}
+                    {calcResult.needsExpertReview && (
+                      <div className="text-xs text-blue-700 bg-blue-50 p-2 rounded flex items-start gap-2">
+                        <svg className="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Рекомендуем консультацию эксперта для точного определения</span>
+                      </div>
+                    )}
+
+                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors">
+                      Оставить заявку
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>
