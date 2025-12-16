@@ -3,233 +3,228 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-const POPULAR_SEARCHES = [
-  'косметика',
-  'БАДы',
-  'детские игрушки',
-  'одежда',
-  'медицинские маски',
-  'продукты питания',
+const CATEGORIES = [
+  { name: 'Пищевая продукция', slug: 'pishchevaya-produktsiya', icon: 'food' },
+  { name: 'Медизделия', slug: 'meditsinskie-izdeliya', icon: 'medical' },
+  { name: 'Детские товары', slug: 'detskie-tovary', icon: 'children' },
+  { name: 'Косметика', slug: 'kosmetika', icon: 'cosmetics' },
+  { name: 'Оборудование', slug: 'oborudovanie', icon: 'equipment' },
+  { name: 'Одежда и обувь', slug: 'odezhda-i-obuv', icon: 'clothing' },
 ];
 
-const CATEGORIES = [
-  {
-    id: 'food',
-    name: 'Пищевая продукция',
-    icon: 'food',
-    href: '/vidy-sertifikacii/pishevaya-produktsiya'
-  },
-  {
-    id: 'medical',
-    name: 'Медицинские изделия',
-    icon: 'medical',
-    href: '/vidy-sertifikacii/meditsinskie-izdeliya'
-  },
-  {
-    id: 'children',
-    name: 'Детские товары',
-    icon: 'children',
-    href: '/vidy-sertifikacii/detskie-tovary'
-  },
-  {
-    id: 'cosmetics',
-    name: 'Косметика',
-    icon: 'cosmetics',
-    href: '/vidy-sertifikacii/kosmetika'
-  },
-  {
-    id: 'equipment',
-    name: 'Оборудование',
-    icon: 'equipment',
-    href: '/vidy-sertifikacii/oborudovanie'
-  },
-  {
-    id: 'clothing',
-    name: 'Одежда и обувь',
-    icon: 'clothing',
-    href: '/vidy-sertifikacii/odezhda'
-  },
-  {
-    id: 'chemistry',
-    name: 'Бытовая химия',
-    icon: 'chemistry',
-    href: '/vidy-sertifikacii/bytovaya-khimiya'
-  },
-  {
-    id: 'other',
-    name: 'Другое',
-    icon: 'other',
-    href: '/vidy-sertifikacii'
-  },
+const POPULAR = ['косметика', 'БАДы', 'детские игрушки', 'одежда', 'медицинские маски', 'продукты питания'];
+
+const CERT_TYPES = [
+  'Сертификат ТР ТС',
+  'Декларация ТР ТС',
+  'Сертификат ГОСТ Р',
+  'СГР',
+  'Регистрация медизделий',
+  'ХАССП',
 ];
 
 function CategoryIcon({ type }: { type: string }) {
   const icons: Record<string, React.ReactElement> = {
     food: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m18-4.5a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
     medical: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
       </svg>
     ),
     children: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
       </svg>
     ),
     cosmetics: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
       </svg>
     ),
     equipment: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
       </svg>
     ),
     clothing: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-      </svg>
-    ),
-    chemistry: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5" />
-      </svg>
-    ),
-    other: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+      <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
       </svg>
     ),
   };
-  return icons[type] || icons.other;
+  return icons[type] || icons.food;
 }
 
 export function Hero() {
-  const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [certType, setCertType] = useState(CERT_TYPES[0]);
+  const [product, setProduct] = useState('');
+  const [urgency, setUrgency] = useState<'normal' | 'urgent'>('normal');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      router.push('/tn-ved?q=' + encodeURIComponent(searchQuery.trim()));
+      router.push(`/tn-ved?q=${encodeURIComponent(searchQuery.trim())}`);
     }
   };
 
-  const handlePopularClick = (term: string) => {
-    router.push('/tn-ved?q=' + encodeURIComponent(term));
+  const handleQuickSearch = (term: string) => {
+    router.push(`/tn-ved?q=${encodeURIComponent(term)}`);
   };
 
   return (
-    <section className="relative bg-gradient-to-b from-slate-50 to-white">
-      <div className="container mx-auto px-4 py-16 lg:py-24">
+    <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 py-12 lg:py-16">
+      <div className="container mx-auto px-4">
+        <div className="grid lg:grid-cols-5 gap-8 items-start">
+          {/* Левая часть - поиск */}
+          <div className="lg:col-span-3">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-4 leading-tight">
+              Какие документы нужны<br />
+              <span className="text-orange-400">на ваш товар?</span>
+            </h1>
+            <p className="text-blue-100 text-lg mb-6">
+              Узнайте требования к сертификации за 30 секунд
+            </p>
 
-        {/* Главный блок с поиском */}
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-            Какие документы нужны
-            <span className="block text-blue-600">на ваш товар?</span>
-          </h1>
-
-          <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-            Узнайте требования к сертификации за 30 секунд.
-            Введите название товара или код ТН ВЭД.
-          </p>
-
-          {/* Поисковая строка */}
-          <form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-6">
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Например: детские игрушки, крем для лица, 8471..."
-                className="w-full pl-12 pr-32 py-4 text-lg border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
-              />
-              <button
-                type="submit"
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2.5 rounded-lg transition-colors"
-              >
-                Узнать
-              </button>
-            </div>
-          </form>
-
-          {/* Популярные запросы */}
-          <div className="flex flex-wrap justify-center gap-2">
-            <span className="text-sm text-slate-500">Популярное:</span>
-            {POPULAR_SEARCHES.map((term) => (
-              <button
-                key={term}
-                onClick={() => handlePopularClick(term)}
-                className="text-sm text-blue-600 hover:text-blue-700 hover:underline transition-colors"
-              >
-                {term}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Разделитель */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="flex items-center gap-4">
-            <div className="flex-1 h-px bg-slate-200"></div>
-            <span className="text-sm text-slate-400 font-medium">или выберите категорию</span>
-            <div className="flex-1 h-px bg-slate-200"></div>
-          </div>
-        </div>
-
-        {/* Категории */}
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {CATEGORIES.map((category) => (
-              <a
-                key={category.id}
-                href={category.href}
-                className="group flex flex-col items-center p-6 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-lg transition-all"
-              >
-                <div className="w-12 h-12 flex items-center justify-center bg-slate-100 group-hover:bg-blue-50 rounded-xl mb-3 transition-colors text-slate-600 group-hover:text-blue-600">
-                  <CategoryIcon type={category.icon} />
+            {/* Поисковая строка */}
+            <form onSubmit={handleSearch} className="mb-4">
+              <div className="flex bg-white rounded-xl overflow-hidden shadow-xl">
+                <div className="flex-1 flex items-center px-4">
+                  <svg className="w-5 h-5 text-slate-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Название товара или код ТН ВЭД..."
+                    className="w-full py-4 text-slate-700 placeholder-slate-400 focus:outline-none"
+                  />
                 </div>
-                <span className="text-sm font-medium text-slate-700 group-hover:text-blue-600 text-center transition-colors">
-                  {category.name}
-                </span>
-              </a>
-            ))}
+                <button
+                  type="submit"
+                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 transition-colors"
+                >
+                  Найти
+                </button>
+              </div>
+            </form>
+
+            {/* Популярные запросы */}
+            <div className="flex flex-wrap items-center gap-2 mb-8">
+              <span className="text-blue-200 text-sm">Популярное:</span>
+              {POPULAR.map((term) => (
+                <button
+                  key={term}
+                  onClick={() => handleQuickSearch(term)}
+                  className="text-sm text-white/80 hover:text-white hover:underline transition-colors"
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
+
+            {/* Категории */}
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat.slug}
+                  onClick={() => router.push(`/tn-ved?category=${cat.slug}`)}
+                  className="flex flex-col items-center gap-2 p-3 bg-white/10 hover:bg-white/20 rounded-xl transition-all group"
+                >
+                  <div className="w-10 h-10 flex items-center justify-center bg-white/20 group-hover:bg-white/30 rounded-lg text-white transition-colors">
+                    <CategoryIcon type={cat.icon} />
+                  </div>
+                  <span className="text-xs text-white/90 text-center leading-tight">{cat.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Правая часть - форма расчёта */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-2xl p-6 shadow-2xl">
+              <h3 className="text-lg font-bold text-slate-800 mb-1">Экспресс-расчёт</h3>
+              <p className="text-sm text-slate-500 mb-4">стоимости сертификата</p>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Вид документа</label>
+                  <select
+                    value={certType}
+                    onChange={(e) => setCertType(e.target.value)}
+                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700"
+                  >
+                    {CERT_TYPES.map((type) => (
+                      <option key={type} value={type}>{type}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Ваша продукция</label>
+                  <input
+                    type="text"
+                    value={product}
+                    onChange={(e) => setProduct(e.target.value)}
+                    placeholder="Например: крем для лица"
+                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 placeholder-slate-400"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-2">Срочность</label>
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="urgency"
+                        checked={urgency === 'normal'}
+                        onChange={() => setUrgency('normal')}
+                        className="w-4 h-4 text-blue-600"
+                      />
+                      <span className="text-sm text-slate-600">Обычная (от 3 дней)</span>
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        name="urgency"
+                        checked={urgency === 'urgent'}
+                        onChange={() => setUrgency('urgent')}
+                        className="w-4 h-4 text-blue-600"
+                      />
+                      <span className="text-sm text-slate-600">Срочная (от 1 дня)</span>
+                    </label>
+                  </div>
+                </div>
+
+                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition-colors shadow-lg shadow-orange-500/30">
+                  Рассчитать стоимость
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Статистика */}
-        <div className="max-w-3xl mx-auto mt-16">
-          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-slate-900">12+</div>
-              <div className="text-sm text-slate-500">лет опыта</div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 pt-8 border-t border-white/20">
+          {[
+            { value: '12+', label: 'лет опыта' },
+            { value: '60+', label: 'филиалов' },
+            { value: '50 000+', label: 'документов' },
+            { value: 'от 1 дня', label: 'оформление' },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
+              <div className="text-blue-200 text-sm">{stat.label}</div>
             </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-slate-900">60+</div>
-              <div className="text-sm text-slate-500">филиалов</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-slate-900">50 000+</div>
-              <div className="text-sm text-slate-500">документов</div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-slate-900">от 1 дня</div>
-              <div className="text-sm text-slate-500">оформление</div>
-            </div>
-          </div>
+          ))}
         </div>
-
       </div>
     </section>
   );
