@@ -1,5 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Hero } from '@/components/sections/Hero';
 
 const SERVICES = [
@@ -61,6 +64,37 @@ const SERVICES = [
   },
 ];
 
+const CLIENTS = [
+  { name: 'Газпром', logo: 'https://gsg-rt.ru/upload/iblock/88c/gazprom.png' },
+  { name: 'Лукойл', logo: 'https://gsg-rt.ru/upload/iblock/8c1/lukoil.png' },
+  { name: 'Татнефть', logo: 'https://gsg-rt.ru/upload/iblock/798/tatneft.png' },
+  { name: 'Мечел', logo: 'https://gsg-rt.ru/upload/iblock/597/mechel.png' },
+  { name: 'Eriell', logo: 'https://gsg-rt.ru/upload/iblock/005/eriell.png' },
+];
+
+const TESTIMONIALS = [
+  {
+    company: 'Лукойл',
+    image: 'https://gsg-rt.ru/images/seo/благодарст._лукойл1.jpg',
+    alt: 'Благодарственное письмо от Лукойл'
+  },
+  {
+    company: 'Касперский',
+    image: 'https://gsg-rt.ru/images/seo/благодарст._касперский.jpg',
+    alt: 'Благодарственное письмо от Касперского'
+  },
+  {
+    company: 'Газпром',
+    image: 'https://gsg-rt.ru/images/seo/gaz_b.jpg',
+    alt: 'Благодарственное письмо от Газпром'
+  },
+  {
+    company: 'Партнёр',
+    image: 'https://gsg-rt.ru/images/seo/_5058837.jpg',
+    alt: 'Благодарственное письмо'
+  },
+];
+
 function ServiceIcon({ type }: { type: string }) {
   const icons: Record<string, React.ReactElement> = {
     certificate: (
@@ -105,6 +139,124 @@ function ServiceIcon({ type }: { type: string }) {
     ),
   };
   return icons[type] || icons.certificate;
+}
+
+function TestimonialsSlider() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % TESTIMONIALS.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const openModal = (image: string) => {
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % TESTIMONIALS.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  };
+
+  return (
+    <>
+      <div className="relative">
+        {/* Slider container */}
+        <div className="overflow-hidden rounded-2xl">
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {TESTIMONIALS.map((item, index) => (
+              <div
+                key={index}
+                className="w-full flex-shrink-0 px-2"
+              >
+                <div
+                  className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow"
+                  onClick={() => openModal(item.image)}
+                >
+                  <div className="aspect-[3/4] relative">
+                    <img
+                      src={item.image}
+                      alt={item.alt}
+                      className="w-full h-full object-contain bg-slate-50 p-4"
+                    />
+                  </div>
+                  <div className="p-4 text-center border-t">
+                    <p className="font-medium text-slate-700">{item.company}</p>
+                    <p className="text-sm text-slate-500">Благодарственное письмо</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation arrows */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-slate-50 transition-colors z-10"
+        >
+          <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-slate-50 transition-colors z-10"
+        >
+          <svg className="w-6 h-6 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 mt-6">
+          {TESTIMONIALS.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                index === currentSlide ? 'bg-blue-600' : 'bg-slate-300 hover:bg-slate-400'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div
+          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <button
+            className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+            onClick={() => setIsModalOpen(false)}
+          >
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <img
+            src={modalImage}
+            alt="Благодарственное письмо"
+            className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </>
+  );
 }
 
 export default function Home() {
@@ -210,6 +362,42 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Клиенты - логотипы */}
+      <section className="py-12 bg-slate-50 border-y border-slate-100">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-slate-500 mb-8">Нам доверяют крупнейшие компании России</p>
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+            {CLIENTS.map((client) => (
+              <div key={client.name} className="grayscale hover:grayscale-0 opacity-60 hover:opacity-100 transition-all">
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  className="h-10 md:h-12 w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Благодарственные письма - слайдер */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-3">
+              Благодарственные письма
+            </h2>
+            <p className="text-slate-500">
+              Отзывы наших клиентов о сотрудничестве
+            </p>
+          </div>
+
+          <div className="max-w-md mx-auto">
+            <TestimonialsSlider />
           </div>
         </div>
       </section>
