@@ -60,84 +60,15 @@ function CategoryIcon({ type }: { type: string }) {
   return icons[type] || icons.food;
 }
 
-// Пустое состояние - красивая иллюстрация с документами
-function EmptyStateIllustration() {
-  return (
-    <div className="relative py-6">
-      {/* Три документа с анимацией */}
-      <div className="relative flex justify-center items-end gap-3 h-32">
-        {/* Документ 1 - Сертификат (зелёный) */}
-        <div className="relative w-16 h-20 bg-gradient-to-br from-green-100 to-green-50 rounded-lg border-2 border-green-300 shadow-lg transform -rotate-6 hover:rotate-0 transition-transform duration-300 animate-float-slow">
-          <div className="absolute top-2 left-2 right-2">
-            <div className="h-1 bg-green-300/60 rounded mb-1"></div>
-            <div className="h-1 bg-green-300/40 rounded w-3/4"></div>
-          </div>
-          <div className="absolute bottom-2 left-2 w-4 h-4 rounded-full border border-green-400 flex items-center justify-center">
-            <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
-          </div>
-          <div className="absolute bottom-2 right-2 w-3 h-3 bg-green-200 rounded-sm"></div>
-          <div className="absolute -top-2 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center shadow-md">
-            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-        </div>
-
-        {/* Документ 2 - Декларация (синий) - в центре, выше */}
-        <div className="relative w-20 h-24 bg-gradient-to-br from-blue-100 to-blue-50 rounded-lg border-2 border-blue-300 shadow-xl transform hover:scale-105 transition-transform duration-300 -mt-4 z-10 animate-float">
-          <div className="absolute top-1 left-0 right-0 flex justify-center">
-            <div className="w-6 h-6 rounded-full bg-blue-200 flex items-center justify-center">
-              <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-          </div>
-          <div className="absolute top-9 left-2 right-2">
-            <div className="h-1 bg-blue-300/60 rounded mb-1"></div>
-            <div className="h-1 bg-blue-300/40 rounded"></div>
-            <div className="h-1 bg-blue-300/30 rounded w-2/3 mt-1"></div>
-          </div>
-          <div className="absolute bottom-2 left-2 right-2 flex justify-between items-end">
-            <div className="w-5 h-5 rounded-full border-2 border-blue-400 flex items-center justify-center bg-white/50 rotate-[-8deg]">
-              <span className="text-[5px] text-blue-600 font-bold">ЕАЭС</span>
-            </div>
-            <div className="w-4 h-4 bg-slate-700 rounded-sm grid grid-cols-2 gap-[1px] p-0.5">
-              <div className="bg-white"></div>
-              <div className="bg-slate-700"></div>
-              <div className="bg-slate-700"></div>
-              <div className="bg-white"></div>
-            </div>
-          </div>
-        </div>
-
-        {/* Документ 3 - СГР (фиолетовый) */}
-        <div className="relative w-16 h-20 bg-gradient-to-br from-purple-100 to-purple-50 rounded-lg border-2 border-purple-300 shadow-lg transform rotate-6 hover:rotate-0 transition-transform duration-300 animate-float-slow-reverse">
-          <div className="absolute top-2 left-2 right-2">
-            <div className="h-1 bg-purple-300/60 rounded mb-1"></div>
-            <div className="h-1 bg-purple-300/40 rounded w-4/5"></div>
-          </div>
-          <div className="absolute bottom-2 left-2 w-4 h-4 rounded-full border border-purple-400 flex items-center justify-center">
-            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-          </div>
-          <div className="absolute bottom-2 right-2 w-3 h-3 bg-purple-200 rounded-sm"></div>
-        </div>
-      </div>
-
-      {/* Текст под иллюстрацией */}
-      <div className="text-center mt-4">
-        <p className="text-slate-600 text-sm font-medium">Введите товар для расчёта</p>
-        <p className="text-slate-400 text-xs mt-1">или выберите из поиска слева</p>
-      </div>
-
-      {/* Стрелка указывающая на поиск */}
-      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 text-blue-400 animate-pulse hidden lg:block">
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-        </svg>
-      </div>
-    </div>
-  );
-}
+// Быстрые примеры для расчёта
+const QUICK_EXAMPLES = [
+  { name: 'Детская игрушка', code: '9503', icon: '🧸', color: 'from-green-100 to-green-50 border-green-300 hover:border-green-400' },
+  { name: 'Косметика', code: '3304', icon: '💄', color: 'from-pink-100 to-pink-50 border-pink-300 hover:border-pink-400' },
+  { name: 'Одежда', code: '62', icon: '👕', color: 'from-blue-100 to-blue-50 border-blue-300 hover:border-blue-400' },
+  { name: 'Бытовая химия', code: '3402', icon: '🧴', color: 'from-purple-100 to-purple-50 border-purple-300 hover:border-purple-400' },
+  { name: 'Продукты питания', code: '21', icon: '🍎', color: 'from-orange-100 to-orange-50 border-orange-300 hover:border-orange-400' },
+  { name: 'Электроника', code: '85', icon: '📱', color: 'from-slate-100 to-slate-50 border-slate-300 hover:border-slate-400' },
+];
 
 // Компактная визуализация документа
 function DocumentVisualCompact({ type, regulation }: { type: DocumentType; regulation?: string }) {
@@ -198,12 +129,8 @@ export function Hero() {
   // Состояние конструктора
   const [calcProduct, setCalcProduct] = useState('');
   const [calcResult, setCalcResult] = useState<CertificationResult | null>(null);
-  const [isForChildren, setIsForChildren] = useState(false);
-  const [calcSuggestions, setCalcSuggestions] = useState<TNVEDCode[]>([]);
-  const [showCalcSuggestions, setShowCalcSuggestions] = useState(false);
   const [selectedCalcItem, setSelectedCalcItem] = useState<TNVEDCode | null>(null);
   const [selectedServices, setSelectedServices] = useState<string[]>(['consult']);
-  const calcRef = useRef<HTMLDivElement>(null);
   const totalCodes = getTNVEDCount();
 
   // Поиск при вводе по полной базе 16376 кодов
@@ -218,53 +145,16 @@ export function Hero() {
     }
   }, [searchQuery]);
 
-  // Закрытие при клике вне (оба поиска)
+  // Закрытие при клике вне
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setShowSuggestions(false);
       }
-      if (calcRef.current && !calcRef.current.contains(event.target as Node)) {
-        setShowCalcSuggestions(false);
-      }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  // Поиск в калькуляторе
-  useEffect(() => {
-    if (calcProduct.trim().length >= 2) {
-      const results = searchTNVEDFull(calcProduct, 5);
-      setCalcSuggestions(results);
-      setShowCalcSuggestions(results.length > 0);
-    } else {
-      setCalcSuggestions([]);
-      setShowCalcSuggestions(false);
-    }
-  }, [calcProduct]);
-
-  // Расчёт документов при выборе товара
-  const handleCalculate = () => {
-    if (selectedCalcItem || calcProduct.trim()) {
-      const code = selectedCalcItem?.code || '';
-      let productName = calcProduct;
-      if (isForChildren && !productName.toLowerCase().includes('детск')) {
-        productName = 'детский ' + productName;
-      }
-      const result = determineCertification(code, productName);
-      setCalcResult(result);
-    }
-  };
-
-  const handleSelectCalcItem = (item: TNVEDCode) => {
-    setSelectedCalcItem(item);
-    setCalcProduct(item.name);
-    setShowCalcSuggestions(false);
-    const productName = isForChildren ? 'детский ' + item.name : item.name;
-    const result = determineCertification(item.code, productName);
-    setCalcResult(result);
-  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -278,8 +168,7 @@ export function Hero() {
     setShowSuggestions(false);
     setSelectedCalcItem(item);
     setCalcProduct(item.name);
-    const productName = isForChildren ? 'детский ' + item.name : item.name;
-    const result = determineCertification(item.code, productName);
+    const result = determineCertification(item.code, item.name);
     setCalcResult(result);
   };
 
@@ -431,58 +320,55 @@ export function Hero() {
 
               <div className="p-4">
                 {!calcResult ? (
-                  /* Пустое состояние */
-                  <div className="space-y-3">
-                    {/* Поле ввода */}
-                    <div ref={calcRef} className="relative">
-                      <input
-                        type="text"
-                        value={calcProduct}
-                        onChange={(e) => { setCalcProduct(e.target.value); setSelectedCalcItem(null); }}
-                        onFocus={() => calcSuggestions.length > 0 && setShowCalcSuggestions(true)}
-                        placeholder="Введите товар..."
-                        className="w-full px-3 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-700 placeholder-slate-400 text-sm"
-                      />
-
-                      {showCalcSuggestions && calcSuggestions.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-xl border border-slate-200 overflow-hidden z-50 max-h-40 overflow-y-auto">
-                          {calcSuggestions.map((item, index) => (
-                            <button
-                              key={item.code + index}
-                              type="button"
-                              onClick={() => handleSelectCalcItem(item)}
-                              className="w-full px-3 py-2 text-left hover:bg-blue-50 border-b border-slate-100 last:border-0"
-                            >
-                              <div className="text-sm font-medium text-slate-900 truncate">{item.name}</div>
-                              <div className="text-xs text-slate-500">{item.code_formatted}</div>
-                            </button>
-                          ))}
-                        </div>
-                      )}
+                  /* Пустое состояние - быстрые примеры */
+                  <div className="space-y-4">
+                    {/* Заголовок */}
+                    <div className="text-center">
+                      <p className="text-slate-700 font-medium text-sm">Попробуйте на примере:</p>
                     </div>
 
-                    {/* Чекбокс детей */}
-                    <label className="flex items-center gap-2 text-sm text-slate-600 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={isForChildren}
-                        onChange={(e) => setIsForChildren(e.target.checked)}
-                        className="w-4 h-4 text-blue-600 rounded"
-                      />
-                      Продукция для детей
-                    </label>
+                    {/* Сетка быстрых примеров */}
+                    <div className="grid grid-cols-2 gap-2">
+                      {QUICK_EXAMPLES.map((example) => (
+                        <button
+                          key={example.code}
+                          onClick={() => {
+                            setCalcProduct(example.name);
+                            setSelectedCalcItem(null);
+                            const result = determineCertification(example.code, example.name);
+                            setCalcResult(result);
+                          }}
+                          className={`flex items-center gap-2 p-3 rounded-xl bg-gradient-to-br ${example.color} border-2 transition-all hover:shadow-md hover:scale-[1.02] active:scale-[0.98]`}
+                        >
+                          <span className="text-xl">{example.icon}</span>
+                          <span className="text-xs font-medium text-slate-700 text-left leading-tight">{example.name}</span>
+                        </button>
+                      ))}
+                    </div>
 
-                    {/* Иллюстрация */}
-                    <EmptyStateIllustration />
+                    {/* Разделитель */}
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-slate-200"></div>
+                      </div>
+                      <div className="relative flex justify-center">
+                        <span className="bg-white px-3 text-xs text-slate-400">или</span>
+                      </div>
+                    </div>
 
-                    {/* Кнопка */}
-                    <button
-                      onClick={handleCalculate}
-                      disabled={!calcProduct.trim()}
-                      className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-colors shadow-lg shadow-orange-500/30"
-                    >
-                      Рассчитать
-                    </button>
+                    {/* Призыв к поиску */}
+                    <div className="text-center bg-blue-50 rounded-xl p-4">
+                      <div className="flex items-center justify-center gap-2 text-blue-600 mb-2">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <span className="font-semibold text-sm">Найдите свой товар</span>
+                      </div>
+                      <p className="text-xs text-slate-500">
+                        Введите название в поиске слева<br />
+                        и выберите из {getTNVEDCount().toLocaleString()} кодов ТН ВЭД
+                      </p>
+                    </div>
                   </div>
                 ) : (
                   /* Результат - компактный */
@@ -607,30 +493,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* CSS для анимаций */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-6px); }
-        }
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0px) rotate(-6deg); }
-          50% { transform: translateY(-4px) rotate(-6deg); }
-        }
-        @keyframes float-slow-reverse {
-          0%, 100% { transform: translateY(0px) rotate(6deg); }
-          50% { transform: translateY(-4px) rotate(6deg); }
-        }
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        .animate-float-slow {
-          animation: float-slow 4s ease-in-out infinite;
-        }
-        .animate-float-slow-reverse {
-          animation: float-slow-reverse 4s ease-in-out infinite 0.5s;
-        }
-      `}</style>
     </section>
   );
 }
