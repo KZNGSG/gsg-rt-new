@@ -1,0 +1,4416 @@
+{
+  "cities": [
+    {
+      "slug": "",
+      "name": "Казань",
+      "prepositional": "в Казани",
+      "isMain": true
+    },
+    {
+      "slug": "msk",
+      "name": "Москва",
+      "prepositional": "в Москве"
+    },
+    {
+      "slug": "s-peterburg",
+      "name": "Санкт-Петербург",
+      "prepositional": "в Санкт-Петербурге"
+    },
+    {
+      "slug": "ekaterinburg",
+      "name": "Екатеринбург",
+      "prepositional": "в Екатеринбурге"
+    },
+    {
+      "slug": "novosibirsk",
+      "name": "Новосибирск",
+      "prepositional": "в Новосибирске"
+    },
+    {
+      "slug": "nizhny-novgorod",
+      "name": "Нижний Новгород",
+      "prepositional": "в Нижнем Новгороде"
+    },
+    {
+      "slug": "samara",
+      "name": "Самара",
+      "prepositional": "в Самаре"
+    },
+    {
+      "slug": "kazan",
+      "name": "Казань",
+      "prepositional": "в Казани"
+    },
+    {
+      "slug": "chelyabinsk",
+      "name": "Челябинск",
+      "prepositional": "в Челябинске"
+    },
+    {
+      "slug": "omsk",
+      "name": "Омск",
+      "prepositional": "в Омске"
+    },
+    {
+      "slug": "rostov",
+      "name": "Ростов-на-Дону",
+      "prepositional": "в Ростове-на-Дону"
+    },
+    {
+      "slug": "ufa",
+      "name": "Уфа",
+      "prepositional": "в Уфе"
+    },
+    {
+      "slug": "krasnoyarsk",
+      "name": "Красноярск",
+      "prepositional": "в Красноярске"
+    },
+    {
+      "slug": "voronezh",
+      "name": "Воронеж",
+      "prepositional": "в Воронеже"
+    },
+    {
+      "slug": "perm",
+      "name": "Пермь",
+      "prepositional": "в Перми"
+    },
+    {
+      "slug": "volgograd",
+      "name": "Волгоград",
+      "prepositional": "в Волгограде"
+    },
+    {
+      "slug": "krasnodar",
+      "name": "Краснодар",
+      "prepositional": "в Краснодаре"
+    },
+    {
+      "slug": "saratov",
+      "name": "Саратов",
+      "prepositional": "в Саратове"
+    },
+    {
+      "slug": "tyumen",
+      "name": "Тюмень",
+      "prepositional": "в Тюмени"
+    },
+    {
+      "slug": "tolyatti",
+      "name": "Тольятти",
+      "prepositional": "в Тольятти"
+    },
+    {
+      "slug": "izhevsk",
+      "name": "Ижевск",
+      "prepositional": "в Ижевске"
+    },
+    {
+      "slug": "barnaul",
+      "name": "Барнаул",
+      "prepositional": "в Барнауле"
+    },
+    {
+      "slug": "ulyanovsk",
+      "name": "Ульяновск",
+      "prepositional": "в Ульяновске"
+    },
+    {
+      "slug": "irkutsk",
+      "name": "Иркутск",
+      "prepositional": "в Иркутске"
+    },
+    {
+      "slug": "khabarovsk",
+      "name": "Хабаровск",
+      "prepositional": "в Хабаровске"
+    },
+    {
+      "slug": "vladivostok",
+      "name": "Владивосток",
+      "prepositional": "во Владивостоке"
+    },
+    {
+      "slug": "yaroslavl",
+      "name": "Ярославль",
+      "prepositional": "в Ярославле"
+    },
+    {
+      "slug": "tomsk",
+      "name": "Томск",
+      "prepositional": "в Томске"
+    },
+    {
+      "slug": "orenburg",
+      "name": "Оренбург",
+      "prepositional": "в Оренбурге"
+    },
+    {
+      "slug": "kemerovo",
+      "name": "Кемерово",
+      "prepositional": "в Кемерово"
+    },
+    {
+      "slug": "ryazan",
+      "name": "Рязань",
+      "prepositional": "в Рязани"
+    },
+    {
+      "slug": "astrakhan",
+      "name": "Астрахань",
+      "prepositional": "в Астрахани"
+    },
+    {
+      "slug": "penza",
+      "name": "Пенза",
+      "prepositional": "в Пензе"
+    },
+    {
+      "slug": "lipetsk",
+      "name": "Липецк",
+      "prepositional": "в Липецке"
+    },
+    {
+      "slug": "tula",
+      "name": "Тула",
+      "prepositional": "в Туле"
+    },
+    {
+      "slug": "kirov",
+      "name": "Киров",
+      "prepositional": "в Кирове"
+    },
+    {
+      "slug": "cheboksary",
+      "name": "Чебоксары",
+      "prepositional": "в Чебоксарах"
+    },
+    {
+      "slug": "kaliningrad",
+      "name": "Калининград",
+      "prepositional": "в Калининграде"
+    },
+    {
+      "slug": "bryansk",
+      "name": "Брянск",
+      "prepositional": "в Брянске"
+    },
+    {
+      "slug": "kursk",
+      "name": "Курск",
+      "prepositional": "в Курске"
+    },
+    {
+      "slug": "ivanovo",
+      "name": "Иваново",
+      "prepositional": "в Иваново"
+    },
+    {
+      "slug": "magnitogorsk",
+      "name": "Магнитогорск",
+      "prepositional": "в Магнитогорске"
+    },
+    {
+      "slug": "tver",
+      "name": "Тверь",
+      "prepositional": "в Твери"
+    },
+    {
+      "slug": "belgorod",
+      "name": "Белгород",
+      "prepositional": "в Белгороде"
+    },
+    {
+      "slug": "sochi",
+      "name": "Сочи",
+      "prepositional": "в Сочи"
+    },
+    {
+      "slug": "nizhny-tagil",
+      "name": "Нижний Тагил",
+      "prepositional": "в Нижнем Тагиле"
+    },
+    {
+      "slug": "arkhangelsk",
+      "name": "Архангельск",
+      "prepositional": "в Архангельске"
+    },
+    {
+      "slug": "vladimir",
+      "name": "Владимир",
+      "prepositional": "во Владимире"
+    },
+    {
+      "slug": "kaluga",
+      "name": "Калуга",
+      "prepositional": "в Калуге"
+    },
+    {
+      "slug": "smolensk",
+      "name": "Смоленск",
+      "prepositional": "в Смоленске"
+    },
+    {
+      "slug": "volzhsky",
+      "name": "Волжский",
+      "prepositional": "в Волжском"
+    },
+    {
+      "slug": "saransk",
+      "name": "Саранск",
+      "prepositional": "в Саранске"
+    },
+    {
+      "slug": "cherepovets",
+      "name": "Череповец",
+      "prepositional": "в Череповце"
+    },
+    {
+      "slug": "tambov",
+      "name": "Тамбов",
+      "prepositional": "в Тамбове"
+    },
+    {
+      "slug": "vologda",
+      "name": "Вологда",
+      "prepositional": "в Вологде"
+    },
+    {
+      "slug": "surgut",
+      "name": "Сургут",
+      "prepositional": "в Сургуте"
+    },
+    {
+      "slug": "orel",
+      "name": "Орёл",
+      "prepositional": "в Орле"
+    },
+    {
+      "slug": "kurgan",
+      "name": "Курган",
+      "prepositional": "в Кургане"
+    },
+    {
+      "slug": "yoshkar-ola",
+      "name": "Йошкар-Ола",
+      "prepositional": "в Йошкар-Оле"
+    },
+    {
+      "slug": "murmansk",
+      "name": "Мурманск",
+      "prepositional": "в Мурманске"
+    },
+    {
+      "slug": "nab-chelny",
+      "name": "Набережные Челны",
+      "prepositional": "в Набережных Челнах"
+    },
+    {
+      "slug": "krym",
+      "name": "Крым",
+      "prepositional": "в Крыму"
+    },
+    {
+      "slug": "dubai",
+      "name": "Дубай",
+      "prepositional": "в Дубае"
+    },
+    {
+      "slug": "kyrgyzstan",
+      "name": "Кыргызстан",
+      "prepositional": "в Кыргызстане"
+    },
+    {
+      "slug": "almaty",
+      "name": "Алматы",
+      "prepositional": "в Алматы"
+    },
+    {
+      "slug": "aktobe",
+      "name": "Актобе",
+      "prepositional": "в Актобе"
+    }
+  ],
+  "pages": [
+    {
+      "oldUrl": "/",
+      "newUrl": "/",
+      "category": "main",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/akkreditatsiya/",
+      "newUrl": "/akkreditatsiya",
+      "category": "other",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ao-bmk-melanzhist-altaya/",
+      "newUrl": "/ao-bmk-melanzhist-altaya",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/fgbou-mdts-artek/",
+      "newUrl": "/fgbou-mdts-artek",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/filial-v-g-cheboksary-zao-tus-zavod-ketra/",
+      "newUrl": "/filial-v-g-cheboksary-zao-tus-zavod-ketra",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ip-akhtyamova-a-k/",
+      "newUrl": "/ip-akhtyamova-a-k",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ip-gorlov/",
+      "newUrl": "/ip-gorlov",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ip-loktionova-n-n/",
+      "newUrl": "/ip-loktionova-n-n",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ip-rakhmatullina-s-f/",
+      "newUrl": "/ip-rakhmatullina-s-f",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/kontakty/",
+      "newUrl": "/kontakty",
+      "category": "contacts",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/kontakty/dostavka/",
+      "newUrl": "/kontakty/dostavka",
+      "category": "contacts",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/kontakty/oplata/",
+      "newUrl": "/kontakty/oplata",
+      "category": "contacts",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/news/",
+      "newUrl": "/news",
+      "category": "news",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/npo-agrostroy-servis/",
+      "newUrl": "/npo-agrostroy-servis",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/o-nas/",
+      "newUrl": "/o-nas",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/o-nas/akkreditacia1/",
+      "newUrl": "/o-nas/akkreditacia1",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/blagodarstvennye-pisma/",
+      "newUrl": "/o-nas/blagodarstvennye-pisma",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/filial-mesyaca/",
+      "newUrl": "/o-nas/filial-mesyaca",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/nomenklatura/",
+      "newUrl": "/o-nas/nomenklatura",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/rekvizity/",
+      "newUrl": "/o-nas/rekvizity",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/rukovodstvo/",
+      "newUrl": "/o-nas/rukovodstvo",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/sobytiya/",
+      "newUrl": "/o-nas/sobytiya",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/sobytiya/obyazatelnoe-podklyuchenie-marketpleysov-k-reestru-sertifikatov-2026/",
+      "newUrl": "/o-nas/sobytiya/obyazatelnoe-podklyuchenie-marketpleysov-k-reestru-sertifikatov-2026",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/sobytiya/rosakkreditatsiya-poluchila-pravo-priostanavlivat-sertifikaty-i-deklaratsii-eaes-chto-menyaetsya-s-3/",
+      "newUrl": "/o-nas/sobytiya/rosakkreditatsiya-poluchila-pravo-priostanavlivat-sertifikaty-i-deklaratsii-eaes-chto-menyaetsya-s-3",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/sobytiya/sertifikaty-kirgizii-pod-osobym-kontrolem/",
+      "newUrl": "/o-nas/sobytiya/sertifikaty-kirgizii-pod-osobym-kontrolem",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/stati/",
+      "newUrl": "/o-nas/stati",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/o-nas/voprosy-i-otvety/",
+      "newUrl": "/o-nas/voprosy-i-otvety",
+      "category": "about",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/oao-vishnevogorskiy-gok/",
+      "newUrl": "/oao-vishnevogorskiy-gok",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ofitsialnyi-partner-skolkovo/",
+      "newUrl": "/ofitsialnyi-partner-skolkovo",
+      "category": "other",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-aktsent/",
+      "newUrl": "/ooo-aktsent",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-bashkirskaya-teplotekhnicheskaya-kompaniya-/",
+      "newUrl": "/ooo-bashkirskaya-teplotekhnicheskaya-kompaniya",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-dar/",
+      "newUrl": "/ooo-dar",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-empi-kapital/",
+      "newUrl": "/ooo-empi-kapital",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-gazprom-transgaz-moskva/",
+      "newUrl": "/ooo-gazprom-transgaz-moskva",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-geolstroyproekt/",
+      "newUrl": "/ooo-geolstroyproekt",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-global-friz/",
+      "newUrl": "/ooo-global-friz",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-golden-fish/",
+      "newUrl": "/ooo-golden-fish",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-gres-inzhiniring/",
+      "newUrl": "/ooo-gres-inzhiniring",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-idel-bur/",
+      "newUrl": "/ooo-idel-bur",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-krymekolayf/",
+      "newUrl": "/ooo-krymekolayf",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-kvartsevye-peski/",
+      "newUrl": "/ooo-kvartsevye-peski",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-lego/",
+      "newUrl": "/ooo-lego",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-lukoyl-energoseti/",
+      "newUrl": "/ooo-lukoyl-energoseti",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-merkuriy-magazin-vkusnykh-produktov/",
+      "newUrl": "/ooo-merkuriy-magazin-vkusnykh-produktov",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-myasnoy-standart/",
+      "newUrl": "/ooo-myasnoy-standart",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-nauchno-proizvodstvennyy-tsentr-altayskaya-chaynaya-kompaniya/",
+      "newUrl": "/ooo-nauchno-proizvodstvennyy-tsentr-altayskaya-chaynaya-kompaniya",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-pk-barnaulskiy-myasopererabatyvayushchiy-zavod/",
+      "newUrl": "/ooo-pk-barnaulskiy-myasopererabatyvayushchiy-zavod",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-pkf-klan/",
+      "newUrl": "/ooo-pkf-klan",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-pp-stroykomplekt/",
+      "newUrl": "/ooo-pp-stroykomplekt",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-taktika/",
+      "newUrl": "/ooo-taktika",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-trans-onlayn-grupp/",
+      "newUrl": "/ooo-trans-onlayn-grupp",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-trikotazh/",
+      "newUrl": "/ooo-trikotazh",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/ooo-tsar-khleb/",
+      "newUrl": "/ooo-tsar-khleb",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/otzivi/",
+      "newUrl": "/otzivi",
+      "category": "other",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/podgotovka-predpriyatiya-k-attestacii/",
+      "newUrl": "/podgotovka-predpriyatiya-k-attestacii",
+      "category": "other",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/poleznaya-informaciya/",
+      "newUrl": "/poleznaya-informaciya",
+      "category": "other",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/poluchit-grazhdanstvo-kyrgyzstana/",
+      "newUrl": "/poluchit-grazhdanstvo-kyrgyzstana",
+      "category": "other",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/",
+      "newUrl": "/sertifikat-na-tovar",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/aksessuary/",
+      "newUrl": "/sertifikat-na-tovar/aksessuary",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/armatura/",
+      "newUrl": "/sertifikat-na-tovar/armatura",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/bele/",
+      "newUrl": "/sertifikat-na-tovar/bele",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/beton/",
+      "newUrl": "/sertifikat-na-tovar/beton",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/bumazhno-belovaya-produktsiya/",
+      "newUrl": "/sertifikat-na-tovar/bumazhno-belovaya-produktsiya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/bytovaya-khimiya/",
+      "newUrl": "/sertifikat-na-tovar/bytovaya-khimiya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/bytovaya-tekhnika/",
+      "newUrl": "/sertifikat-na-tovar/bytovaya-tekhnika",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/chasy/",
+      "newUrl": "/sertifikat-na-tovar/chasy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-apparaturu-dlya-ochistki-gazov-i-zhidkostey/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-apparaturu-dlya-ochistki-gazov-i-zhidkostey",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-bumazhnuyu-i-kartonnuyu-upakovku/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-bumazhnuyu-i-kartonnuyu-upakovku",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-bumazhnuyu-upakovku-dlya-pishchevoy-produktsii/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-bumazhnuyu-upakovku-dlya-pishchevoy-produktsii",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-dekorativnye-tekstilnye-materialy/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-dekorativnye-tekstilnye-materialy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-derevoobrabatyvayushchee-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-derevoobrabatyvayushchee-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-elektricheskie-apparaty-i-pribory-ne-bytovogo-naznacheniya/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-elektricheskie-apparaty-i-pribory-ne-bytovogo-naznacheniya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-elektricheskoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-elektricheskoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-elektroustanovochnye-izdeliya/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-elektroustanovochnye-izdeliya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-frezy-tverdosplavnye/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-frezy-tverdosplavnye",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-gazoochistnoe-i-pyleulavlivayushchee-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-gazoochistnoe-i-pyleulavlivayushchee-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-instrument-abrazivnyy/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-instrument-abrazivnyy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-izdatelskuyu-knizhnuyu-produktsiyu/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-izdatelskuyu-knizhnuyu-produktsiyu",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-izdeliya-vtorogo-sloya-iz-chistosherstyanykh-tkaney/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-izdeliya-vtorogo-sloya-iz-chistosherstyanykh-tkaney",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-izdeliya-vtorogo-sloya-iz-naturalnykh-tkaney/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-izdeliya-vtorogo-sloya-iz-naturalnykh-tkaney",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-khimicheskoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-khimicheskoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kholodilnoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kholodilnoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kombinirovannuyu-pishchevuyu-upakovku/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kombinirovannuyu-pishchevuyu-upakovku",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kommunalnye-mashiny-i-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kommunalnye-mashiny-i-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kompressornoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kompressornoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-gigienicheskuyu-moyushchuyu-produktsiyu/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-gigienicheskuyu-moyushchuyu-produktsiyu",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-produktsiyu-dlya-ukhoda-za-kozhey/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-produktsiyu-dlya-ukhoda-za-kozhey",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-produktsiyu-dlya-ukhoda-za-volosami/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-produktsiyu-dlya-ukhoda-za-volosami",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-produktsiyu-dlya-vann/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmeticheskuyu-produktsiyu-dlya-vann",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmetiku-dlya-manikyura-i-pedikyura/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kosmetiku-dlya-manikyura-i-pedikyura",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kozhgalantereynye-izdeliya-iz-tekstilya-i-zamshi/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kozhgalantereynye-izdeliya-iz-tekstilya-i-zamshi",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-kuznechno-pressovye-mashiny/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-kuznechno-pressovye-mashiny",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-laboratornoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-laboratornoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-napolnyy-promyshlennyy-transport-bezrelsovyy/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-napolnyy-promyshlennyy-transport-bezrelsovyy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-nasosnoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-nasosnoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-neftepromyslovoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-neftepromyslovoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-gazotermicheskogo-napyleniya/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-gazotermicheskogo-napyleniya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-mukomolno-krupyanoy-otrasli/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-mukomolno-krupyanoy-otrasli",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-ochistki-pitevoy-vody/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-ochistki-pitevoy-vody",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-pererabotki-polimernykh-materialov/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-pererabotki-polimernykh-materialov",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-pishchevoy-promyshlennosti/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-pishchevoy-promyshlennosti",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-predpriyatiy-obshchepita/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-predpriyatiy-obshchepita",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-svarki/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-oborudovanie-dlya-svarki",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-obuv-osenne-zimnego-assortimenta/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-obuv-osenne-zimnego-assortimenta",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-odezhdu-tretego-sloya-dlya-vzroslykh/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-odezhdu-tretego-sloya-dlya-vzroslykh",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-odezhdu-tretego-sloya-iz-chistoy-shersti/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-odezhdu-tretego-sloya-iz-chistoy-shersti",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-odezhdu-vtorogo-sloya-iz-khlopchatobumazhnykh-tkaney/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-odezhdu-vtorogo-sloya-iz-khlopchatobumazhnykh-tkaney",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-pesok-prirodnyy-dlya-dorozhnogo-stroitelstva/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-pesok-prirodnyy-dlya-dorozhnogo-stroitelstva",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-poligraficheskoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-poligraficheskoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-polimernuyu-upakovku-dlya-pishchevoy-produktsii/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-polimernuyu-upakovku-dlya-pishchevoy-produktsii",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-postelnye-prinadlezhnosti/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-postelnye-prinadlezhnosti",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-prisposobleniya-dlya-gruzopodyemnykh-operatsiy/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-prisposobleniya-dlya-gruzopodyemnykh-operatsiy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-professionalnoe-svetovoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-professionalnoe-svetovoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennoe-elektrotekhnicheskoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennoe-elektrotekhnicheskoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennuyu-truboprovodnuyu-armaturu/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennuyu-truboprovodnuyu-armaturu",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennye-konditsionery/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennye-konditsionery",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennye-ventilyatory/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-promyshlennye-ventilyatory",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-shcheben-dlya-dorozhnogo-stroitelstva/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-shcheben-dlya-dorozhnogo-stroitelstva",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-shkolno-pismennye-prinadlezhnosti/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-shkolno-pismennye-prinadlezhnosti",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-sredstva-gigieny-polosti-rta/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-sredstva-gigieny-polosti-rta",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-stanki-metalloobrabatyvayushchie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-stanki-metalloobrabatyvayushchie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-stroitelnoe-oborudovanie-i-mashiny/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-stroitelnoe-oborudovanie-i-mashiny",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-stroitelnoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-stroitelnoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-tekhnologicheskoe-oborudovanie-dlya-pishchevoy-promyshlennosti/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-tekhnologicheskoe-oborudovanie-dlya-pishchevoy-promyshlennosti",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-tekstilno-galantereynye-izdeliya/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-tekstilno-galantereynye-izdeliya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-tekstilnye-materialy/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-tekstilnye-materialy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-verkhnie-trikotazhnye-izdeliya-2-go-sloya-iz-khlopchatobumazhnoy-pryazhi/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-verkhnie-trikotazhnye-izdeliya-2-go-sloya-iz-khlopchatobumazhnoy-pryazhi",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-verkhnyuyu-paltovuyu-odezhdu/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-verkhnyuyu-paltovuyu-odezhdu",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-zemleroynuyu-tekhniku/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-zemleroynuyu-tekhniku",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-zhenskie-trikotazhnye-izdeliya-vtorogo-sloya/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-zhenskie-trikotazhnye-izdeliya-vtorogo-sloya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-na-zhidkuyu-parfyumernuyu-produktsiyu/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-na-zhidkuyu-parfyumernuyu-produktsiyu",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-almaznyy-instrument/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-almaznyy-instrument",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-avtopogruzchiki/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-avtopogruzchiki",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-dizel-generatory/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-dizel-generatory",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-konveyery/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-konveyery",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-kozhgalantereynye-izdeliya/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-kozhgalantereynye-izdeliya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-liteynoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-liteynoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-oborudovanie-dlya-lkp/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-oborudovanie-dlya-lkp",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-rozetki-i-vyklyuchateli/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-rozetki-i-vyklyuchateli",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-steklyannuyu-upakovku/",
+      "newUrl": "/sertifikat-na-tovar/deklaratsiya-sootvetstviya-na-steklyannuyu-upakovku",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/detskie-ploshchadki/",
+      "newUrl": "/sertifikat-na-tovar/detskie-ploshchadki",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/detskie-tovary/",
+      "newUrl": "/sertifikat-na-tovar/detskie-tovary",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/dez-sredstva/",
+      "newUrl": "/sertifikat-na-tovar/dez-sredstva",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/dveri/",
+      "newUrl": "/sertifikat-na-tovar/dveri",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/dvigateli/",
+      "newUrl": "/sertifikat-na-tovar/dvigateli",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/eko-sertifikatsiya-gostinits/",
+      "newUrl": "/sertifikat-na-tovar/eko-sertifikatsiya-gostinits",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/emkosti/",
+      "newUrl": "/sertifikat-na-tovar/emkosti",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/gazovoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/gazovoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/germetik/",
+      "newUrl": "/sertifikat-na-tovar/germetik",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/gipsokarton/",
+      "newUrl": "/sertifikat-na-tovar/gipsokarton",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/hleba/",
+      "newUrl": "/sertifikat-na-tovar/hleba",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/igrushki/",
+      "newUrl": "/sertifikat-na-tovar/igrushki",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/instrument/",
+      "newUrl": "/sertifikat-na-tovar/instrument",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kabel/",
+      "newUrl": "/sertifikat-na-tovar/kabel",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kirpich/",
+      "newUrl": "/sertifikat-na-tovar/kirpich",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kley/",
+      "newUrl": "/sertifikat-na-tovar/kley",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kompyutery/",
+      "newUrl": "/sertifikat-na-tovar/kompyutery",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/konditsionery/",
+      "newUrl": "/sertifikat-na-tovar/konditsionery",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/konteynery/",
+      "newUrl": "/sertifikat-na-tovar/konteynery",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kosmetiki/",
+      "newUrl": "/sertifikat-na-tovar/kosmetiki",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kotel/",
+      "newUrl": "/sertifikat-na-tovar/kotel",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kovrovye-pokrytiya/",
+      "newUrl": "/sertifikat-na-tovar/kovrovye-pokrytiya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/krany-sharovye/",
+      "newUrl": "/sertifikat-na-tovar/krany-sharovye",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/krany/",
+      "newUrl": "/sertifikat-na-tovar/krany",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/kraski/",
+      "newUrl": "/sertifikat-na-tovar/kraski",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/krepezh/",
+      "newUrl": "/sertifikat-na-tovar/krepezh",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/laminat/",
+      "newUrl": "/sertifikat-na-tovar/laminat",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/lampy/",
+      "newUrl": "/sertifikat-na-tovar/lampy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/lateksnye-izdeliya/",
+      "newUrl": "/sertifikat-na-tovar/lateksnye-izdeliya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/linoleum/",
+      "newUrl": "/sertifikat-na-tovar/linoleum",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/masel/",
+      "newUrl": "/sertifikat-na-tovar/masel",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/materialy/",
+      "newUrl": "/sertifikat-na-tovar/materialy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/mebel/",
+      "newUrl": "/sertifikat-na-tovar/mebel",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/moloko/",
+      "newUrl": "/sertifikat-na-tovar/moloko",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/moushie-sredstva/",
+      "newUrl": "/sertifikat-na-tovar/moushie-sredstva",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/nizhnie-bele/",
+      "newUrl": "/sertifikat-na-tovar/nizhnie-bele",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/nizkovoltnoe-oborudovanie/",
+      "newUrl": "/sertifikat-na-tovar/nizkovoltnoe-oborudovanie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/obuv/",
+      "newUrl": "/sertifikat-na-tovar/obuv",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/odeyala/",
+      "newUrl": "/sertifikat-na-tovar/odeyala",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/odezhda-i-bele/",
+      "newUrl": "/sertifikat-na-tovar/odezhda-i-bele",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/okna/",
+      "newUrl": "/sertifikat-na-tovar/okna",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/perchatki-meditsinskie/",
+      "newUrl": "/sertifikat-na-tovar/perchatki-meditsinskie",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/pilomaterialy/",
+      "newUrl": "/sertifikat-na-tovar/pilomaterialy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/posuda/",
+      "newUrl": "/sertifikat-na-tovar/posuda",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/prodykti-pitania/",
+      "newUrl": "/sertifikat-na-tovar/prodykti-pitania",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/rezinovaya-obuv/",
+      "newUrl": "/sertifikat-na-tovar/rezinovaya-obuv",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/rukava-vysokogo-davleniya/",
+      "newUrl": "/sertifikat-na-tovar/rukava-vysokogo-davleniya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-chaya/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-chaya",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-detskoy-odezhdy/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-detskoy-odezhdy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-fanery/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-fanery",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-futbolok/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-futbolok",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-importnoy-produktsii/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-importnoy-produktsii",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-konditerskikh-izdeliy/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-konditerskikh-izdeliy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-montazhnoy-peny/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-montazhnoy-peny",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-pelmeney/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-pelmeney",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-peska/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-peska",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-polietilena/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-polietilena",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-semyan/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-semyan",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-svetilnikov/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-svetilnikov",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-tsementa/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-tsementa",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sertifikatsiya-zubnykh-shchetok/",
+      "newUrl": "/sertifikat-na-tovar/sertifikatsiya-zubnykh-shchetok",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/shvejnie-izdelia/",
+      "newUrl": "/sertifikat-na-tovar/shvejnie-izdelia",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/spez-odezhdy/",
+      "newUrl": "/sertifikat-na-tovar/spez-odezhdy",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/sumok/",
+      "newUrl": "/sertifikat-na-tovar/sumok",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/tara-i-upakovka/",
+      "newUrl": "/sertifikat-na-tovar/tara-i-upakovka",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/tekstil/",
+      "newUrl": "/sertifikat-na-tovar/tekstil",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/truby/",
+      "newUrl": "/sertifikat-na-tovar/truby",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/tualetnaya-bumaga/",
+      "newUrl": "/sertifikat-na-tovar/tualetnaya-bumaga",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/ventilyatory/",
+      "newUrl": "/sertifikat-na-tovar/ventilyatory",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/zadvizhki/",
+      "newUrl": "/sertifikat-na-tovar/zadvizhki",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/zamki/",
+      "newUrl": "/sertifikat-na-tovar/zamki",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/sertifikat-na-tovar/zapasnye-chasti/",
+      "newUrl": "/sertifikat-na-tovar/zapasnye-chasti",
+      "category": "products",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/video-blog/",
+      "newUrl": "/video-blog",
+      "category": "news",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/",
+      "newUrl": "/vidy-sertifikacii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/bezopasnosti/",
+      "newUrl": "/vidy-sertifikacii/bezopasnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-dlya-ozon/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-dlya-ozon",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-dlya-wildberries/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-dlya-wildberries",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-beton/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-beton",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-khleb/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-khleb",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-konditerskie-izdeliya/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-konditerskie-izdeliya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-meditsinskie-izdeliya/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-meditsinskie-izdeliya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-molochnuyu-produktsiyu/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-molochnuyu-produktsiyu",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-myed/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-myed",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-oborudovanie/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-oborudovanie",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-odezhdu/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-odezhdu",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-ovoshchi/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-ovoshchi",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-retsirkulyator/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-retsirkulyator",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-syr/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-na-syr",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-antiseptiki-dlya-ruk/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-antiseptiki-dlya-ruk",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-kartofel/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-kartofel",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-kitayskiy-tovar/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-kitayskiy-tovar",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-krem/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-krem",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-mebel/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-mebel",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-noski/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-noski",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-pakety/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-pakety",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-parfyumeriyu/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-parfyumeriyu",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-pelmeni/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-pelmeni",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-pesok/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-pesok",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-podsolnechnik/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-podsolnechnik",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-polotentsa/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-polotentsa",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-ryukzaki/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-ryukzaki",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-shokolad/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-shokolad",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-shtory/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-shtory",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-sumki/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-sumki",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-vodu/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-vodu",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-zelen/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-zelen",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-zerno/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklaratsiya-sootvetstviya-na-zerno",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-kosmetiki/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-kosmetiki",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-masla/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-masla",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-myla/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-myla",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-pshenitsy/",
+      "newUrl": "/vidy-sertifikacii/deklarirovanie-/deklarirovanie-pshenitsy",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/drugie-uslugi/",
+      "newUrl": "/vidy-sertifikacii/drugie-uslugi",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/drugie-uslugi/rtpp-remonta-tekhniki/",
+      "newUrl": "/vidy-sertifikacii/drugie-uslugi/rtpp-remonta-tekhniki",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/",
+      "newUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/eko-sertifikatsiya-kosmetiki/",
+      "newUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/eko-sertifikatsiya-kosmetiki",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/eko-sertifikatsiya-proizvodstva/",
+      "newUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/eko-sertifikatsiya-proizvodstva",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/ekologicheskaya-markirovka/",
+      "newUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/ekologicheskaya-markirovka",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/ekologicheskaya-sertifikatsiya-pishchevoy-produktsii/",
+      "newUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/ekologicheskaya-sertifikatsiya-pishchevoy-produktsii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/ekologicheskiy-audit/",
+      "newUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/ekologicheskiy-audit",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/sertifikatsiya-ekologicheskogo-menedzhmenta-iso-14001/",
+      "newUrl": "/vidy-sertifikacii/eko-sertifikatsiya-i-deklarirovanie/sertifikatsiya-ekologicheskogo-menedzhmenta-iso-14001",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzii-na-provedenie-predreysovykh-meditsinskikh-osmotrov/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzii-na-provedenie-predreysovykh-meditsinskikh-osmotrov",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-detskoy-stomatologii/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-detskoy-stomatologii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-meditsinskogo-massazha/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-meditsinskogo-massazha",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-meditsinskoy-deyatelnosti-po-profilyu-kosmetologiya/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-meditsinskoy-deyatelnosti-po-profilyu-kosmetologiya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-narkologicheskoy-deyatelnosti/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-narkologicheskoy-deyatelnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-pediatricheskoy-deyatelnosti/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-pediatricheskoy-deyatelnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-psikhiatricheskoy-deyatelnosti/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-psikhiatricheskoy-deyatelnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-terapevticheskoy-deyatelnosti/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenzirovanie-terapevticheskoy-deyatelnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenziya-na-stomatologicheskuyu-deyatelnost/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/litsenziya-na-stomatologicheskuyu-deyatelnost",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/meditsinskaya-litsenziya-na-khirurgiyu/",
+      "newUrl": "/vidy-sertifikacii/litsenzirovanie-meditsinskoy-deyatelnosti/meditsinskaya-litsenziya-na-khirurgiyu",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/podgotovka-predpriyatiya-k-attestacii/",
+      "newUrl": "/vidy-sertifikacii/podgotovka-predpriyatiya-k-attestacii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/prodlenie/",
+      "newUrl": "/vidy-sertifikacii/prodlenie",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/prodlenie/prodlenie-deklaratsii-sootvetstviya/",
+      "newUrl": "/vidy-sertifikacii/prodlenie/prodlenie-deklaratsii-sootvetstviya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/prodlenie/prodlenie-registratsionnogo-udostovereniya/",
+      "newUrl": "/vidy-sertifikacii/prodlenie/prodlenie-registratsionnogo-udostovereniya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/prodlenie/prodlenie-sertifikata-sootvetstviya/",
+      "newUrl": "/vidy-sertifikacii/prodlenie/prodlenie-sertifikata-sootvetstviya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/prodlenie/prodlenie-tekhnicheskikh-usloviy/",
+      "newUrl": "/vidy-sertifikacii/prodlenie/prodlenie-tekhnicheskikh-usloviy",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/registratsiya-medizdeliy/",
+      "newUrl": "/vidy-sertifikacii/registratsiya-medizdeliy",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/registratsiya-medizdeliy/uskorennaya-registratsiya-meditsinskikh-izdeliy-po-pp-299/",
+      "newUrl": "/vidy-sertifikacii/registratsiya-medizdeliy/uskorennaya-registratsiya-meditsinskikh-izdeliy-po-pp-299",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/beru/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/beru",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/detskiy-mir/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/detskiy-mir",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/goods/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/goods",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/lenta/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/lenta",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/lerua-merlen/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/lerua-merlen",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/metro/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/metro",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/o-key/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/o-key",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/ozon/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/ozon",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/perekrestok/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/perekrestok",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/wildberries/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-dlya-marketpleysov/wildberries",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/dobrovolnyy-pozharnyy-sertifikat/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/dobrovolnyy-pozharnyy-sertifikat",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/otkaznoe-pismo-po-pozharnoy-bezopasnosti/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/otkaznoe-pismo-po-pozharnoy-bezopasnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-krasku/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-krasku",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-laminat/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-laminat",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-linoleum/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-linoleum",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-natyazhnye-potolki/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-natyazhnye-potolki",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-oboi/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-oboi",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-otdelochnye-materialy/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-otdelochnye-materialy",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-paneli-mdf/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-paneli-mdf",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-sendvich-paneli/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikat-pozharnoy-bezopasnosti-na-sendvich-paneli",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikatsiya-pozharnoy-bezopasnosti/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-pozharnoy-bezopasnosti/sertifikatsiya-pozharnoy-bezopasnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/certifikat-pri-vvoze-vyvoze-tovarov/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/certifikat-pri-vvoze-vyvoze-tovarov",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/certifikat-sootvetstviya/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/certifikat-sootvetstviya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/deklaratsiya-sootvetstviya-gost-r/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/deklaratsiya-sootvetstviya-gost-r",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/deklaratsiya-sootvetstviya-tr-ts/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/deklaratsiya-sootvetstviya-tr-ts",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/ekologicheskiy-sertifikat/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/ekologicheskiy-sertifikat",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/ekspertnoe-zaklyuchenie-po-sanitarno-epidemiologicheskim-normam/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/ekspertnoe-zaklyuchenie-po-sanitarno-epidemiologicheskim-normam",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/obyazatelnaya-i-dobrovolnaya-sertifikatsii/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/obyazatelnaya-i-dobrovolnaya-sertifikatsii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/otkaznoe-pismo/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/otkaznoe-pismo",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/registratsionnoe-udostoverenie-na-meditsinskie-izdeliya/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/registratsionnoe-udostoverenie-na-meditsinskie-izdeliya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/registratsionnoe-udostoverenie/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/registratsionnoe-udostoverenie",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikat-sootvetstviya-gost-r/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikat-sootvetstviya-gost-r",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikat-tamozhennogo-soyuza/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikat-tamozhennogo-soyuza",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikatsiya-khalyal/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikatsiya-khalyal",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikatsiya-po-standartu-iso-13485/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/sertifikatsiya-po-standartu-iso-13485",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/svidetelstvo-o-gosregistratsii/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/svidetelstvo-o-gosregistratsii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/vnesenie-izmeneniy-v-registratsionnoe-udostoverenie-viru/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-produktsii/vnesenie-izmeneniy-v-registratsionnoe-udostoverenie-viru",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/fssc-22000/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/fssc-22000",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/khaspp/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/khaspp",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/khassp-audit/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/khassp-audit",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/oformlenie-sertifikata-kachestva/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/oformlenie-sertifikata-kachestva",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/podgotovka-k-auditu-federalnykh-setey/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/podgotovka-k-auditu-federalnykh-setey",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikat-iso-9001/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikat-iso-9001",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikat-kachestva/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikat-kachestva",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikatsiya-gmp/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikatsiya-gmp",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikatsiya-proizvodstva/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-proizvodstva/sertifikatsiya-proizvodstva",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/avtoservisa/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/avtoservisa",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/gostinichnyh/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/gostinichnyh",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/obshchestvennogo-pitaniya/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/obshchestvennogo-pitaniya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/parikmaherskih/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/parikmaherskih",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/passazhirskih-perevozok/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/passazhirskih-perevozok",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikat-na-uslugi/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikat-na-uslugi",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikatsiya-dorozhnykh-znakov/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikatsiya-dorozhnykh-znakov",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikatsiya-torgovykh-uslug/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikatsiya-torgovykh-uslug",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikatsiya-zhks-kachestvo/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/sertifikatsiya-zhks-kachestvo",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/stroitelnyh/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/stroitelnyh",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/turistskih/",
+      "newUrl": "/vidy-sertifikacii/sertifikatsiya-uslug/turistskih",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/shtrikhkodirovanie/",
+      "newUrl": "/vidy-sertifikacii/shtrikhkodirovanie",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/shtrikhkodirovanie/markirovka-chestnyy-znak/",
+      "newUrl": "/vidy-sertifikacii/shtrikhkodirovanie/markirovka-chestnyy-znak",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/shtrikhkodirovanie/shtrikhkodirovanie/",
+      "newUrl": "/vidy-sertifikacii/shtrikhkodirovanie/shtrikhkodirovanie",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-bytovaya-himiya/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-bytovaya-himiya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-detskaya-produktsiya/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-detskaya-produktsiya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-dezinfekciya/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-dezinfekciya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-bady/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-bady",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-kosmetiku/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-kosmetiku",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-pishhevuyu-produktsiyu-eaes/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-pishhevuyu-produktsiyu-eaes",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-pitevuyu-i-butilirovannuyu-vodu/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-pitevuyu-i-butilirovannuyu-vodu",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-sanitarno-gigienicheskie-i-tekhnicheskie-sredstva/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-sanitarno-gigienicheskie-i-tekhnicheskie-sredstva",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-vodu/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/sgr-na-vodu",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/state-registration-certificate/",
+      "newUrl": "/vidy-sertifikacii/svidetelstvo-o-gosudarstvennoy-registratsii-sgr/state-registration-certificate",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/legkoj-promishlennosti/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/legkoj-promishlennosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/obosnovanie-bezopasnosti/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/obosnovanie-bezopasnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/pasport-bezopasnosti-msds/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/pasport-bezopasnosti-msds",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/pasport-bezopasnosti/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/pasport-bezopasnosti",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/protokol-ispytaniy/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/protokol-ispytaniy",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/rabot/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/rabot",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/razrabotka-standarta-organizatsii/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/razrabotka-standarta-organizatsii",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/razrabotka-tekhnologicheskikh-instruktsiy/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/razrabotka-tekhnologicheskikh-instruktsiy",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/tekhnicheskie-usloviya/",
+      "newUrl": "/vidy-sertifikacii/tekhnicheskaya-dokumentatsiya/tekhnicheskie-usloviya",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/",
+      "newUrl": "/vidy-sertifikacii/tr-ts",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/eaes-044-2017-o-bezopasnosti-upakovannoy-pitevoy-vody-vklyuchaya-prirodnuyu-mineralnuyu-vodu/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/eaes-044-2017-o-bezopasnosti-upakovannoy-pitevoy-vody-vklyuchaya-prirodnuyu-mineralnuyu-vodu",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/sertifikaciya-vzryvozashchity-012-2011/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/sertifikaciya-vzryvozashchity-012-2011",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-eaes-040-2016-o-bezopasnosti-ryby-i-rybnoy-produktsii/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-eaes-040-2016-o-bezopasnosti-ryby-i-rybnoy-produktsii",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-eaes-041-2017-o-bezopasnosti-khimicheskoy-produktsii/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-eaes-041-2017-o-bezopasnosti-khimicheskoy-produktsii",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-eaes-043-2017-o-trebovaniyakh-k-sredstvam-obespecheniya-pozharnoy-bezopasnosti-i-pozharotusheniya/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-eaes-043-2017-o-trebovaniyakh-k-sredstvam-obespecheniya-pozharnoy-bezopasnosti-i-pozharotusheniya",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-004-2011-o-bezopasnosti-nizkovoltnogo-oborudovaniya/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-004-2011-o-bezopasnosti-nizkovoltnogo-oborudovaniya",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-005-2011-o-bezopasnosti-upakovki/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-005-2011-o-bezopasnosti-upakovki",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-007-2011-o-bezopasnosti-produktsii-prednaznachennoy-dlya-detey-i-podrostkov/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-007-2011-o-bezopasnosti-produktsii-prednaznachennoy-dlya-detey-i-podrostkov",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-009-2011-o-bezopasnosti-parfyumerno-kosmeticheskoy-produktsii-/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-009-2011-o-bezopasnosti-parfyumerno-kosmeticheskoy-produktsii",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-010-2011-o-bezopasnosti-mashin-i-oborudovaniya/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-010-2011-o-bezopasnosti-mashin-i-oborudovaniya",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-013-2011-o-trebovaniyakh-k-avtomobilnomu-i-aviatsionnomu-benzinu-dizelnomu-i-sudovomu-toplivu-/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-013-2011-o-trebovaniyakh-k-avtomobilnomu-i-aviatsionnomu-benzinu-dizelnomu-i-sudovomu-toplivu",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-015-2011-o-bezopasnosti-zerna/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-015-2011-o-bezopasnosti-zerna",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-016-2011-o-bezopasnosti-apparatov-rabotayushchikh-na-gazoobraznom-toplive/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-016-2011-o-bezopasnosti-apparatov-rabotayushchikh-na-gazoobraznom-toplive",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-017-2011-o-bezopasnosti-produktsii-legkoy-promyshlennosti/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-017-2011-o-bezopasnosti-produktsii-legkoy-promyshlennosti",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-018-2011-o-bezopasnosti-kolesnykh-transportnykh-sredstv/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-018-2011-o-bezopasnosti-kolesnykh-transportnykh-sredstv",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-019-2011-o-bezopasnosti-sredstv-individualnoy-zashchity/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-019-2011-o-bezopasnosti-sredstv-individualnoy-zashchity",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-020-2011-elektromagnitnaya-sovmestimost-tekhnicheskikh-sredstv-/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-020-2011-elektromagnitnaya-sovmestimost-tekhnicheskikh-sredstv",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-021-2011-o-bezopasnosti-pishchevoy-produktsii/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-021-2011-o-bezopasnosti-pishchevoy-produktsii",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-022-2011-pishchevaya-produktsiya-v-chasti-ee-markirovki/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-022-2011-pishchevaya-produktsiya-v-chasti-ee-markirovki",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-023-2011-tekhnicheskiy-reglament-na-sokovuyu-produktsiyu-iz-fruktov-i-ovoshchey/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-023-2011-tekhnicheskiy-reglament-na-sokovuyu-produktsiyu-iz-fruktov-i-ovoshchey",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-024-2011-tekhnicheskiy-reglament-na-maslozhirovuyu-produktsiyu/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-024-2011-tekhnicheskiy-reglament-na-maslozhirovuyu-produktsiyu",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-025-2012-o-bezopasnosti-mebelnoy-produktsii-/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-025-2012-o-bezopasnosti-mebelnoy-produktsii",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-029-2012-trebovaniya-bezopasnosti-pishchevykh-dobavok-aromatizatorov-i-tekhnologicheskikh-vspo/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-029-2012-trebovaniya-bezopasnosti-pishchevykh-dobavok-aromatizatorov-i-tekhnologicheskikh-vspo",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-030-2012-o-trebovaniyakh-k-smazochnym-materialam-maslam-i-spetsialnym-zhidkostyam/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-030-2012-o-trebovaniyakh-k-smazochnym-materialam-maslam-i-spetsialnym-zhidkostyam",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-031-2012-o-bezopasnosti-selskokhozyaystvennykh-i-lesokhozyaystvennykh-traktorov-i-pritsepov-k-/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-031-2012-o-bezopasnosti-selskokhozyaystvennykh-i-lesokhozyaystvennykh-traktorov-i-pritsepov-k",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-032-2013-o-bezopasnosti-oborudovaniya-rabotayushchego-pod-izbytochnym-davleniem/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-032-2013-o-bezopasnosti-oborudovaniya-rabotayushchego-pod-izbytochnym-davleniem",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-033-2013-o-bezopasnosti-moloka-i-molochnoy-produktsii/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-033-2013-o-bezopasnosti-moloka-i-molochnoy-produktsii",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/tr-ts/tr-ts-034-2013-o-bezopasnosti-myasa-i-myasnoy-produktsii/",
+      "newUrl": "/vidy-sertifikacii/tr-ts/tr-ts-034-2013-o-bezopasnosti-myasa-i-myasnoy-produktsii",
+      "category": "regulations",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "high"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/vyhod-na-mezhdunarodnye-rynki/",
+      "newUrl": "/vidy-sertifikacii/vyhod-na-mezhdunarodnye-rynki",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/vidy-sertifikacii/vyhod-na-mezhdunarodnye-rynki/oae/",
+      "newUrl": "/vidy-sertifikacii/vyhod-na-mezhdunarodnye-rynki/oae",
+      "category": "services",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "low"
+    },
+    {
+      "oldUrl": "/zao-laboratoriya-kasperskogo/",
+      "newUrl": "/zao-laboratoriya-kasperskogo",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    },
+    {
+      "oldUrl": "/zao-mikoyanovskiy-myasokombinat/",
+      "newUrl": "/zao-mikoyanovskiy-myasokombinat",
+      "category": "clients",
+      "title": "",
+      "description": "",
+      "h1": "",
+      "status": "pending",
+      "priority": "medium"
+    }
+  ],
+  "redirects": [
+    {
+      "from": "/akkreditatsiya_old/",
+      "to": "/akkreditatsiya",
+      "type": 301
+    },
+    {
+      "from": "/new_gsg-rt.ru/*",
+      "to": "/",
+      "type": 301
+    },
+    {
+      "from": "/questions_and_answers/*",
+      "to": "/o-nas/voprosy-i-otvety",
+      "type": 301
+    },
+    {
+      "from": "/qa.php",
+      "to": "/o-nas/voprosy-i-otvety",
+      "type": 301
+    },
+    {
+      "from": "/o-nas/index_old.php",
+      "to": "/o-nas",
+      "type": 301
+    },
+    {
+      "from": "/o-nas/voprosy-i-otvety/index_old.php",
+      "to": "/o-nas/voprosy-i-otvety",
+      "type": 301
+    }
+  ],
+  "categories": [
+    {
+      "id": "main",
+      "name": "Главная",
+      "icon": "home"
+    },
+    {
+      "id": "services",
+      "name": "Виды сертификации",
+      "icon": "clipboard"
+    },
+    {
+      "id": "products",
+      "name": "Сертификат на товар",
+      "icon": "package"
+    },
+    {
+      "id": "regulations",
+      "name": "ТР ТС",
+      "icon": "file-text"
+    },
+    {
+      "id": "about",
+      "name": "О компании",
+      "icon": "building"
+    },
+    {
+      "id": "contacts",
+      "name": "Контакты",
+      "icon": "phone"
+    },
+    {
+      "id": "clients",
+      "name": "Клиенты",
+      "icon": "users"
+    },
+    {
+      "id": "news",
+      "name": "Новости",
+      "icon": "newspaper"
+    },
+    {
+      "id": "other",
+      "name": "Прочее",
+      "icon": "folder"
+    }
+  ]
+}
