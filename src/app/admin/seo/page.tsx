@@ -3,6 +3,9 @@
 import { useState, useEffect, useMemo } from 'react';
 import seoData from '@/data/seo-pages.json';
 
+// Простой пароль для SEO специалиста (в продакшене используйте env переменные)
+const SEO_PASSWORD = 'gsg2025seo';
+
 interface Page {
   oldUrl: string;
   newUrl: string;
@@ -29,7 +32,70 @@ interface Redirect {
 
 type TabType = 'pages' | 'redirects' | 'cities' | 'import' | 'analytics';
 
+// Компонент авторизации
+function LoginForm({ onLogin }: { onLogin: () => void }) {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === SEO_PASSWORD) {
+      localStorage.setItem('seo_auth', 'true');
+      onLogin();
+    } else {
+      setError('Неверный пароль');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-slate-100 flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-slate-800">SEO Панель</h1>
+          <p className="text-slate-500 mt-2">ГОСТСЕРТГРУПП</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-2">
+              Пароль доступа
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => { setPassword(e.target.value); setError(''); }}
+              className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+              placeholder="Введите пароль"
+              autoFocus
+            />
+            {error && (
+              <p className="text-red-500 text-sm mt-2">{error}</p>
+            )}
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          >
+            Войти
+          </button>
+        </form>
+
+        <p className="text-center text-sm text-slate-400 mt-6">
+          Для получения доступа обратитесь к администратору
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function SEOAdminPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<TabType>('pages');
   const [pages, setPages] = useState<Page[]>(seoData.pages as Page[]);
   const [cities] = useState<City[]>(seoData.cities as City[]);
@@ -44,6 +110,32 @@ export default function SEOAdminPage() {
   // Import state
   const [importText, setImportText] = useState('');
   const [importedUrls, setImportedUrls] = useState<string[]>([]);
+
+  // Check auth on mount
+  useEffect(() => {
+    const auth = localStorage.getItem('seo_auth');
+    setIsAuthenticated(auth === 'true');
+    setIsLoading(false);
+  }, []);
+
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem('seo_auth');
+    setIsAuthenticated(false);
+  };
+
+  // Show login if not authenticated
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <LoginForm onLogin={() => setIsAuthenticated(true)} />;
+  }
 
   // Stats
   const stats = useMemo(() => {
@@ -215,6 +307,15 @@ async redirects() {
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Генерировать redirects
+              </button>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Выйти
               </button>
             </div>
           </div>
