@@ -13,23 +13,22 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
-      {/* Верхняя полоса */}
-      <div className="bg-slate-900 text-white py-2">
+      {/* Верхняя полоса — лёгкая и элегантная */}
+      <div className="bg-slate-50 border-b border-slate-100 py-2">
         <div className="container mx-auto px-4 flex justify-between items-center text-sm">
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            <span className="flex items-center gap-1.5 text-slate-600">
+              <svg className="w-3.5 h-3.5 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
               </svg>
               <span>г. {SITE_CONFIG.address.city}</span>
             </span>
-            <a href={`mailto:${SITE_CONFIG.email}`} className="hover:text-blue-400 transition-colors">
+            <a href={`mailto:${SITE_CONFIG.email}`} className="text-slate-600 hover:text-blue-600 transition-colors">
               {SITE_CONFIG.email}
             </a>
           </div>
           <div className="hidden md:flex items-center gap-4">
-            <span className="text-slate-400">{SITE_CONFIG.workingHours}</span>
+            <span className="text-slate-500">{SITE_CONFIG.workingHours}</span>
           </div>
         </div>
       </div>

@@ -60,15 +60,52 @@ function CategoryIcon({ type }: { type: string }) {
   return icons[type] || icons.food;
 }
 
-// Быстрые примеры для расчёта
+// Быстрые примеры для расчёта — единый премиальный стиль
 const QUICK_EXAMPLES = [
-  { name: 'Детская игрушка', code: '9503', icon: '🧸', color: 'from-green-100 to-green-50 border-green-300 hover:border-green-400' },
-  { name: 'Косметика', code: '3304', icon: '💄', color: 'from-pink-100 to-pink-50 border-pink-300 hover:border-pink-400' },
-  { name: 'Одежда', code: '62', icon: '👕', color: 'from-blue-100 to-blue-50 border-blue-300 hover:border-blue-400' },
-  { name: 'Бытовая химия', code: '3402', icon: '🧴', color: 'from-purple-100 to-purple-50 border-purple-300 hover:border-purple-400' },
-  { name: 'Продукты питания', code: '21', icon: '🍎', color: 'from-orange-100 to-orange-50 border-orange-300 hover:border-orange-400' },
-  { name: 'Электроника', code: '85', icon: '📱', color: 'from-slate-100 to-slate-50 border-slate-300 hover:border-slate-400' },
+  { name: 'Детская игрушка', code: '9503', iconType: 'toy' },
+  { name: 'Косметика', code: '3304', iconType: 'cosmetic' },
+  { name: 'Одежда', code: '62', iconType: 'clothing' },
+  { name: 'Бытовая химия', code: '3402', iconType: 'chemistry' },
+  { name: 'Продукты питания', code: '21', iconType: 'food' },
+  { name: 'Электроника', code: '85', iconType: 'electronics' },
 ];
+
+// SVG иконки для примеров
+function ExampleIcon({ type }: { type: string }) {
+  const icons: Record<string, React.ReactElement> = {
+    toy: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+      </svg>
+    ),
+    cosmetic: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+      </svg>
+    ),
+    clothing: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+      </svg>
+    ),
+    chemistry: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+      </svg>
+    ),
+    food: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m18-4.5a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    electronics: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+      </svg>
+    ),
+  };
+  return icons[type] || icons.toy;
+}
 
 // Компактная визуализация документа
 function DocumentVisualCompact({ type, regulation }: { type: DocumentType; regulation?: string }) {
@@ -291,7 +328,7 @@ export function Hero() {
                       <p className="text-slate-700 font-medium text-sm">Попробуйте на примере:</p>
                     </div>
 
-                    {/* Сетка быстрых примеров */}
+                    {/* Сетка быстрых примеров — единый премиальный стиль */}
                     <div className="grid grid-cols-2 gap-2">
                       {QUICK_EXAMPLES.map((example) => (
                         <button
@@ -302,10 +339,12 @@ export function Hero() {
                             const result = determineCertification(example.code, example.name);
                             setCalcResult(result);
                           }}
-                          className={`flex items-center gap-2 p-3 rounded-xl bg-gradient-to-br ${example.color} border-2 transition-all hover:shadow-md hover:scale-[1.02] active:scale-[0.98]`}
+                          className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-all hover:shadow-sm group"
                         >
-                          <span className="text-xl">{example.icon}</span>
-                          <span className="text-xs font-medium text-slate-700 text-left leading-tight">{example.name}</span>
+                          <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 group-hover:border-blue-300 group-hover:bg-blue-50 flex items-center justify-center text-slate-500 group-hover:text-blue-600 transition-colors flex-shrink-0">
+                            <ExampleIcon type={example.iconType} />
+                          </div>
+                          <span className="text-sm font-medium text-slate-700 group-hover:text-blue-700 text-left leading-tight transition-colors">{example.name}</span>
                         </button>
                       ))}
                     </div>
