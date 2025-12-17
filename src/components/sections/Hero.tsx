@@ -339,9 +339,9 @@ export function Hero() {
                             const result = determineCertification(example.code, example.name);
                             setCalcResult(result);
                           }}
-                          className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 transition-all hover:shadow-sm group"
+                          className="flex items-center gap-2.5 p-3 rounded-xl bg-white hover:bg-blue-50 border border-slate-200 hover:border-blue-400 transition-all hover:shadow-md group"
                         >
-                          <div className="w-8 h-8 rounded-lg bg-white border border-slate-200 group-hover:border-blue-300 group-hover:bg-blue-50 flex items-center justify-center text-slate-500 group-hover:text-blue-600 transition-colors flex-shrink-0">
+                          <div className="w-9 h-9 rounded-lg bg-blue-50 border border-blue-100 group-hover:bg-blue-100 group-hover:border-blue-300 flex items-center justify-center text-blue-500 group-hover:text-blue-600 transition-colors flex-shrink-0">
                             <ExampleIcon type={example.iconType} />
                           </div>
                           <span className="text-sm font-medium text-slate-700 group-hover:text-blue-700 text-left leading-tight transition-colors">{example.name}</span>
@@ -349,29 +349,6 @@ export function Hero() {
                       ))}
                     </div>
 
-                    {/* Разделитель */}
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-slate-200"></div>
-                      </div>
-                      <div className="relative flex justify-center">
-                        <span className="bg-white px-3 text-xs text-slate-400">или</span>
-                      </div>
-                    </div>
-
-                    {/* Призыв к поиску */}
-                    <div className="text-center bg-blue-50 rounded-xl p-4">
-                      <div className="flex items-center justify-center gap-2 text-blue-600 mb-2">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <span className="font-semibold text-sm">Найдите свой товар</span>
-                      </div>
-                      <p className="text-xs text-slate-500">
-                        Введите название в поиске слева<br />
-                        и выберите из {getTNVEDCount().toLocaleString()} кодов ТН ВЭД
-                      </p>
-                    </div>
                   </div>
                 ) : (
                   /* Результат - компактный */
