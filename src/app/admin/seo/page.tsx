@@ -111,6 +111,27 @@ export default function SEOAdminPage() {
   const [importText, setImportText] = useState('');
   const [importedUrls, setImportedUrls] = useState<string[]>([]);
 
+  // Stats - MUST be before any conditional returns (React hooks rules)
+  const stats = useMemo(() => {
+    const total = pages.length;
+    const done = pages.filter(p => p.status === 'done').length;
+    const inProgress = pages.filter(p => p.status === 'in_progress').length;
+    const pending = pages.filter(p => p.status === 'pending').length;
+    const highPriority = pages.filter(p => p.priority === 'high' && p.status !== 'done').length;
+    return { total, done, inProgress, pending, highPriority, progress: Math.round((done / total) * 100) };
+  }, [pages]);
+
+  // Filtered pages - MUST be before any conditional returns
+  const filteredPages = useMemo(() => {
+    return pages.filter(page => {
+      const matchesSearch = page.oldUrl.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           page.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesStatus = statusFilter === 'all' || page.status === statusFilter;
+      const matchesCategory = categoryFilter === 'all' || page.category === categoryFilter;
+      return matchesSearch && matchesStatus && matchesCategory;
+    });
+  }, [pages, searchQuery, statusFilter, categoryFilter]);
+
   // Check auth on mount
   useEffect(() => {
     const auth = localStorage.getItem('seo_auth');
@@ -136,27 +157,6 @@ export default function SEOAdminPage() {
   if (!isAuthenticated) {
     return <LoginForm onLogin={() => setIsAuthenticated(true)} />;
   }
-
-  // Stats
-  const stats = useMemo(() => {
-    const total = pages.length;
-    const done = pages.filter(p => p.status === 'done').length;
-    const inProgress = pages.filter(p => p.status === 'in_progress').length;
-    const pending = pages.filter(p => p.status === 'pending').length;
-    const highPriority = pages.filter(p => p.priority === 'high' && p.status !== 'done').length;
-    return { total, done, inProgress, pending, highPriority, progress: Math.round((done / total) * 100) };
-  }, [pages]);
-
-  // Filtered pages
-  const filteredPages = useMemo(() => {
-    return pages.filter(page => {
-      const matchesSearch = page.oldUrl.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           page.title.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesStatus = statusFilter === 'all' || page.status === statusFilter;
-      const matchesCategory = categoryFilter === 'all' || page.category === categoryFilter;
-      return matchesSearch && matchesStatus && matchesCategory;
-    });
-  }, [pages, searchQuery, statusFilter, categoryFilter]);
 
   // Replace city placeholders
   const replaceCity = (text: string, city?: City) => {
