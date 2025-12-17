@@ -523,8 +523,8 @@ export default function SEOAdminPage() {
                                       Контент страницы <span className="text-slate-400">({page.content.length} символов)</span>
                                     </label>
                                     <div
-                                      className="w-full px-3 py-2 border border-slate-200 rounded text-sm bg-slate-50 max-h-64 overflow-y-auto prose prose-sm"
-                                      dangerouslySetInnerHTML={{ __html: page.content.replace(/<br>/g, '\n').slice(0, 2000) + (page.content.length > 2000 ? '...' : '') }}
+                                      className="w-full px-3 py-2 border border-slate-200 rounded text-sm bg-slate-50 max-h-96 overflow-y-auto prose prose-sm prose-slate"
+                                      dangerouslySetInnerHTML={{ __html: page.content }}
                                     />
                                   </div>
                                 )}
