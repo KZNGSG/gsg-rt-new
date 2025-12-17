@@ -12,6 +12,7 @@ interface Page {
   title: string;
   description: string;
   h1: string;
+  content?: string;
   status: 'pending' | 'in_progress' | 'done';
   priority: 'high' | 'medium' | 'low';
 }
@@ -302,6 +303,10 @@ export default function SEOAdminPage() {
             <span className="text-slate-500">Без description:</span>
             <span className="ml-2 font-semibold text-red-600">{stats.noDesc}</span>
           </div>
+          <div>
+            <span className="text-slate-500">С контентом:</span>
+            <span className="ml-2 font-semibold text-green-600">{pages.filter(p => p.content).length}</span>
+          </div>
           <div className="ml-auto flex items-center gap-2">
             <button onClick={exportCSV} className="px-3 py-1.5 text-slate-600 hover:bg-slate-100 rounded flex items-center gap-2 transition-colors">
               {Icons.download}
@@ -434,6 +439,11 @@ export default function SEOAdminPage() {
                             <div className="text-slate-500 text-xs truncate max-w-md mt-0.5" title={replaceCity(page.description, city)}>
                               {replaceCity(page.description, city) || <span className="text-red-400 italic">Нет description</span>}
                             </div>
+                            {page.content && (
+                              <div className="text-green-600 text-xs mt-0.5">
+                                Контент: {page.content.length} симв.
+                              </div>
+                            )}
                           </td>
                           <td className="px-4 py-3">
                             <span className="text-xs text-slate-600">{categoryNames[page.category] || page.category}</span>
@@ -507,6 +517,17 @@ export default function SEOAdminPage() {
                                     placeholder="Meta description"
                                   />
                                 </div>
+                                {page.content && (
+                                  <div className="col-span-2">
+                                    <label className="block text-xs font-medium text-slate-500 mb-1">
+                                      Контент страницы <span className="text-slate-400">({page.content.length} символов)</span>
+                                    </label>
+                                    <div
+                                      className="w-full px-3 py-2 border border-slate-200 rounded text-sm bg-slate-50 max-h-64 overflow-y-auto prose prose-sm"
+                                      dangerouslySetInnerHTML={{ __html: page.content.replace(/<br>/g, '\n').slice(0, 2000) + (page.content.length > 2000 ? '...' : '') }}
+                                    />
+                                  </div>
+                                )}
                                 <div>
                                   <label className="block text-xs font-medium text-slate-500 mb-1">Новый URL</label>
                                   <input
