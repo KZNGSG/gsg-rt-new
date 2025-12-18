@@ -148,9 +148,20 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90vh] overflow-hidden">
-      {/* Премиум mesh градиент - мягкий для глаз */}
-      <div className="absolute inset-0 bg-mesh-blue"></div>
-      <div className="absolute inset-0 bg-dots opacity-15"></div>
+      {/* Премиум градиент - глубокий и мягкий для глаз */}
+      <div 
+        className="absolute inset-0"
+        style={{
+          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0f172a 50%, #1e3a5f 75%, #0f172a 100%)'
+        }}
+      ></div>
+      {/* Мягкие световые пятна */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/8 rounded-full blur-[100px]"></div>
+        <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-slate-500/10 rounded-full blur-[80px]"></div>
+      </div>
+      <div className="absolute inset-0 bg-dots opacity-10"></div>
       
       {/* Плавающие документы */}
       <FloatingDocs />
