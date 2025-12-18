@@ -361,12 +361,13 @@ body {
 }
 
 .bg-diagonal {
+  /* Очень мягкий паттерн - почти незаметный */
   background-image: repeating-linear-gradient(
-    45deg,
+    135deg,
     transparent,
-    transparent 10px,
-    rgba(255, 255, 255, 0.03) 10px,
-    rgba(255, 255, 255, 0.03) 20px
+    transparent 40px,
+    rgba(255, 255, 255, 0.01) 40px,
+    rgba(255, 255, 255, 0.01) 80px
   );
 }
 
