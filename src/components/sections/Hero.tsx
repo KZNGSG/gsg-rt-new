@@ -285,70 +285,9 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Правая часть - Калькулятор */}
+          {/* Правая часть - Умный калькулятор */}
           <div className="lg:col-span-2 animate-slideInRight">
-            <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50">
-              {/* Заголовок - СИНИЙ */}
-              <div className="relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 px-6 py-5 overflow-hidden">
-                <div className="absolute inset-0 bg-grid opacity-10"></div>
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-                <div className="relative flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-black text-white">Конструктор документов</h3>
-                    <p className="text-blue-200 text-sm">Узнайте стоимость мгновенно</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6">
-                {!calcResult ? (
-                  <div className="space-y-5">
-                    <div className="text-center">
-                      <p className="text-slate-800 font-bold text-lg">Выберите категорию</p>
-                      <p className="text-sm text-slate-500">или найдите товар в поиске слева</p>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3">
-                      {QUICK_EXAMPLES.map((example) => (
-                        <button
-                          key={example.code}
-                          onClick={() => {
-                            setCalcProduct(example.name);
-                            setSelectedCalcItem(null);
-                            const result = determineCertification(example.code, example.name);
-                            setCalcResult(result);
-                          }}
-                          className="card-3d group p-4 rounded-2xl bg-slate-50 border-2 border-transparent hover:border-blue-200 text-left"
-                        >
-                          <div className="w-10 h-10 mb-3 rounded-xl bg-blue-100 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-all">
-                            <CategoryIcon type={example.icon} className="w-5 h-5" />
-                          </div>
-                          <span className="font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{example.name}</span>
-                        </button>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-3 py-3">
-                      <div className="flex-1 h-px bg-slate-200"></div>
-                      <span className="text-xs text-slate-400 font-medium">ИЛИ</span>
-                      <div className="flex-1 h-px bg-slate-200"></div>
-                    </div>
-
-                    <p className="text-center text-sm text-slate-500">
-                      Введите название товара в поиске для точного расчёта
-                    </p>
-                  </div>
-                ) : (
-                  <div className="space-y-4 animate-fadeIn">
-                    {/* Выбранный товар */}
-                    <div className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3">
-                      <div className="flex-1 min-w-0">
-                        <div className="font-bold text-slate-800 truncate">{calcProduct}</div>
+            <QuickCalculator />
                         {selectedCalcItem && (
                           <div className="text-sm text-slate-500">Код: {selectedCalcItem.code_formatted}</div>
                         )}
