@@ -8,11 +8,21 @@ import { determineCertification, CertificationResult, DocumentType } from '@/lib
 const POPULAR = ['косметика', 'БАДы', 'игрушки', 'одежда', 'маски', 'продукты'];
 
 const QUICK_EXAMPLES = [
-  { name: 'Детская игрушка', code: '9503' },
-  { name: 'Косметика', code: '3304' },
-  { name: 'Одежда', code: '62' },
-  { name: 'Продукты', code: '21' },
+  { name: 'Детская игрушка', code: '9503', icon: 'toy' },
+  { name: 'Косметика', code: '3304', icon: 'cosmetic' },
+  { name: 'Одежда', code: '62', icon: 'clothing' },
+  { name: 'Продукты', code: '21', icon: 'food' },
 ];
+
+function CategoryIcon({ type, className }: { type: string; className?: string }) {
+  const icons: Record<string, React.ReactElement> = {
+    toy: <svg className={className} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg>,
+    cosmetic: <svg className={className} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>,
+    clothing: <svg className={className} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007z" /></svg>,
+    food: <svg className={className} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513M15 8.25v-1.5m-6 1.5v-1.5m12 9.75l-1.5.75a3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0 3.354 3.354 0 00-3 0 3.354 3.354 0 01-3 0L3 16.5m18-4.5a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
+  };
+  return icons[type] || icons.toy;
+}
 
 // Плавающие иконки документов
 function FloatingDocs() {
@@ -57,12 +67,12 @@ function FloatingDocs() {
 }
 
 function DocumentResult({ type, regulation }: { type: DocumentType; regulation?: string }) {
-  const config: Record<DocumentType, { bg: string; border: string; accent: string; title: string; icon: string }> = {
-    certificate: { bg: 'from-emerald-500 to-green-600', border: 'border-emerald-400', accent: 'text-emerald-500', title: 'СЕРТИФИКАТ', icon: '✓' },
-    declaration: { bg: 'from-blue-500 to-indigo-600', border: 'border-blue-400', accent: 'text-blue-500', title: 'ДЕКЛАРАЦИЯ', icon: '📋' },
-    sgr: { bg: 'from-purple-500 to-violet-600', border: 'border-purple-400', accent: 'text-purple-500', title: 'СГР', icon: '🛡️' },
-    registration: { bg: 'from-orange-500 to-amber-600', border: 'border-orange-400', accent: 'text-orange-500', title: 'РУ', icon: '⚕️' },
-    rejection: { bg: 'from-slate-500 to-slate-600', border: 'border-slate-400', accent: 'text-slate-500', title: 'ОТКАЗНОЕ', icon: '📝' },
+  const config: Record<DocumentType, { bg: string; border: string; accent: string; title: string }> = {
+    certificate: { bg: 'from-emerald-500 to-green-600', border: 'border-emerald-400', accent: 'text-emerald-500', title: 'СЕРТИФИКАТ' },
+    declaration: { bg: 'from-blue-500 to-indigo-600', border: 'border-blue-400', accent: 'text-blue-500', title: 'ДЕКЛАРАЦИЯ' },
+    sgr: { bg: 'from-purple-500 to-violet-600', border: 'border-purple-400', accent: 'text-purple-500', title: 'СГР' },
+    registration: { bg: 'from-orange-500 to-amber-600', border: 'border-orange-400', accent: 'text-orange-500', title: 'РУ' },
+    rejection: { bg: 'from-slate-500 to-slate-600', border: 'border-slate-400', accent: 'text-slate-500', title: 'ОТКАЗНОЕ' },
   };
 
   const c = config[type];
@@ -72,8 +82,10 @@ function DocumentResult({ type, regulation }: { type: DocumentType; regulation?:
       <div className="absolute inset-0 bg-grid opacity-20"></div>
       <div className="relative bg-white rounded-xl p-4">
         <div className="flex items-center gap-3">
-          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.bg} flex items-center justify-center text-white text-xl shadow-lg`}>
-            {c.icon}
+          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${c.bg} flex items-center justify-center text-white shadow-lg`}>
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+            </svg>
           </div>
           <div>
             <div className={`text-sm font-black ${c.accent} tracking-wide`}>{c.title}</div>
@@ -136,9 +148,9 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90vh] overflow-hidden">
-      {/* Премиум mesh градиент */}
+      {/* Премиум mesh градиент - ФИРМЕННЫЙ СИНИЙ */}
       <div className="absolute inset-0 bg-mesh-blue"></div>
-      <div className="absolute inset-0 bg-dots"></div>
+      <div className="absolute inset-0 bg-dots opacity-30"></div>
       <div className="absolute inset-0 bg-diagonal"></div>
       
       {/* Плавающие документы */}
@@ -172,8 +184,7 @@ export function Hero() {
                 <span className="text-gradient-shine inline-block">ваш товар?</span>
               </h1>
               <p className="text-xl lg:text-2xl text-blue-100/90 max-w-xl font-medium">
-                Узнайте за <span className="text-white font-bold">30 секунд</span> — 
-                без регистрации
+                Узнайте за <span className="text-white font-bold">30 секунд</span> — без регистрации
               </p>
             </div>
 
@@ -194,10 +205,7 @@ export function Hero() {
                       className="w-full py-5 text-lg text-slate-700 placeholder-slate-400 focus:outline-none bg-transparent"
                     />
                   </div>
-                  <button
-                    type="submit"
-                    className="btn-premium bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-lg px-10 py-5 transition-all shadow-glow-orange"
-                  >
+                  <button type="submit" className="btn-premium bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold text-lg px-10 py-5 transition-all shadow-glow-orange">
                     <span className="hidden sm:inline mr-2">Найти</span>
                     <svg className="w-5 h-5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -209,23 +217,19 @@ export function Hero() {
                 {showSuggestions && suggestions.length > 0 && (
                   <div className="absolute top-full left-0 right-0 mt-3 glass-white rounded-2xl shadow-premium-lg overflow-hidden z-50 animate-scaleIn">
                     <div className="px-5 py-3 bg-gradient-to-r from-blue-50 to-slate-50 border-b border-slate-100">
-                      <span className="text-sm text-slate-600 font-semibold">🔍 Найдено в базе {totalCodes.toLocaleString()} кодов</span>
+                      <span className="text-sm text-slate-600 font-semibold flex items-center gap-2">
+                        <svg className="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        Найдено в базе {totalCodes.toLocaleString()} кодов
+                      </span>
                     </div>
                     {suggestions.map((item, index) => (
-                      <button
-                        key={item.code + index}
-                        type="button"
-                        onClick={() => handleSelectSuggestion(item)}
-                        className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent border-b border-slate-100 last:border-0 transition-all group"
-                      >
+                      <button key={item.code + index} type="button" onClick={() => handleSelectSuggestion(item)} className="w-full px-5 py-4 text-left hover:bg-gradient-to-r hover:from-blue-50 hover:to-transparent border-b border-slate-100 last:border-0 transition-all group">
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex-1 min-w-0">
                             <div className="font-semibold text-slate-800 group-hover:text-blue-600 transition-colors truncate">{item.name}</div>
                             <div className="text-sm text-slate-500">{item.code_formatted}</div>
                           </div>
-                          <span className="px-3 py-1.5 bg-blue-100 text-blue-700 text-sm font-bold rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-all">
-                            {item.code}
-                          </span>
+                          <span className="px-3 py-1.5 bg-blue-100 text-blue-700 text-sm font-bold rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-all">{item.code}</span>
                         </div>
                       </button>
                     ))}
@@ -238,11 +242,7 @@ export function Hero() {
             <div className="flex flex-wrap items-center gap-2 animate-fadeInUp" style={{animationDelay: '0.3s'}}>
               <span className="text-blue-200 text-sm font-medium">Популярное:</span>
               {POPULAR.map((term) => (
-                <button
-                  key={term}
-                  onClick={() => router.push(`/tn-ved?q=${encodeURIComponent(term)}`)}
-                  className="px-3 py-1.5 text-sm text-white/80 hover:text-white glass rounded-full hover:bg-white/20 transition-all"
-                >
+                <button key={term} onClick={() => router.push(`/tn-ved?q=${encodeURIComponent(term)}`)} className="px-3 py-1.5 text-sm text-white/80 hover:text-white glass rounded-full hover:bg-white/20 transition-all">
                   {term}
                 </button>
               ))}
@@ -251,13 +251,17 @@ export function Hero() {
             {/* Статистика */}
             <div className="grid grid-cols-4 gap-4 pt-4 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
               {[
-                { value: '12+', label: 'лет опыта', icon: '🏆' },
-                { value: '60+', label: 'филиалов', icon: '🏢' },
-                { value: '50K+', label: 'документов', icon: '📄' },
-                { value: '1 день', label: 'срочно', icon: '⚡' },
-              ].map((stat, i) => (
+                { value: '12+', label: 'лет опыта', icon: 'M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172' },
+                { value: '60+', label: 'филиалов', icon: 'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21' },
+                { value: '50K+', label: 'документов', icon: 'M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z' },
+                { value: '1 день', label: 'срочно', icon: 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z' },
+              ].map((stat) => (
                 <div key={stat.label} className="text-center glass rounded-2xl p-4 hover:bg-white/10 transition-all hover-lift">
-                  <div className="text-2xl mb-1">{stat.icon}</div>
+                  <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-white/10 flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d={stat.icon} />
+                    </svg>
+                  </div>
                   <div className="text-2xl font-black text-white">{stat.value}</div>
                   <div className="text-xs text-blue-200">{stat.label}</div>
                 </div>
@@ -268,16 +272,20 @@ export function Hero() {
           {/* Правая часть - Калькулятор */}
           <div className="lg:col-span-2 animate-slideInRight">
             <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50">
-              {/* Заголовок */}
+              {/* Заголовок - СИНИЙ */}
               <div className="relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 px-6 py-5 overflow-hidden">
                 <div className="absolute inset-0 bg-grid opacity-10"></div>
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-                <div className="relative">
-                  <h3 className="text-xl font-black text-white flex items-center gap-3">
-                    <span className="text-2xl">🧮</span>
-                    Конструктор документов
-                  </h3>
-                  <p className="text-blue-200 text-sm mt-1">Узнайте стоимость мгновенно</p>
+                <div className="relative flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V13.5zm0 2.25h.008v.008H8.25v-.008zm0 2.25h.008v.008H8.25V18zm2.498-6.75h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V13.5zm0 2.25h.007v.008h-.007v-.008zm0 2.25h.007v.008h-.007V18zm2.504-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zm0 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18zm2.498-6.75h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V13.5zM8.25 6h7.5v2.25h-7.5V6zM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 002.25 2.25h10.5a2.25 2.25 0 002.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0012 2.25z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-black text-white">Конструктор документов</h3>
+                    <p className="text-blue-200 text-sm">Узнайте стоимость мгновенно</p>
+                  </div>
                 </div>
               </div>
 
@@ -290,7 +298,7 @@ export function Hero() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                      {QUICK_EXAMPLES.map((example, idx) => (
+                      {QUICK_EXAMPLES.map((example) => (
                         <button
                           key={example.code}
                           onClick={() => {
@@ -300,10 +308,9 @@ export function Hero() {
                             setCalcResult(result);
                           }}
                           className="card-3d group p-4 rounded-2xl bg-slate-50 border-2 border-transparent hover:border-blue-200 text-left"
-                          style={{ animationDelay: `${idx * 100}ms` }}
                         >
-                          <div className="text-2xl mb-2">
-                            {idx === 0 ? '🧸' : idx === 1 ? '💄' : idx === 2 ? '👕' : '🍎'}
+                          <div className="w-10 h-10 mb-3 rounded-xl bg-blue-100 group-hover:bg-blue-600 flex items-center justify-center text-blue-600 group-hover:text-white transition-all">
+                            <CategoryIcon type={example.icon} className="w-5 h-5" />
                           </div>
                           <span className="font-bold text-slate-700 group-hover:text-blue-600 transition-colors">{example.name}</span>
                         </button>
@@ -317,7 +324,7 @@ export function Hero() {
                     </div>
 
                     <p className="text-center text-sm text-slate-500">
-                      👈 Введите название товара в поиске для точного расчёта
+                      Введите название товара в поиске для точного расчёта
                     </p>
                   </div>
                 ) : (
@@ -330,20 +337,14 @@ export function Hero() {
                           <div className="text-sm text-slate-500">Код: {selectedCalcItem.code_formatted}</div>
                         )}
                       </div>
-                      <button
-                        onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); }}
-                        className="ml-3 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
-                      >
-                        ✕
+                      <button onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); }} className="ml-3 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                       </button>
                     </div>
 
                     {/* Визуализация документа */}
                     {calcResult.documents.length > 0 && (
-                      <DocumentResult
-                        type={calcResult.documents[0].type}
-                        regulation={calcResult.documents[0].regulation}
-                      />
+                      <DocumentResult type={calcResult.documents[0].type} regulation={calcResult.documents[0].regulation} />
                     )}
 
                     {/* Цена и срок */}
@@ -361,15 +362,13 @@ export function Hero() {
                     {/* CTA */}
                     <button className="w-full btn-premium ring-pulse bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 rounded-xl transition-all shadow-glow-orange flex items-center justify-center gap-2 text-lg">
                       <span>Получить точный расчёт</span>
-                      <span className="text-xl">→</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                     </button>
 
                     {/* Телефон */}
                     <div className="text-center">
                       <span className="text-slate-400 text-sm">Или позвоните: </span>
-                      <a href="tel:88005505288" className="font-bold text-blue-600 hover:text-blue-700 text-lg">
-                        8 800 550-52-88
-                      </a>
+                      <a href="tel:88005505288" className="font-bold text-blue-600 hover:text-blue-700 text-lg">8 800 550-52-88</a>
                     </div>
                   </div>
                 )}
