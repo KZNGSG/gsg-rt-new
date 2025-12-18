@@ -1,0 +1,565 @@
+{
+  "name": "Технические регламенты Таможенного союза и ЕАЭС",
+  "description": "База данных технических регламентов для определения формы подтверждения соответствия продукции",
+  "lastUpdated": "2025-12-18",
+  "totalRegulations": 44,
+  "source": "ГОСТСЕРТГРУПП (gsg-rt.ru)",
+
+  "regulations": [
+    {
+      "id": "TR_TS_004_2011",
+      "number": "004/2011",
+      "shortName": "ТР ТС 004/2011",
+      "fullName": "О безопасности низковольтного оборудования",
+      "file": "004-2011.json",
+      "confirmationType": "mixed",
+      "category": "electrical"
+    },
+    {
+      "id": "TR_TS_005_2011",
+      "number": "005/2011",
+      "shortName": "ТР ТС 005/2011",
+      "fullName": "О безопасности упаковки",
+      "file": "005-2011.json",
+      "confirmationType": "declaration",
+      "category": "packaging"
+    },
+    {
+      "id": "TR_TS_006_2011",
+      "number": "006/2011",
+      "shortName": "ТР ТС 006/2011",
+      "fullName": "О безопасности пиротехнических изделий",
+      "file": "006-2011.json",
+      "confirmationType": "mixed",
+      "category": "pyrotechnics"
+    },
+    {
+      "id": "TR_TS_007_2011",
+      "number": "007/2011",
+      "shortName": "ТР ТС 007/2011",
+      "fullName": "О безопасности продукции, предназначенной для детей и подростков",
+      "file": "007-2011.json",
+      "confirmationType": "mixed",
+      "category": "children"
+    },
+    {
+      "id": "TR_TS_008_2011",
+      "number": "008/2011",
+      "shortName": "ТР ТС 008/2011",
+      "fullName": "О безопасности игрушек",
+      "file": "008-2011.json",
+      "confirmationType": "mixed",
+      "category": "toys"
+    },
+    {
+      "id": "TR_TS_009_2011",
+      "number": "009/2011",
+      "shortName": "ТР ТС 009/2011",
+      "fullName": "О безопасности парфюмерно-косметической продукции",
+      "file": "009-2011.json",
+      "confirmationType": "mixed",
+      "category": "cosmetics"
+    },
+    {
+      "id": "TR_TS_010_2011",
+      "number": "010/2011",
+      "shortName": "ТР ТС 010/2011",
+      "fullName": "О безопасности машин и оборудования",
+      "file": "010-2011.json",
+      "confirmationType": "mixed",
+      "category": "machinery"
+    },
+    {
+      "id": "TR_TS_011_2011",
+      "number": "011/2011",
+      "shortName": "ТР ТС 011/2011",
+      "fullName": "Безопасность лифтов",
+      "file": "011-2011.json",
+      "confirmationType": "certificate",
+      "category": "lifts"
+    },
+    {
+      "id": "TR_TS_012_2011",
+      "number": "012/2011",
+      "shortName": "ТР ТС 012/2011",
+      "fullName": "О безопасности оборудования для работы во взрывоопасных средах",
+      "file": "012-2011.json",
+      "confirmationType": "certificate",
+      "category": "explosion"
+    },
+    {
+      "id": "TR_TS_013_2011",
+      "number": "013/2011",
+      "shortName": "ТР ТС 013/2011",
+      "fullName": "О требованиях к автомобильному и авиационному бензину, дизельному и судовому топливу, топливу для реактивных двигателей и мазуту",
+      "file": "013-2011.json",
+      "confirmationType": "declaration",
+      "category": "fuel"
+    },
+    {
+      "id": "TR_TS_014_2011",
+      "number": "014/2011",
+      "shortName": "ТР ТС 014/2011",
+      "fullName": "Безопасность автомобильных дорог",
+      "file": "014-2011.json",
+      "confirmationType": "none",
+      "category": "roads"
+    },
+    {
+      "id": "TR_TS_015_2011",
+      "number": "015/2011",
+      "shortName": "ТР ТС 015/2011",
+      "fullName": "О безопасности зерна",
+      "file": "015-2011.json",
+      "confirmationType": "declaration",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_016_2011",
+      "number": "016/2011",
+      "shortName": "ТР ТС 016/2011",
+      "fullName": "О безопасности аппаратов, работающих на газообразном топливе",
+      "file": "016-2011.json",
+      "confirmationType": "certificate",
+      "category": "gas"
+    },
+    {
+      "id": "TR_TS_017_2011",
+      "number": "017/2011",
+      "shortName": "ТР ТС 017/2011",
+      "fullName": "О безопасности продукции лёгкой промышленности",
+      "file": "017-2011.json",
+      "confirmationType": "mixed",
+      "category": "textile"
+    },
+    {
+      "id": "TR_TS_018_2011",
+      "number": "018/2011",
+      "shortName": "ТР ТС 018/2011",
+      "fullName": "О безопасности колёсных транспортных средств",
+      "file": "018-2011.json",
+      "confirmationType": "mixed",
+      "category": "vehicles"
+    },
+    {
+      "id": "TR_TS_019_2011",
+      "number": "019/2011",
+      "shortName": "ТР ТС 019/2011",
+      "fullName": "О безопасности средств индивидуальной защиты",
+      "file": "019-2011.json",
+      "confirmationType": "mixed",
+      "category": "ppe"
+    },
+    {
+      "id": "TR_TS_020_2011",
+      "number": "020/2011",
+      "shortName": "ТР ТС 020/2011",
+      "fullName": "Электромагнитная совместимость технических средств",
+      "file": "020-2011.json",
+      "confirmationType": "mixed",
+      "category": "emc"
+    },
+    {
+      "id": "TR_TS_021_2011",
+      "number": "021/2011",
+      "shortName": "ТР ТС 021/2011",
+      "fullName": "О безопасности пищевой продукции",
+      "file": "021-2011.json",
+      "confirmationType": "mixed",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_022_2011",
+      "number": "022/2011",
+      "shortName": "ТР ТС 022/2011",
+      "fullName": "Пищевая продукция в части её маркировки",
+      "file": "022-2011.json",
+      "confirmationType": "none",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_023_2011",
+      "number": "023/2011",
+      "shortName": "ТР ТС 023/2011",
+      "fullName": "Технический регламент на соковую продукцию из фруктов и овощей",
+      "file": "023-2011.json",
+      "confirmationType": "declaration",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_024_2011",
+      "number": "024/2011",
+      "shortName": "ТР ТС 024/2011",
+      "fullName": "Технический регламент на масложировую продукцию",
+      "file": "024-2011.json",
+      "confirmationType": "declaration",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_025_2012",
+      "number": "025/2012",
+      "shortName": "ТР ТС 025/2012",
+      "fullName": "О безопасности мебельной продукции",
+      "file": "025-2012.json",
+      "confirmationType": "mixed",
+      "category": "furniture"
+    },
+    {
+      "id": "TR_TS_026_2012",
+      "number": "026/2012",
+      "shortName": "ТР ТС 026/2012",
+      "fullName": "О безопасности маломерных судов",
+      "file": "026-2012.json",
+      "confirmationType": "mixed",
+      "category": "vessels"
+    },
+    {
+      "id": "TR_TS_027_2012",
+      "number": "027/2012",
+      "shortName": "ТР ТС 027/2012",
+      "fullName": "О безопасности отдельных видов специализированной пищевой продукции, в том числе диетического лечебного и диетического профилактического питания",
+      "file": "027-2012.json",
+      "confirmationType": "stateRegistration",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_028_2012",
+      "number": "028/2012",
+      "shortName": "ТР ТС 028/2012",
+      "fullName": "О безопасности взрывчатых веществ и изделий на их основе",
+      "file": "028-2012.json",
+      "confirmationType": "certificate",
+      "category": "explosives"
+    },
+    {
+      "id": "TR_TS_029_2012",
+      "number": "029/2012",
+      "shortName": "ТР ТС 029/2012",
+      "fullName": "Требования безопасности пищевых добавок, ароматизаторов и технологических вспомогательных средств",
+      "file": "029-2012.json",
+      "confirmationType": "mixed",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_030_2012",
+      "number": "030/2012",
+      "shortName": "ТР ТС 030/2012",
+      "fullName": "О требованиях к смазочным материалам, маслам и специальным жидкостям",
+      "file": "030-2012.json",
+      "confirmationType": "declaration",
+      "category": "lubricants"
+    },
+    {
+      "id": "TR_TS_031_2012",
+      "number": "031/2012",
+      "shortName": "ТР ТС 031/2012",
+      "fullName": "О безопасности сельскохозяйственных и лесохозяйственных тракторов и прицепов к ним",
+      "file": "031-2012.json",
+      "confirmationType": "certificate",
+      "category": "machinery"
+    },
+    {
+      "id": "TR_TS_032_2013",
+      "number": "032/2013",
+      "shortName": "ТР ТС 032/2013",
+      "fullName": "О безопасности оборудования, работающего под избыточным давлением",
+      "file": "032-2013.json",
+      "confirmationType": "mixed",
+      "category": "pressure"
+    },
+    {
+      "id": "TR_TS_033_2013",
+      "number": "033/2013",
+      "shortName": "ТР ТС 033/2013",
+      "fullName": "О безопасности молока и молочной продукции",
+      "file": "033-2013.json",
+      "confirmationType": "declaration",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_034_2013",
+      "number": "034/2013",
+      "shortName": "ТР ТС 034/2013",
+      "fullName": "О безопасности мяса и мясной продукции",
+      "file": "034-2013.json",
+      "confirmationType": "mixed",
+      "category": "food"
+    },
+    {
+      "id": "TR_TS_035_2014",
+      "number": "035/2014",
+      "shortName": "ТР ТС 035/2014",
+      "fullName": "Технический регламент на табачную продукцию",
+      "file": "035-2014.json",
+      "confirmationType": "declaration",
+      "category": "tobacco"
+    },
+    {
+      "id": "TR_EAES_036_2016",
+      "number": "036/2016",
+      "shortName": "ТР ЕАЭС 036/2016",
+      "fullName": "О требованиях к сжиженным углеводородным газам для использования в качестве топлива",
+      "file": "036-2016.json",
+      "confirmationType": "declaration",
+      "category": "fuel"
+    },
+    {
+      "id": "TR_EAES_037_2016",
+      "number": "037/2016",
+      "shortName": "ТР ЕАЭС 037/2016",
+      "fullName": "Об ограничении применения опасных веществ в изделиях электротехники и радиоэлектроники",
+      "file": "037-2016.json",
+      "confirmationType": "mixed",
+      "category": "electrical"
+    },
+    {
+      "id": "TR_EAES_038_2016",
+      "number": "038/2016",
+      "shortName": "ТР ЕАЭС 038/2016",
+      "fullName": "О безопасности аттракционов",
+      "file": "038-2016.json",
+      "confirmationType": "mixed",
+      "category": "amusement"
+    },
+    {
+      "id": "TR_EAES_039_2016",
+      "number": "039/2016",
+      "shortName": "ТР ЕАЭС 039/2016",
+      "fullName": "О требованиях к минеральным удобрениям",
+      "file": "039-2016.json",
+      "confirmationType": "registration",
+      "category": "fertilizers"
+    },
+    {
+      "id": "TR_EAES_040_2016",
+      "number": "040/2016",
+      "shortName": "ТР ЕАЭС 040/2016",
+      "fullName": "О безопасности рыбы и рыбной продукции",
+      "file": "040-2016.json",
+      "confirmationType": "mixed",
+      "category": "food"
+    },
+    {
+      "id": "TR_EAES_041_2017",
+      "number": "041/2017",
+      "shortName": "ТР ЕАЭС 041/2017",
+      "fullName": "О безопасности химической продукции",
+      "file": "041-2017.json",
+      "confirmationType": "registration",
+      "category": "chemicals"
+    },
+    {
+      "id": "TR_EAES_042_2017",
+      "number": "042/2017",
+      "shortName": "ТР ЕАЭС 042/2017",
+      "fullName": "О безопасности оборудования для детских игровых площадок",
+      "file": "042-2017.json",
+      "confirmationType": "mixed",
+      "category": "children"
+    },
+    {
+      "id": "TR_EAES_043_2017",
+      "number": "043/2017",
+      "shortName": "ТР ЕАЭС 043/2017",
+      "fullName": "О требованиях к средствам обеспечения пожарной безопасности и пожаротушения",
+      "file": "043-2017.json",
+      "confirmationType": "mixed",
+      "category": "fire"
+    },
+    {
+      "id": "TR_EAES_044_2017",
+      "number": "044/2017",
+      "shortName": "ТР ЕАЭС 044/2017",
+      "fullName": "О безопасности упакованной питьевой воды, включая природную минеральную воду",
+      "file": "044-2017.json",
+      "confirmationType": "mixed",
+      "category": "food"
+    },
+    {
+      "id": "TR_EAES_047_2018",
+      "number": "047/2018",
+      "shortName": "ТР ЕАЭС 047/2018",
+      "fullName": "О безопасности алкогольной продукции",
+      "file": "047-2018.json",
+      "confirmationType": "declaration",
+      "category": "food",
+      "note": "Вступает в силу 01.07.2026"
+    },
+    {
+      "id": "TR_EAES_051_2021",
+      "number": "051/2021",
+      "shortName": "ТР ЕАЭС 051/2021",
+      "fullName": "О безопасности мяса птицы и продукции его переработки",
+      "file": "051-2021.json",
+      "confirmationType": "mixed",
+      "category": "food"
+    }
+  ],
+
+  "categories": {
+    "food": {
+      "name": "Пищевая продукция",
+      "regulations": ["015", "021", "022", "023", "024", "027", "029", "033", "034", "040", "044", "047", "051"]
+    },
+    "electrical": {
+      "name": "Электротехника и электроника",
+      "regulations": ["004", "020", "037"]
+    },
+    "machinery": {
+      "name": "Машины и оборудование",
+      "regulations": ["010", "011", "012", "016", "031"]
+    },
+    "vehicles": {
+      "name": "Транспортные средства",
+      "regulations": ["018"]
+    },
+    "children": {
+      "name": "Товары для детей",
+      "regulations": ["007", "008", "042"]
+    },
+    "textile": {
+      "name": "Лёгкая промышленность",
+      "regulations": ["017"]
+    },
+    "cosmetics": {
+      "name": "Парфюмерия и косметика",
+      "regulations": ["009"]
+    },
+    "packaging": {
+      "name": "Упаковка",
+      "regulations": ["005"]
+    },
+    "ppe": {
+      "name": "Средства индивидуальной защиты",
+      "regulations": ["019"]
+    },
+    "furniture": {
+      "name": "Мебель",
+      "regulations": ["025"]
+    },
+    "vessels": {
+      "name": "Маломерные суда",
+      "regulations": ["026"]
+    },
+    "pyrotechnics": {
+      "name": "Пиротехника",
+      "regulations": ["006"]
+    },
+    "fuel": {
+      "name": "Топливо и газы",
+      "regulations": ["013", "036"]
+    },
+    "roads": {
+      "name": "Автомобильные дороги",
+      "regulations": ["014"]
+    },
+    "gas": {
+      "name": "Газовое оборудование",
+      "regulations": ["016"]
+    },
+    "lifts": {
+      "name": "Лифты",
+      "regulations": ["011"]
+    },
+    "explosion": {
+      "name": "Взрывозащищённое оборудование",
+      "regulations": ["012"]
+    },
+    "emc": {
+      "name": "Электромагнитная совместимость",
+      "regulations": ["020"]
+    },
+    "explosives": {
+      "name": "Взрывчатые вещества",
+      "regulations": ["028"]
+    },
+    "lubricants": {
+      "name": "Смазочные материалы",
+      "regulations": ["030"]
+    },
+    "pressure": {
+      "name": "Оборудование под давлением",
+      "regulations": ["032"]
+    },
+    "tobacco": {
+      "name": "Табачная продукция",
+      "regulations": ["035"]
+    },
+    "amusement": {
+      "name": "Аттракционы",
+      "regulations": ["038"]
+    },
+    "fertilizers": {
+      "name": "Минеральные удобрения",
+      "regulations": ["039"]
+    },
+    "chemicals": {
+      "name": "Химическая продукция",
+      "regulations": ["041"]
+    },
+    "fire": {
+      "name": "Пожарная безопасность",
+      "regulations": ["043"]
+    }
+  },
+
+  "confirmationTypes": {
+    "certificate": {
+      "name": "Сертификат соответствия",
+      "description": "Обязательная сертификация органом по сертификации",
+      "regulations": ["011", "012", "016", "028", "031"]
+    },
+    "declaration": {
+      "name": "Декларация о соответствии",
+      "description": "Декларирование соответствия заявителем",
+      "regulations": ["005", "013", "015", "023", "024", "030", "033", "035", "036", "047"]
+    },
+    "mixed": {
+      "name": "Смешанная форма",
+      "description": "Сертификация или декларирование в зависимости от вида продукции",
+      "regulations": ["004", "006", "007", "008", "009", "010", "017", "018", "019", "020", "021", "025", "026", "029", "032", "034", "037", "038", "040", "042", "043", "044", "051"]
+    },
+    "stateRegistration": {
+      "name": "Государственная регистрация",
+      "description": "СГР для специализированной продукции и продукции нового вида",
+      "regulations": ["027"],
+      "note": "Применяется для детского питания, специализированной продукции"
+    },
+    "registration": {
+      "name": "Регистрация (уведомительная/разрешительная)",
+      "description": "Регистрация в уполномоченных органах",
+      "regulations": ["039", "041"],
+      "note": "Уникальная форма для минеральных удобрений и химической продукции"
+    },
+    "veterinary": {
+      "name": "Ветеринарно-санитарная экспертиза",
+      "description": "Для непереработанной продукции животного происхождения",
+      "note": "Применяется для мяса, рыбы, молока, птицы"
+    },
+    "none": {
+      "name": "Не требуется",
+      "description": "Регламент устанавливает требования, но не формы подтверждения",
+      "regulations": ["014", "022"]
+    }
+  },
+
+  "meta": {
+    "version": "3.0",
+    "createdAt": "2025-12-18",
+    "updatedAt": "2025-12-18",
+    "createdBy": "GSG Parser",
+    "totalFiles": 44,
+    "excludedRegulations": [
+      "045/2017 - О безопасности нефти (по запросу пользователя)",
+      "046/2018 - О безопасности газа горючего природного (по запросу пользователя)",
+      "048/2019 - Энергоэффективность (не по профилю)",
+      "ГО и ЧС (по запросу пользователя)"
+    ],
+    "notes": [
+      "Регламенты 039/2016 и 041/2017 используют уникальную форму - регистрацию вместо сертификации/декларирования",
+      "Регламент 027/2012 использует государственную регистрацию (СГР)",
+      "Регламент 047/2018 вступает в силу с 01.07.2026",
+      "Регламент 051/2021 вступил в силу с 01.01.2023"
+    ]
+  }
+}

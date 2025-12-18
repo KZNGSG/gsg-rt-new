@@ -1,0 +1,116 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2025-12-18",
+  "description": "Мастер-файл базы технических регламентов",
+
+  "regulations": {
+    "TR_TS_004_2011": {
+      "number": "004/2011",
+      "name": "О безопасности низковольтного оборудования",
+      "decisionNumber": "N 768",
+      "decisionDate": "2011-08-16",
+      "garantId": 12189170,
+      "status": "parsed",
+      "priority": 6,
+      "file": "tr-ts/004-2011.json"
+    },
+    "TR_TS_007_2011": {
+      "number": "007/2011",
+      "name": "О безопасности продукции, предназначенной для детей и подростков",
+      "decisionNumber": "N 797",
+      "decisionDate": "2011-09-23",
+      "garantId": 12190425,
+      "status": "in_progress",
+      "priority": 1,
+      "file": "tr-ts/007-2011.json"
+    },
+    "TR_TS_008_2011": {
+      "number": "008/2011",
+      "name": "О безопасности игрушек",
+      "decisionNumber": "N 798",
+      "decisionDate": "2011-09-23",
+      "garantId": 12190424,
+      "status": "pending",
+      "priority": 2,
+      "file": "tr-ts/008-2011.json"
+    },
+    "TR_TS_009_2011": {
+      "number": "009/2011",
+      "name": "О безопасности парфюмерно-косметической продукции",
+      "decisionNumber": "N 799",
+      "decisionDate": "2011-09-23",
+      "garantId": 12190423,
+      "status": "pending",
+      "priority": 3,
+      "file": "tr-ts/009-2011.json"
+    },
+    "TR_TS_010_2011": {
+      "number": "010/2011",
+      "name": "О безопасности машин и оборудования",
+      "decisionNumber": "N 823",
+      "decisionDate": "2011-10-18",
+      "garantId": 12190237,
+      "status": "parsed",
+      "priority": 10,
+      "file": "tr-ts/010-2011.json"
+    },
+    "TR_TS_017_2011": {
+      "number": "017/2011",
+      "name": "О безопасности продукции легкой промышленности",
+      "decisionNumber": "N 876",
+      "decisionDate": "2011-12-09",
+      "garantId": 12191565,
+      "status": "pending",
+      "priority": 4,
+      "file": "tr-ts/017-2011.json"
+    },
+    "TR_TS_020_2011": {
+      "number": "020/2011",
+      "name": "Электромагнитная совместимость технических средств",
+      "decisionNumber": "N 879",
+      "decisionDate": "2011-12-09",
+      "garantId": 12191563,
+      "status": "parsed",
+      "priority": 7,
+      "file": "tr-ts/020-2011.json"
+    },
+    "TR_TS_021_2011": {
+      "number": "021/2011",
+      "name": "О безопасности пищевой продукции",
+      "decisionNumber": "N 880",
+      "decisionDate": "2011-12-09",
+      "garantId": 12191566,
+      "status": "parsed",
+      "priority": 5,
+      "file": "tr-ts/021-2011.json"
+    },
+    "TR_TS_025_2012": {
+      "number": "025/2012",
+      "name": "О безопасности мебельной продукции",
+      "decisionNumber": "N 32",
+      "decisionDate": "2012-06-15",
+      "garantId": 70284378,
+      "status": "parsed",
+      "priority": 8,
+      "file": "tr-ts/025-2012.json"
+    }
+  },
+
+  "sgrLists": {
+    "KTS_299": {
+      "name": "Единый перечень товаров, подлежащих санитарно-эпидемиологическому надзору",
+      "decisionNumber": "N 299",
+      "decisionDate": "2010-05-28",
+      "garantId": 12176765,
+      "status": "parsed",
+      "file": "sgr/kts-299.json"
+    }
+  },
+
+  "statusLegend": {
+    "pending": "Ожидает парсинга",
+    "in_progress": "В процессе",
+    "parsed": "Спарсен",
+    "verified": "Проверен экспертом"
+  }
+}
