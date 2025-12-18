@@ -288,47 +288,6 @@ export function Hero() {
           {/* Правая часть - Умный калькулятор */}
           <div className="lg:col-span-2 animate-slideInRight">
             <QuickCalculator />
-                        {selectedCalcItem && (
-                          <div className="text-sm text-slate-500">Код: {selectedCalcItem.code_formatted}</div>
-                        )}
-                      </div>
-                      <button onClick={() => { setCalcResult(null); setCalcProduct(''); setSelectedCalcItem(null); }} className="ml-3 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                      </button>
-                    </div>
-
-                    {/* Визуализация документа */}
-                    {calcResult.documents.length > 0 && (
-                      <DocumentResult type={calcResult.documents[0].type} regulation={calcResult.documents[0].regulation} />
-                    )}
-
-                    {/* Цена и срок */}
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-slate-50 rounded-xl p-4 text-center">
-                        <div className="text-sm text-slate-500 mb-1">Стоимость</div>
-                        <div className="text-2xl font-black text-gradient-orange">{calcResult.documents[0]?.price}</div>
-                      </div>
-                      <div className="bg-slate-50 rounded-xl p-4 text-center">
-                        <div className="text-sm text-slate-500 mb-1">Срок</div>
-                        <div className="text-2xl font-black text-gradient-blue">{calcResult.documents[0]?.duration}</div>
-                      </div>
-                    </div>
-
-                    {/* CTA */}
-                    <button className="w-full btn-premium ring-pulse bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold py-4 rounded-xl transition-all shadow-glow-orange flex items-center justify-center gap-2 text-lg">
-                      <span>Получить точный расчёт</span>
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-                    </button>
-
-                    {/* Телефон */}
-                    <div className="text-center">
-                      <span className="text-slate-400 text-sm">Или позвоните: </span>
-                      <a href="tel:88005505288" className="font-bold text-blue-600 hover:text-blue-700 text-lg">8 800 550-52-88</a>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       </div>
