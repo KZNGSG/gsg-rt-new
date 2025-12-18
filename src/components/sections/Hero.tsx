@@ -148,20 +148,25 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90vh] overflow-hidden">
-      {/* Премиум градиент - глубокий и мягкий для глаз */}
+      {/* Премиум градиент — фирменный синий как у топовых студий */}
       <div 
         className="absolute inset-0"
         style={{
-          background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #0f172a 50%, #1e3a5f 75%, #0f172a 100%)'
+          background: 'linear-gradient(135deg, rgba(0, 119, 204, 0.85) 0%, rgba(0, 90, 160, 0.9) 35%, rgba(0, 70, 130, 0.95) 65%, rgba(0, 50, 100, 1) 100%)'
         }}
       ></div>
-      {/* Мягкие световые пятна */}
+      {/* Мягкое свечение для премиум эффекта */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-600/8 rounded-full blur-[100px]"></div>
-        <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-slate-500/10 rounded-full blur-[80px]"></div>
+        <div 
+          className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] rounded-full blur-[150px]"
+          style={{ background: 'radial-gradient(circle, rgba(255, 127, 36, 0.12) 0%, transparent 70%)' }}
+        ></div>
+        <div 
+          className="absolute bottom-[-30%] left-[-10%] w-[700px] h-[700px] rounded-full blur-[120px]"
+          style={{ background: 'radial-gradient(circle, rgba(0, 140, 220, 0.2) 0%, transparent 60%)' }}
+        ></div>
       </div>
-      <div className="absolute inset-0 bg-dots opacity-10"></div>
+      <div className="absolute inset-0 bg-dots opacity-8"></div>
       
       {/* Плавающие документы */}
       <FloatingDocs />
