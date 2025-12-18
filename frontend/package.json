@@ -1,0 +1,10 @@
+{
+  "name": "gsg-rt-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "cd /app && next dev -p 3000",
+    "build": "cd /app && next build",
+    "start": "cd /app && next start -p 3000"
+  }
+}
