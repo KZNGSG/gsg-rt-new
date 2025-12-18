@@ -154,7 +154,7 @@ function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: strin
 export default function Home() {
   return (
     <>
-      <HeroWithCalculator />
+      <Hero />
 
       {/* Секция услуг */}
       <section className="py-20 bg-white relative overflow-hidden">
