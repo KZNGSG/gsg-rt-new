@@ -148,10 +148,9 @@ export function Hero() {
 
   return (
     <section className="relative min-h-[90vh] overflow-hidden">
-      {/* Премиум mesh градиент - ФИРМЕННЫЙ СИНИЙ */}
+      {/* Премиум mesh градиент - мягкий для глаз */}
       <div className="absolute inset-0 bg-mesh-blue"></div>
-      <div className="absolute inset-0 bg-dots opacity-30"></div>
-      <div className="absolute inset-0 bg-diagonal"></div>
+      <div className="absolute inset-0 bg-dots opacity-15"></div>
       
       {/* Плавающие документы */}
       <FloatingDocs />
