@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { Hero } from '@/components/sections/Hero';
 
 const SERVICES = [
-  { title: 'Сертификат ТР ТС', desc: 'Обязательная сертификация продукции', price: 'от 12 000', slug: 'sertifikat-tr-ts', icon: 'certificate' },
-  { title: 'Декларация ТР ТС', desc: 'Декларирование соответствия', price: 'от 8 000', slug: 'deklarirovanie', icon: 'declaration' },
-  { title: 'Регистрация медизделий', desc: 'РУ Росздравнадзора', price: 'от 80 000', slug: 'registratsiya-medizdeliy', icon: 'medical' },
-  { title: 'ХАССП', desc: 'Система пищевой безопасности', price: 'от 25 000', slug: 'hassp', icon: 'haccp' },
-  { title: 'СГР', desc: 'Государственная регистрация', price: 'от 25 000', slug: 'sgr', icon: 'sgr' },
-  { title: 'ГОСТ Р', desc: 'Добровольная сертификация', price: 'от 15 000', slug: 'gost-r', icon: 'gost' },
-  { title: 'Эко-сертификат', desc: 'Экологическая сертификация', price: 'от 20 000', slug: 'eco', icon: 'eco' },
-  { title: 'Отказное письмо', desc: 'Письмо об отсутствии необходимости сертификации', price: 'от 5 000', slug: 'otkaznoe-pismo', icon: 'letter' },
+  { title: 'Сертификат ТР ТС', desc: 'Обязательная сертификация продукции', price: 'от 12 000', slug: 'sertifikat-tr-ts', icon: 'certificate', gradient: 'from-emerald-500 to-teal-500' },
+  { title: 'Декларация ТР ТС', desc: 'Декларирование соответствия', price: 'от 8 000', slug: 'deklarirovanie', icon: 'declaration', gradient: 'from-blue-500 to-indigo-500' },
+  { title: 'Регистрация медизделий', desc: 'РУ Росздравнадзора', price: 'от 80 000', slug: 'registratsiya-medizdeliy', icon: 'medical', gradient: 'from-rose-500 to-pink-500' },
+  { title: 'ХАССП', desc: 'Система пищевой безопасности', price: 'от 25 000', slug: 'hassp', icon: 'haccp', gradient: 'from-amber-500 to-orange-500' },
+  { title: 'СГР', desc: 'Государственная регистрация', price: 'от 25 000', slug: 'sgr', icon: 'sgr', gradient: 'from-purple-500 to-violet-500' },
+  { title: 'ГОСТ Р', desc: 'Добровольная сертификация', price: 'от 15 000', slug: 'gost-r', icon: 'gost', gradient: 'from-cyan-500 to-blue-500' },
+  { title: 'Эко-сертификат', desc: 'Экологическая сертификация', price: 'от 20 000', slug: 'eco', icon: 'eco', gradient: 'from-green-500 to-emerald-500' },
+  { title: 'Отказное письмо', desc: 'Письмо об отсутствии необходимости', price: 'от 5 000', slug: 'otkaznoe-pismo', icon: 'letter', gradient: 'from-slate-500 to-slate-600' },
 ];
 
 const CLIENTS = [
@@ -43,6 +43,13 @@ const REVIEWS = [
   { company: 'Обнинская ТК', image: '/reviews/obninskaya-tekstilnaya-kompaniya-blagodarstvennoe-pismo_page-0001.jpg' },
   { company: 'Чусовская ШФ', image: '/reviews/ooo-chusovskaya-shvejnaya-fabrika.jpeg' },
   { company: 'КАРО', image: '/reviews/blagodarstvennoe-pismo_page-0001.jpg' },
+];
+
+const ADVANTAGES = [
+  { icon: 'M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z', title: 'Аккредитованные органы', desc: 'Работаем с официальными органами сертификации', gradient: 'from-emerald-400 to-teal-500' },
+  { icon: 'M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z', title: 'Фиксированные цены', desc: 'Без скрытых платежей и доплат', gradient: 'from-blue-400 to-indigo-500' },
+  { icon: 'M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155', title: 'Поддержка 24/7', desc: 'Консультируем по всем вопросам', gradient: 'from-purple-400 to-violet-500' },
+  { icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z', title: 'Срочное оформление', desc: 'Документы от 1 рабочего дня', gradient: 'from-orange-400 to-amber-500' },
 ];
 
 function ServiceIcon({ type }: { type: string }) {
@@ -109,20 +116,24 @@ function ReviewsCarousel() {
   return (
     <>
       <div className="relative">
+        {/* Gradient edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+        
         {/* Scroll buttons */}
         <button
           onClick={() => scroll('left')}
-          className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white hover:bg-blue-50 rounded-full shadow-xl flex items-center justify-center transition-all border border-slate-200"
+          className="absolute -left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white hover:bg-indigo-50 rounded-2xl shadow-premium flex items-center justify-center transition-all hover:scale-110 border border-slate-200"
         >
-          <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         <button
           onClick={() => scroll('right')}
-          className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white hover:bg-blue-50 rounded-full shadow-xl flex items-center justify-center transition-all border border-slate-200"
+          className="absolute -right-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white hover:bg-indigo-50 rounded-2xl shadow-premium flex items-center justify-center transition-all hover:scale-110 border border-slate-200"
         >
-          <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -130,20 +141,26 @@ function ReviewsCarousel() {
         {/* Scrollable container */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto scrollbar-hide px-2 py-4 scroll-smooth"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-5 overflow-x-auto scrollbar-hide px-4 py-6 scroll-smooth"
         >
           {REVIEWS.map((review, index) => (
             <div
               key={index}
               onClick={() => { setModalImage(review.image); setIsModalOpen(true); }}
-              className="flex-shrink-0 w-36 h-48 bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300 border-2 border-slate-100 hover:border-blue-300"
+              className="flex-shrink-0 w-40 h-52 bg-white rounded-2xl shadow-premium overflow-hidden cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-500 border-2 border-slate-100 hover:border-indigo-300 group"
             >
-              <img
-                src={review.image}
-                alt={`Отзыв ${review.company}`}
-                className="w-full h-full object-cover"
-              />
+              <div className="relative w-full h-full">
+                <img
+                  src={review.image}
+                  alt={`Отзыв ${review.company}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <span className="text-white text-sm font-semibold">{review.company}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -152,11 +169,11 @@ function ReviewsCarousel() {
       {/* Modal */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fadeIn"
           onClick={() => setIsModalOpen(false)}
         >
           <button
-            className="absolute top-4 right-4 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors"
+            className="absolute top-6 right-6 w-14 h-14 bg-white/10 hover:bg-white/20 rounded-2xl flex items-center justify-center transition-all"
             onClick={() => setIsModalOpen(false)}
           >
             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,7 +183,7 @@ function ReviewsCarousel() {
           <img
             src={modalImage}
             alt="Отзыв"
-            className="max-w-full max-h-[90vh] object-contain rounded-lg"
+            className="max-w-full max-h-[90vh] object-contain rounded-2xl shadow-2xl animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           />
         </div>
@@ -180,36 +197,61 @@ export default function Home() {
     <>
       <Hero />
 
-      {/* Секция услуг */}
-      <section className="py-16 bg-slate-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-900">Наши услуги</h2>
-            <Link href="/vidy-sertifikacii" className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors">
+      {/* Services Section */}
+      <section className="relative py-20 bg-white overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-100/50 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        
+        <div className="relative container mx-auto px-4">
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <span className="inline-block px-4 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-bold rounded-full mb-4">
+                Наши услуги
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900">
+                Полный спектр <span className="text-gradient">сертификации</span>
+              </h2>
+              <p className="text-slate-600 mt-2 max-w-lg">
+                Оформляем все виды разрешительной документации для вашего бизнеса
+              </p>
+            </div>
+            <Link 
+              href="/vidy-sertifikacii" 
+              className="hidden md:flex items-center gap-2 px-6 py-3 bg-slate-100 hover:bg-indigo-100 rounded-xl text-slate-700 hover:text-indigo-700 font-semibold transition-all group"
+            >
               Все услуги
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {SERVICES.map((service) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {SERVICES.map((service, idx) => (
               <Link
                 key={service.slug}
                 href={`/vidy-sertifikacii/${service.slug}`}
-                className="group bg-white rounded-xl p-5 hover:shadow-lg border border-slate-100 hover:border-blue-200 transition-all duration-200"
+                className="group relative bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-transparent transition-all duration-500 hover:shadow-premium-lg hover-lift overflow-hidden"
+                style={{ animationDelay: `${idx * 50}ms` }}
               >
-                <div className="w-12 h-12 flex items-center justify-center bg-blue-50 group-hover:bg-blue-100 rounded-xl mb-4 text-blue-600 transition-colors">
-                  <ServiceIcon type={service.icon} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">{service.title}</h3>
-                <p className="text-slate-500 text-sm mb-3 line-clamp-2">{service.desc}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-blue-600 font-semibold">{service.price} ₽</span>
-                  <svg className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                {/* Gradient background on hover */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
+                
+                <div className="relative">
+                  <div className={`w-14 h-14 flex items-center justify-center bg-gradient-to-br ${service.gradient} rounded-2xl mb-5 text-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                    <ServiceIcon type={service.icon} />
+                  </div>
+                  <h3 className="font-bold text-lg text-slate-900 mb-2 group-hover:text-indigo-700 transition-colors">{service.title}</h3>
+                  <p className="text-slate-500 text-sm mb-4 line-clamp-2">{service.desc}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xl font-black text-gradient-orange">{service.price} ₽</span>
+                    <div className="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-indigo-100 flex items-center justify-center transition-colors">
+                      <svg className="w-5 h-5 text-slate-400 group-hover:text-indigo-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -217,60 +259,77 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Объединённая секция: Почему мы + Клиенты */}
-      <section className="py-16 bg-gradient-to-b from-slate-100 to-slate-50">
-        <div className="container mx-auto px-4">
-          {/* Преимущества */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {[
-              { icon: 'M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z', title: 'Аккредитованные органы', desc: 'Работаем с официальными органами' },
-              { icon: 'M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z', title: 'Фиксированные цены', desc: 'Без скрытых платежей' },
-              { icon: 'M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155', title: 'Поддержка 24/7', desc: 'Консультируем по всем вопросам' },
-              { icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z', title: 'От 1 дня', desc: 'Срочное оформление' },
-            ].map((item, i) => (
-              <div key={i} className="bg-white rounded-xl p-5 shadow-sm border border-slate-200/50 flex items-start gap-4">
-                <div className="w-12 h-12 flex items-center justify-center bg-blue-50 text-blue-600 rounded-xl flex-shrink-0">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+      {/* Advantages + Clients */}
+      <section className="relative py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-indigo-50/30 to-slate-50"></div>
+        <div className="absolute inset-0 bg-grid opacity-30"></div>
+        
+        <div className="relative container mx-auto px-4">
+          {/* Advantages */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {ADVANTAGES.map((item, i) => (
+              <div 
+                key={i} 
+                className="group bg-white rounded-2xl p-6 shadow-premium border border-slate-200/50 hover:shadow-premium-lg transition-all duration-500 hover-lift"
+              >
+                <div className={`w-14 h-14 mb-5 rounded-2xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform`}>
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                   </svg>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-1">{item.title}</h3>
-                  <p className="text-sm text-slate-500">{item.desc}</p>
-                </div>
+                <h3 className="font-bold text-lg text-slate-900 mb-2">{item.title}</h3>
+                <p className="text-slate-500">{item.desc}</p>
               </div>
             ))}
           </div>
 
-          {/* Разделитель с текстом */}
-          <div className="text-center mb-8">
-            <p className="text-slate-600 font-medium">Нам доверяют крупнейшие компании России</p>
+          {/* Divider with text */}
+          <div className="relative py-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t-2 border-dashed border-slate-200"></div>
+            </div>
+            <div className="relative flex justify-center">
+              <span className="px-6 py-2 bg-slate-50 text-slate-600 font-semibold text-lg rounded-full">
+                Нам доверяют крупнейшие компании
+              </span>
+            </div>
           </div>
 
-          {/* Логотипы клиентов */}
-          <div className="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+          {/* Client logos */}
+          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-20 mt-8">
             {CLIENTS.map((client) => (
-              <img key={client.name} src={client.logo} alt={client.name} className="h-10 md:h-12 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity" />
+              <div key={client.name} className="group">
+                <img 
+                  src={client.logo} 
+                  alt={client.name} 
+                  className="h-12 md:h-16 w-auto object-contain grayscale-[30%] opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110" 
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Отзывы - горизонтальная лента */}
-      <section className="py-16 bg-white">
+      {/* Reviews */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-end justify-between mb-12">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2">
-                Отзывы клиентов
+              <span className="inline-block px-4 py-1.5 bg-emerald-100 text-emerald-700 text-sm font-bold rounded-full mb-4">
+                Отзывы
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900">
+                Благодарственные <span className="text-gradient">письма</span>
               </h2>
-              <p className="text-slate-500">Более {REVIEWS.length} благодарственных писем от компаний</p>
+              <p className="text-slate-600 mt-2">
+                Более {REVIEWS.length} отзывов от довольных клиентов
+              </p>
             </div>
-            <div className="hidden sm:flex items-center gap-2 text-sm text-slate-500">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="hidden sm:flex items-center gap-2 px-4 py-2 bg-slate-100 rounded-full text-slate-500">
+              <svg className="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
               </svg>
-              <span>Нажмите для просмотра</span>
+              <span className="text-sm font-medium">Нажмите для просмотра</span>
             </div>
           </div>
           <ReviewsCarousel />
@@ -278,19 +337,47 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-12 bg-gradient-to-r from-blue-900 to-blue-700">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Нужна консультация?</h2>
-              <p className="text-blue-100">Позвоните нам или оставьте заявку — перезвоним за 5 минут</p>
+      <section className="relative py-20 overflow-hidden">
+        {/* Premium gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700"></div>
+        <div className="absolute inset-0 bg-grid opacity-10"></div>
+        
+        {/* Floating orbs */}
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+        
+        <div className="relative container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+            <div className="text-center lg:text-left">
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                Нужна консультация?
+              </h2>
+              <p className="text-xl text-indigo-200 max-w-xl">
+                Позвоните нам или оставьте заявку — перезвоним за <span className="font-bold text-white">5 минут</span>
+              </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <a href="tel:88005505288" className="text-2xl font-bold text-white hover:text-orange-300 transition-colors">
-                8 800 550-52-88
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <a 
+                href="tel:88005505288" 
+                className="group flex items-center gap-3"
+              >
+                <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-3xl font-black text-white group-hover:text-orange-300 transition-colors">
+                    8 800 550-52-88
+                  </div>
+                  <div className="text-indigo-200 text-sm">Бесплатно по России</div>
+                </div>
               </a>
-              <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-4 rounded-xl transition-colors shadow-lg">
-                Заказать звонок
+              <button className="btn-premium ring-pulse bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-bold px-10 py-5 rounded-2xl transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 flex items-center gap-3 text-lg">
+                <span>Заказать звонок</span>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </button>
             </div>
           </div>
