@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { searchTNVEDFull, TNVEDCode, getTNVEDCount } from '@/lib/tnved-search';
 import { determineCertification, CertificationResult, DocumentType } from '@/lib/certification-rules';
-import { LiveResultPanel } from '@/components/calculator/LiveResultPanel';
+import { LiveResultPanelExtended } from '@/components/calculator/LiveResultPanelExtended';
 
 const POPULAR = ['косметика', 'БАДы', 'игрушки', 'одежда', 'маски', 'продукты'];
 
