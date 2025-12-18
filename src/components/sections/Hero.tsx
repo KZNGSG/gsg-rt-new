@@ -115,9 +115,24 @@ export function Hero() {
       const results = searchTNVEDFull(searchQuery, 6);
       setSuggestions(results);
       setShowSuggestions(results.length > 0);
+      
+      // Автоматически показываем результат для первого найденного товара
+      if (results.length > 0) {
+        const firstResult = results[0];
+        setSelectedCalcItem(firstResult);
+        setCalcProduct(firstResult.name);
+        const certResult = determineCertification(firstResult.code, firstResult.name);
+        setCalcResult(certResult);
+      }
     } else {
       setSuggestions([]);
       setShowSuggestions(false);
+      // Сбрасываем результат если поиск очищен
+      if (searchQuery.trim().length === 0) {
+        setCalcResult(null);
+        setCalcProduct('');
+        setSelectedCalcItem(null);
+      }
     }
   }, [searchQuery]);
 
