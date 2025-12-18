@@ -41,16 +41,17 @@ body {
 
 /* ========== PREMIUM EFFECTS ========== */
 
-/* Mesh градиент - синий фирменный */
+/* Mesh градиент - приглушённый синий (легче для глаз) */
 .bg-mesh-blue {
-  background-color: #1e3a8a;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
   background-image: 
-    radial-gradient(at 40% 20%, rgba(59, 130, 246, 0.4) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(37, 99, 235, 0.3) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(30, 64, 175, 0.4) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, rgba(59, 130, 246, 0.3) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(37, 99, 235, 0.4) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(249, 115, 22, 0.15) 0px, transparent 40%);
+    linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%),
+    radial-gradient(ellipse at 20% 30%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(99, 102, 241, 0.12) 0px, transparent 45%),
+    radial-gradient(ellipse at 10% 80%, rgba(37, 99, 235, 0.1) 0px, transparent 50%),
+    radial-gradient(ellipse at 90% 70%, rgba(79, 70, 229, 0.08) 0px, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(30, 58, 138, 0.2) 0px, transparent 60%);
+  background-blend-mode: normal, screen, screen, screen, screen, overlay;
 }
 
 /* Glassmorphism премиум */
