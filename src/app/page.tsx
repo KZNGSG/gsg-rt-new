@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { HeroWithCalculator } from '@/components/sections/HeroWithCalculator';
+import { Hero } from '@/components/sections/Hero';
 
 const SERVICES = [
   { title: 'Сертификат ТР ТС', desc: 'Обязательная сертификация продукции в рамках ЕАЭС', price: 'от 12 000', slug: 'sertifikat-tr-ts', icon: 'certificate', color: 'from-emerald-500 to-green-600' },
