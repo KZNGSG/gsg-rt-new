@@ -5,14 +5,14 @@ import Link from 'next/link';
 import { Hero } from '@/components/sections/Hero';
 
 const SERVICES = [
-  { title: 'Сертификат ТР ТС', desc: 'Обязательная сертификация продукции в рамках ЕАЭС', price: 'от 12 000', slug: 'sertifikat-tr-ts', icon: 'certificate', color: 'from-emerald-500 to-green-600' },
-  { title: 'Декларация ТР ТС', desc: 'Декларирование соответствия техрегламентам', price: 'от 8 000', slug: 'deklarirovanie', icon: 'declaration', color: 'from-blue-500 to-indigo-600' },
-  { title: 'Регистрация МИ', desc: 'Регистрационное удостоверение Росздравнадзора', price: 'от 80 000', slug: 'registratsiya-medizdeliy', icon: 'medical', color: 'from-rose-500 to-pink-600' },
-  { title: 'ХАССП', desc: 'Внедрение системы пищевой безопасности', price: 'от 25 000', slug: 'hassp', icon: 'shield', color: 'from-amber-500 to-orange-600' },
-  { title: 'СГР', desc: 'Свидетельство о государственной регистрации', price: 'от 25 000', slug: 'sgr', icon: 'sgr', color: 'from-purple-500 to-violet-600' },
-  { title: 'ГОСТ Р', desc: 'Добровольная сертификация качества', price: 'от 15 000', slug: 'gost-r', icon: 'check', color: 'from-cyan-500 to-blue-600' },
-  { title: 'Эко-сертификат', desc: 'Экологическая сертификация продукции', price: 'от 20 000', slug: 'eco', icon: 'leaf', color: 'from-green-500 to-emerald-600' },
-  { title: 'Отказное письмо', desc: 'Письмо об отсутствии необходимости сертификации', price: 'от 5 000', slug: 'otkaznoe-pismo', icon: 'envelope', color: 'from-slate-500 to-slate-600' },
+  { title: 'Сертификат ТР ТС', desc: 'Обязательная сертификация продукции в рамках ЕАЭС', price: 'от 12 000', href: '/sertifikat-tr-ts', icon: 'certificate', color: 'from-emerald-500 to-green-600' },
+  { title: 'Декларация ТР ТС', desc: 'Декларирование соответствия техрегламентам', price: 'от 8 000', href: '/deklaraciya-tr-ts', icon: 'declaration', color: 'from-blue-500 to-indigo-600' },
+  { title: 'Регистрация МИ', desc: 'Регистрационное удостоверение Росздравнадзора', price: 'от 80 000', href: '/vidy-sertifikacii/registratsiya-mi', icon: 'medical', color: 'from-rose-500 to-pink-600' },
+  { title: 'ХАССП', desc: 'Внедрение системы пищевой безопасности', price: 'от 25 000', href: '/vidy-sertifikacii/hassp', icon: 'shield', color: 'from-amber-500 to-orange-600' },
+  { title: 'СГР', desc: 'Свидетельство о государственной регистрации', price: 'от 25 000', href: '/vidy-sertifikacii/sgr', icon: 'sgr', color: 'from-purple-500 to-violet-600' },
+  { title: 'ГОСТ Р', desc: 'Добровольная сертификация качества', price: 'от 15 000', href: '/vidy-sertifikacii/gost-r', icon: 'check', color: 'from-cyan-500 to-blue-600' },
+  { title: 'Эко-сертификат', desc: 'Экологическая сертификация продукции', price: 'от 20 000', href: '/vidy-sertifikacii/eco', icon: 'leaf', color: 'from-green-500 to-emerald-600' },
+  { title: 'Отказное письмо', desc: 'Письмо об отсутствии необходимости сертификации', price: 'от 5 000', href: '/vidy-sertifikacii/otkaznoe-pismo', icon: 'envelope', color: 'from-slate-500 to-slate-600' },
 ];
 
 const CLIENTS = [
@@ -180,7 +180,7 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {SERVICES.map((service) => (
-              <Link key={service.slug} href={`/vidy-sertifikacii/${service.slug}`} className="card-3d group bg-white rounded-2xl p-6 border border-slate-200">
+              <Link key={service.href} href={service.href} className="card-3d group bg-white rounded-2xl p-6 border border-slate-200">
                 <div className={`w-14 h-14 flex items-center justify-center bg-gradient-to-br ${service.color} rounded-2xl mb-5 text-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                   <ServiceIcon type={service.icon} className="w-7 h-7" />
                 </div>
