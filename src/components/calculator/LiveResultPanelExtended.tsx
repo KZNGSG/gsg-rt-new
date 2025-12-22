@@ -120,32 +120,125 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
     }
   }, [innQuery]);
 
-  // Пустое состояние
+  // Пустое состояние - Radar Scan Design
   if (!result && !isLoading) {
     return (
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
-        <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-4">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-              </svg>
+      <div className="rounded-2xl shadow-2xl overflow-hidden border border-slate-800 h-full bg-slate-950">
+        {/* Header */}
+        <div className="bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-4 border-b border-slate-800">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Результат подбора</h3>
+                <p className="text-slate-500 text-xs font-mono">Система готова</p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold text-white">Результат подбора</h3>
-              <p className="text-slate-400 text-xs">Документы для вашего товара</p>
+            {/* Status */}
+            <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-emerald-400 text-xs font-mono">READY</span>
             </div>
           </div>
         </div>
-        <div className="p-6 flex flex-col items-center justify-center min-h-[300px] text-center">
-          <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mb-4">
-            <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+
+        {/* Content */}
+        <div className="relative p-6 flex flex-col items-center justify-center min-h-[340px]">
+          {/* Grid Background */}
+          <div className="absolute inset-0 opacity-[0.07]">
+            <svg className="w-full h-full">
+              <defs>
+                <pattern id="radar-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#94a3b8" strokeWidth="0.5"/>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#radar-grid)" />
             </svg>
           </div>
-          <p className="text-slate-600 font-medium mb-1">Введите название товара</p>
-          <p className="text-slate-400 text-sm">или код ТН ВЭД в поле слева</p>
+
+          {/* Radar */}
+          <div className="relative w-44 h-44 mb-6">
+            {/* Glow */}
+            <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" />
+
+            {/* Concentric circles */}
+            <div className="absolute inset-0 rounded-full border border-slate-700/50" />
+            <div className="absolute inset-4 rounded-full border border-slate-700/40" />
+            <div className="absolute inset-8 rounded-full border border-slate-700/30" />
+            <div className="absolute inset-12 rounded-full border border-slate-700/20" />
+            <div className="absolute inset-16 rounded-full border border-slate-700/10" />
+
+            {/* Radar sweep */}
+            <div
+              className="absolute inset-0 rounded-full animate-spin"
+              style={{ animationDuration: '4s' }}
+            >
+              <div
+                className="absolute top-1/2 left-1/2 w-[45%] h-0.5 origin-left"
+                style={{
+                  background: 'linear-gradient(90deg, #10b981 0%, transparent 100%)',
+                  boxShadow: '0 0 20px 2px rgba(16, 185, 129, 0.5)',
+                }}
+              />
+            </div>
+
+            {/* Pulse rings */}
+            <div className="absolute inset-[68px] rounded-full border-2 border-emerald-500/40 animate-ping" style={{ animationDuration: '2s' }} />
+
+            {/* Center point */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="relative">
+                <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50 animate-pulse" />
+              </div>
+            </div>
+
+            {/* Scan dots - detected items */}
+            <div className="absolute top-[25%] left-[65%] w-1.5 h-1.5 rounded-full bg-emerald-400/60 animate-pulse" style={{ animationDelay: '0.5s' }} />
+            <div className="absolute top-[60%] left-[25%] w-1 h-1 rounded-full bg-emerald-400/40 animate-pulse" style={{ animationDelay: '1s' }} />
+            <div className="absolute top-[35%] left-[30%] w-1.5 h-1.5 rounded-full bg-emerald-400/50 animate-pulse" style={{ animationDelay: '1.5s' }} />
+          </div>
+
+          {/* Text */}
+          <div className="text-center relative z-10">
+            <p className="text-white font-semibold text-lg mb-2">Ожидание ввода</p>
+            <p className="text-slate-500 text-sm font-mono max-w-[220px]">
+              Введите название товара или код ТН ВЭД
+            </p>
+          </div>
+
+          {/* Arrow indicator */}
+          <div className="absolute left-4 top-1/2 -translate-y-1/2">
+            <div className="flex items-center gap-2">
+              <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center group-hover:border-emerald-500/50 transition-colors">
+                <svg
+                  className="w-5 h-5 text-emerald-400"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                  style={{ animation: 'bounceX 1s ease-in-out infinite' }}
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+              </div>
+              <div className="text-left hidden sm:block">
+                <p className="text-slate-600 text-[10px] font-mono uppercase">Input</p>
+                <p className="text-emerald-400/70 text-xs">Поле ввода</p>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <style jsx>{`
+          @keyframes bounceX {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-4px); }
+          }
+        `}</style>
       </div>
     );
   }
