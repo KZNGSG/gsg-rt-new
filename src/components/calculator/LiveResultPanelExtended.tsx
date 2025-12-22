@@ -74,6 +74,7 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
   });
 
   // Контактные данные
+  const [contactName, setContactName] = useState('');
   const [innQuery, setInnQuery] = useState('');
   const [companySuggestions, setCompanySuggestions] = useState<CompanyData[]>([]);
   const [selectedCompany, setSelectedCompany] = useState<CompanyData | null>(null);
@@ -98,6 +99,7 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
         existingDocs: [],
         existingDocsOther: '',
       });
+      setContactName('');
       setSelectedCompany(null);
       setPhone('');
       setEmail('');
@@ -234,7 +236,7 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
 
   // Отправка заявки
   const handleSubmit = async () => {
-    if (!selectedCompany || !phone) return;
+    if (!contactName || !phone) return;
 
     setIsSubmitting(true);
 
@@ -245,7 +247,8 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
       documentType: doc?.type,
       regulation: doc?.regulation,
       answers,
-      company: selectedCompany,
+      contactName,
+      company: selectedCompany, // может быть null
       phone,
       email,
       timestamp: new Date().toISOString(),
@@ -292,7 +295,7 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
           <div className="bg-slate-50 rounded-xl p-4 mb-4 text-left">
             <p className="text-sm text-slate-600 mb-2">Ваша заявка:</p>
             <p className="font-medium text-slate-800">{productName}</p>
-            <p className="text-sm text-slate-500">{selectedCompany?.name}</p>
+            {selectedCompany && <p className="text-sm text-slate-500">{selectedCompany.name}</p>}
           </div>
 
           {onClear && (
@@ -819,10 +822,44 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
 
           {/* Форма контактов */}
           <div className="space-y-4">
+            {/* Имя */}
             <div>
               <label className="text-sm font-medium text-slate-700 block mb-1.5">
-                ИНН или название компании
+                Как вас зовут? <span className="text-red-500">*</span>
               </label>
+              <input
+                type="text"
+                value={contactName}
+                onChange={(e) => setContactName(e.target.value)}
+                placeholder="Ваше имя"
+                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* Телефон */}
+            <div>
+              <label className="text-sm font-medium text-slate-700 block mb-1.5">
+                Телефон для связи <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+7 (___) ___-__-__"
+                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            {/* ИНН - с мотивацией */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-sm font-medium text-slate-700">
+                  ИНН или название компании
+                </label>
+                <span className="text-xs text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">
+                  ускорит расчёт
+                </span>
+              </div>
               <div className="relative">
                 <input
                   type="text"
@@ -831,7 +868,7 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
                     setSelectedCompany(null);
                     setInnQuery(e.target.value);
                   }}
-                  placeholder="Введите ИНН или название..."
+                  placeholder="Начните вводить — найдём автоматически"
                   className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
                 {isSearching && (
@@ -843,7 +880,14 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
                 )}
               </div>
 
-              {/* Подсказки */}
+              {/* Подсказка под полем */}
+              {!selectedCompany && !innQuery && (
+                <p className="text-xs text-slate-400 mt-1.5">
+                  Сразу подготовим КП с вашими реквизитами
+                </p>
+              )}
+
+              {/* Подсказки компаний */}
               {companySuggestions.length > 0 && !selectedCompany && (
                 <div className="mt-2 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden">
                   {companySuggestions.map((company, i) => (
@@ -865,10 +909,15 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
 
               {/* Выбранная компания */}
               {selectedCompany && (
-                <div className="mt-2 bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-slate-800 text-sm">{selectedCompany.name}</p>
-                    <p className="text-xs text-slate-500">ИНН {selectedCompany.inn}</p>
+                <div className="mt-2 bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p className="font-medium text-slate-800 text-sm">{selectedCompany.name}</p>
+                      <p className="text-xs text-slate-500">ИНН {selectedCompany.inn}</p>
+                    </div>
                   </div>
                   <button
                     onClick={() => setSelectedCompany(null)}
@@ -881,37 +930,11 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
                 </div>
               )}
             </div>
-
-            <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1.5">
-                Телефон для связи <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="+7 (___) ___-__-__"
-                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-slate-700 block mb-1.5">
-                Email <span className="text-slate-400">(необязательно)</span>
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="example@company.ru"
-                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
           </div>
 
           <button
             onClick={handleSubmit}
-            disabled={!selectedCompany || !phone || isSubmitting}
+            disabled={!contactName || !phone || isSubmitting}
             className="w-full mt-6 py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-slate-300 disabled:to-slate-400 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
           >
             {isSubmitting ? (
@@ -923,7 +946,7 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
               </>
             ) : (
               <>
-                Получить расчёт за 15 минут
+                Получить расчёт
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
@@ -932,7 +955,7 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
           </button>
 
           <p className="text-center text-xs text-slate-400 mt-3">
-            Менеджер свяжется для уточнения деталей и отправит КП на почту
+            Перезвоним в течение 15 минут и отправим КП на почту
           </p>
         </div>
       </div>
