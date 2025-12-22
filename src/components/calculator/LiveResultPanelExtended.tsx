@@ -120,125 +120,72 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
     }
   }, [innQuery]);
 
-  // Пустое состояние - Radar Scan Design
+  // Пустое состояние - Минималистичный дизайн
   if (!result && !isLoading) {
     return (
-      <div className="rounded-2xl shadow-2xl overflow-hidden border border-slate-800 h-full bg-slate-950">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
         {/* Header */}
-        <div className="bg-gradient-to-r from-slate-900 to-slate-800 px-5 py-4 border-b border-slate-800">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-                <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.348 14.651a3.75 3.75 0 010-5.303m5.304 0a3.75 3.75 0 010 5.303m-7.425 2.122a6.75 6.75 0 010-9.546m9.546 0a6.75 6.75 0 010 9.546M5.106 18.894c-3.808-3.808-3.808-9.98 0-13.789m13.788 0c3.808 3.808 3.808 9.981 0 13.79M12 12h.008v.007H12V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-white">Результат подбора</h3>
-                <p className="text-slate-500 text-xs font-mono">Система готова</p>
-              </div>
+        <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
+              </svg>
             </div>
-            {/* Status */}
-            <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-emerald-400 text-xs font-mono">READY</span>
+            <div>
+              <h3 className="text-lg font-semibold text-white">Результат подбора</h3>
+              <p className="text-slate-400 text-xs">Введите товар для анализа</p>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="relative p-6 flex flex-col items-center justify-center min-h-[340px]">
-          {/* Grid Background */}
-          <div className="absolute inset-0 opacity-[0.07]">
-            <svg className="w-full h-full">
-              <defs>
-                <pattern id="radar-grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#94a3b8" strokeWidth="0.5"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#radar-grid)" />
-            </svg>
+        <div className="p-6 flex flex-col items-center justify-center min-h-[340px]">
+          {/* Иллюстрация */}
+          <div className="relative mb-6">
+            {/* Круг с иконкой */}
+            <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center">
+              <svg className="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+              </svg>
+            </div>
+            {/* Декоративные элементы */}
+            <div className="absolute -top-2 -right-2 w-6 h-6 rounded-lg bg-blue-100 flex items-center justify-center">
+              <svg className="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div className="absolute -bottom-1 -left-1 w-5 h-5 rounded-md bg-amber-100 flex items-center justify-center">
+              <svg className="w-2.5 h-2.5 text-amber-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+              </svg>
+            </div>
           </div>
 
-          {/* Radar */}
-          <div className="relative w-44 h-44 mb-6">
-            {/* Glow */}
-            <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-3xl animate-pulse" />
-
-            {/* Concentric circles */}
-            <div className="absolute inset-0 rounded-full border border-slate-700/50" />
-            <div className="absolute inset-4 rounded-full border border-slate-700/40" />
-            <div className="absolute inset-8 rounded-full border border-slate-700/30" />
-            <div className="absolute inset-12 rounded-full border border-slate-700/20" />
-            <div className="absolute inset-16 rounded-full border border-slate-700/10" />
-
-            {/* Radar sweep */}
-            <div
-              className="absolute inset-0 rounded-full animate-spin"
-              style={{ animationDuration: '4s' }}
-            >
-              <div
-                className="absolute top-1/2 left-1/2 w-[45%] h-0.5 origin-left"
-                style={{
-                  background: 'linear-gradient(90deg, #10b981 0%, transparent 100%)',
-                  boxShadow: '0 0 20px 2px rgba(16, 185, 129, 0.5)',
-                }}
-              />
-            </div>
-
-            {/* Pulse rings */}
-            <div className="absolute inset-[68px] rounded-full border-2 border-emerald-500/40 animate-ping" style={{ animationDuration: '2s' }} />
-
-            {/* Center point */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="relative">
-                <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50 animate-pulse" />
-              </div>
-            </div>
-
-            {/* Scan dots - detected items */}
-            <div className="absolute top-[25%] left-[65%] w-1.5 h-1.5 rounded-full bg-emerald-400/60 animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <div className="absolute top-[60%] left-[25%] w-1 h-1 rounded-full bg-emerald-400/40 animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-[35%] left-[30%] w-1.5 h-1.5 rounded-full bg-emerald-400/50 animate-pulse" style={{ animationDelay: '1.5s' }} />
-          </div>
-
-          {/* Text */}
-          <div className="text-center relative z-10">
-            <p className="text-white font-semibold text-lg mb-2">Ожидание ввода</p>
-            <p className="text-slate-500 text-sm font-mono max-w-[220px]">
-              Введите название товара или код ТН ВЭД
+          {/* Текст */}
+          <div className="text-center">
+            <h4 className="text-slate-800 font-semibold text-lg mb-2">Введите название товара</h4>
+            <p className="text-slate-500 text-sm max-w-[260px]">
+              Укажите название продукции или код ТН ВЭД, чтобы узнать какие документы требуются
             </p>
           </div>
 
-          {/* Arrow indicator */}
-          <div className="absolute left-4 top-1/2 -translate-y-1/2">
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center group-hover:border-emerald-500/50 transition-colors">
-                <svg
-                  className="w-5 h-5 text-emerald-400"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                  viewBox="0 0 24 24"
-                  style={{ animation: 'bounceX 1s ease-in-out infinite' }}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-                </svg>
-              </div>
-              <div className="text-left hidden sm:block">
-                <p className="text-slate-600 text-[10px] font-mono uppercase">Input</p>
-                <p className="text-emerald-400/70 text-xs">Поле ввода</p>
-              </div>
-            </div>
+          {/* Подсказки */}
+          <div className="mt-6 flex flex-wrap gap-2 justify-center">
+            <span className="px-3 py-1.5 bg-slate-100 text-slate-600 text-xs rounded-full">косметика</span>
+            <span className="px-3 py-1.5 bg-slate-100 text-slate-600 text-xs rounded-full">одежда</span>
+            <span className="px-3 py-1.5 bg-slate-100 text-slate-600 text-xs rounded-full">БАДы</span>
+            <span className="px-3 py-1.5 bg-slate-100 text-slate-600 text-xs rounded-full">игрушки</span>
+          </div>
+
+          {/* Стрелка */}
+          <div className="mt-6 flex items-center gap-2 text-slate-400">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+            </svg>
+            <span className="text-sm">Поле ввода слева</span>
           </div>
         </div>
-
-        <style jsx>{`
-          @keyframes bounceX {
-            0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(-4px); }
-          }
-        `}</style>
       </div>
     );
   }
