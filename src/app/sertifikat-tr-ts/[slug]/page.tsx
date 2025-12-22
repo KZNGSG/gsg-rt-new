@@ -7,6 +7,7 @@ import {
   getCertificateRegulations,
   TRTSRegulation,
 } from '@/data/tr-ts-database';
+import { getTRTSContent, ALL_TRTS_CONTENT, type TRTSFullData } from '@/data/tr-ts-content';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -118,6 +119,14 @@ export default async function CertificatePage({ params }: PageProps) {
   const relatedRegulations = getCertificateRegulations()
     .filter((r) => r.id !== regulation.id)
     .slice(0, 3);
+
+  // Получаем расширенный контент (товары, импорт, маркетплейсы)
+  let trtsContent: TRTSFullData | undefined = getTRTSContent(slug);
+  if (!trtsContent) {
+    trtsContent = Object.values(ALL_TRTS_CONTENT).find(
+      t => t.id === regulation.id
+    );
+  }
 
   const jsonLd = generateJsonLd(regulation);
 
@@ -284,6 +293,85 @@ export default async function CertificatePage({ params }: PageProps) {
                   </div>
                 )}
               </section>
+
+              {/* Подробные страницы по товарам */}
+              {trtsContent && trtsContent.products.length > 0 && (
+                <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                    <span className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                    </span>
+                    Сертификация по категориям товаров
+                  </h2>
+                  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    {trtsContent.products
+                      .sort((a, b) => b.popularity - a.popularity)
+                      .map((product) => (
+                        <Link
+                          key={product.slug}
+                          href={`/sertifikat-tr-ts/${slug}/tovary/${product.slug}`}
+                          className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl hover:bg-indigo-50 hover:text-indigo-700 transition-colors group"
+                        >
+                          <svg className="w-5 h-5 text-slate-400 group-hover:text-indigo-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          </svg>
+                          <span className="font-medium">{product.name}</span>
+                        </Link>
+                      ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Импорт и маркетплейсы */}
+              {trtsContent && (trtsContent.imports.length > 0 || trtsContent.salesChannels.length > 0) && (
+                <section className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Импорт */}
+                    {trtsContent.imports.length > 0 && (
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-4">Импорт по странам</h3>
+                        <div className="space-y-2">
+                          {trtsContent.imports.map((imp) => (
+                            <Link
+                              key={imp.slug}
+                              href={`/sertifikat-tr-ts/${slug}/import/${imp.slug}`}
+                              className="flex items-center justify-between p-3 bg-white rounded-xl hover:shadow-md transition-all group"
+                            >
+                              <span className="font-medium text-slate-700 group-hover:text-blue-600">{imp.name}</span>
+                              <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                              </svg>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Маркетплейсы */}
+                    {trtsContent.salesChannels.length > 0 && (
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 mb-4">Для маркетплейсов</h3>
+                        <div className="space-y-2">
+                          {trtsContent.salesChannels.map((ch) => (
+                            <Link
+                              key={ch.slug}
+                              href={`/sertifikat-tr-ts/${slug}/prodazha/${ch.slug}`}
+                              className="flex items-center justify-between p-3 bg-white rounded-xl hover:shadow-md transition-all group"
+                            >
+                              <span className="font-medium text-slate-700 group-hover:text-blue-600">{ch.name}</span>
+                              <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                              </svg>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </section>
+              )}
 
               {/* Стоимость */}
               <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
