@@ -54,7 +54,6 @@ export const MAIN_NAV: { label: string; href: string; highlight?: boolean; child
   {
     label: 'Академия',
     href: '/akademiya',
-    highlight: true,
   },
   { label: 'О нас', href: '/o-nas' },
   { label: 'Контакты', href: '/kontakty' },
