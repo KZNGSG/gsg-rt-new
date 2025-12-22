@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CertificationResult } from '@/lib/certification-rules';
 
 interface LiveResultPanelProps {
@@ -10,17 +10,58 @@ interface LiveResultPanelProps {
   isLoading?: boolean;
 }
 
+// Примеры для анимации
+const DEMO_EXAMPLES = [
+  {
+    product: 'Детские игрушки',
+    docs: ['Сертификат ТР ТС 008/2011', 'Протокол испытаний'],
+    time: '5-7 дней',
+    price: 'от 12 000 ₽'
+  },
+  {
+    product: 'Косметика',
+    docs: ['СГР', 'Декларация ТР ТС'],
+    time: '10-14 дней',
+    price: 'от 18 000 ₽'
+  },
+  {
+    product: 'Одежда',
+    docs: ['Декларация ТР ТС 017/2011'],
+    time: '3-5 дней',
+    price: 'от 8 000 ₽'
+  },
+];
+
 export function LiveResultPanel({ result, productName, productCode, isLoading }: LiveResultPanelProps) {
-  // Состояние по умолчанию — приглашение к поиску
+  const [demoIndex, setDemoIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Анимация смены примеров
+  useEffect(() => {
+    if (result || isLoading) return;
+
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setDemoIndex((prev) => (prev + 1) % DEMO_EXAMPLES.length);
+        setIsAnimating(false);
+      }, 300);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [result, isLoading]);
+
+  const currentDemo = DEMO_EXAMPLES[demoIndex];
+
+  // Состояние по умолчанию — с живым примером
   if (!result && !isLoading) {
     return (
       <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50 h-full">
         {/* Заголовок */}
-        <div className="relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 px-5 py-4 overflow-hidden">
-          <div className="absolute inset-0 bg-grid opacity-10"></div>
+        <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-4 overflow-hidden">
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
           <div className="relative flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
               </svg>
@@ -31,24 +72,78 @@ export function LiveResultPanel({ result, productName, productCode, isLoading }:
             </div>
           </div>
         </div>
-        
-        <div className="p-6 flex flex-col items-center justify-center min-h-[320px] text-center">
-          <div className="w-20 h-20 rounded-2xl bg-slate-100 flex items-center justify-center mb-4">
-            <svg className="w-10 h-10 text-slate-300" fill="none" stroke="currentColor" strokeWidth={1} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+
+        <div className="p-5">
+          {/* Призыв к действию */}
+          <div className="flex items-center gap-3 mb-5 p-3 bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-xl">
+            <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-800">Введите товар слева</p>
+              <p className="text-xs text-slate-500">и увидите результат здесь</p>
+            </div>
           </div>
-          <h4 className="text-lg font-bold text-slate-800 mb-2">Начните поиск</h4>
-          <p className="text-slate-500 text-sm max-w-[240px]">
-            Введите название товара или код ТН ВЭД слева, и мы покажем какие документы нужны
-          </p>
-          
-          {/* Примеры */}
-          <div className="mt-6 w-full">
-            <p className="text-xs text-slate-400 mb-3">Например:</p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {['игрушки', 'косметика', '9503', 'одежда'].map(term => (
-                <span key={term} className="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-full text-xs">
+
+          {/* Пример с анимацией */}
+          <div className="mb-4">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Пример результата</span>
+              <div className="flex gap-1">
+                {DEMO_EXAMPLES.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${i === demoIndex ? 'bg-blue-500' : 'bg-slate-200'}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className={`transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
+              {/* Название товара */}
+              <div className="flex items-center gap-2 mb-3 p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg">
+                <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="font-semibold text-slate-800 text-sm">{currentDemo.product}</span>
+              </div>
+
+              {/* Документы */}
+              <div className="space-y-2 mb-3">
+                {currentDemo.docs.map((doc, i) => (
+                  <div key={i} className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
+                    <div className="w-6 h-6 rounded bg-blue-100 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-slate-700">{doc}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Стоимость и сроки */}
+              <div className="grid grid-cols-2 gap-2">
+                <div className="p-2.5 bg-slate-50 rounded-lg text-center">
+                  <div className="text-xs text-slate-400 mb-0.5">Сроки</div>
+                  <div className="text-sm font-bold text-slate-800">{currentDemo.time}</div>
+                </div>
+                <div className="p-2.5 bg-slate-50 rounded-lg text-center">
+                  <div className="text-xs text-slate-400 mb-0.5">Стоимость</div>
+                  <div className="text-sm font-bold text-slate-800">{currentDemo.price}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Популярные запросы */}
+          <div>
+            <p className="text-xs text-slate-400 mb-2">Популярные запросы:</p>
+            <div className="flex flex-wrap gap-1.5">
+              {['косметика', 'БАДы', 'игрушки', 'одежда', 'маски'].map(term => (
+                <span key={term} className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full text-xs cursor-pointer transition-colors">
                   {term}
                 </span>
               ))}
