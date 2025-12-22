@@ -8,6 +8,7 @@ interface LiveResultPanelProps {
   productName: string;
   productCode?: string;
   isLoading?: boolean;
+  inputQuery?: string; // Текущий ввод пользователя
 }
 
 // Примеры для анимации
@@ -67,7 +68,7 @@ const MOCK_REQUIREMENTS = [
   'Договор с аккредитованной лабораторией',
 ];
 
-export function LiveResultPanelExtended({ result, productName, productCode, isLoading }: LiveResultPanelProps) {
+export function LiveResultPanelExtended({ result, productName, productCode, isLoading, inputQuery = '' }: LiveResultPanelProps) {
   const [selectedScheme, setSelectedScheme] = useState(0);
   const [modifiers, setModifiers] = useState({
     urgent: false,
@@ -77,9 +78,13 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
   const [demoIndex, setDemoIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Анимация смены примеров
+  // Определяем состояния
+  const isTyping = inputQuery.trim().length > 0 && inputQuery.trim().length < 2;
+  const showDemo = !result && !isLoading && !isTyping && inputQuery.trim().length === 0;
+
+  // Анимация смены примеров - только когда показываем демо
   useEffect(() => {
-    if (result || isLoading) return;
+    if (!showDemo) return;
 
     const interval = setInterval(() => {
       setIsAnimating(true);
@@ -90,12 +95,51 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
     }, 4000);
 
     return () => clearInterval(interval);
-  }, [result, isLoading]);
+  }, [showDemo]);
 
   const currentDemo = DEMO_EXAMPLES[demoIndex];
 
+  // Пользователь начал вводить (1 символ) - показываем подсказку
+  if (isTyping) {
+    return (
+      <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50 h-full">
+        <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-4 overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+          <div className="relative flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-white">Поиск...</h3>
+              <p className="text-blue-200 text-xs">Введите минимум 2 символа</p>
+            </div>
+          </div>
+        </div>
+        <div className="p-5">
+          <div className="flex items-center gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5 text-blue-500 animate-pulse" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-slate-800">Продолжайте ввод</p>
+              <p className="text-xs text-slate-500">Введено: &ldquo;{inputQuery}&rdquo;</p>
+            </div>
+          </div>
+
+          <div className="mt-4 text-center">
+            <p className="text-sm text-slate-500">Результат появится автоматически</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Состояние по умолчанию — с живым примером
-  if (!result && !isLoading) {
+  if (showDemo) {
     return (
       <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50 h-full">
         {/* Заголовок */}

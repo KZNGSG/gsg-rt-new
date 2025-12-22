@@ -302,10 +302,11 @@ export function Hero() {
 
           {/* Правая часть - Живой результат поиска */}
           <div className="lg:col-span-2 animate-slideInRight">
-            <LiveResultPanelExtended 
+            <LiveResultPanelExtended
               result={calcResult}
               productName={calcProduct}
               productCode={selectedCalcItem?.code}
+              inputQuery={searchQuery}
             />
           </div>
         </div>
