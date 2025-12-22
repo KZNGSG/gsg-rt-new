@@ -115,7 +115,7 @@ export function Hero() {
       const results = searchTNVEDFull(searchQuery, 6);
       setSuggestions(results);
       setShowSuggestions(results.length > 0);
-      
+
       // Автоматически показываем результат для первого найденного товара
       if (results.length > 0) {
         const firstResult = results[0];
@@ -127,14 +127,17 @@ export function Hero() {
     } else {
       setSuggestions([]);
       setShowSuggestions(false);
-      // Сбрасываем результат если поиск очищен
-      if (searchQuery.trim().length === 0) {
-        setCalcResult(null);
-        setCalcProduct('');
-        setSelectedCalcItem(null);
-      }
+      // НЕ сбрасываем результат автоматически - только через кнопку "Новый поиск"
     }
   }, [searchQuery]);
+
+  // Функция сброса результата
+  const handleClearResult = () => {
+    setSearchQuery('');
+    setCalcResult(null);
+    setCalcProduct('');
+    setSelectedCalcItem(null);
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -307,6 +310,7 @@ export function Hero() {
               productName={calcProduct}
               productCode={selectedCalcItem?.code}
               inputQuery={searchQuery}
+              onClear={handleClearResult}
             />
           </div>
         </div>

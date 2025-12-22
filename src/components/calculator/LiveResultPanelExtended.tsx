@@ -8,232 +8,143 @@ interface LiveResultPanelProps {
   productName: string;
   productCode?: string;
   isLoading?: boolean;
-  inputQuery?: string; // Текущий ввод пользователя
+  inputQuery?: string;
+  onClear?: () => void;
 }
 
-// Примеры для анимации
-const DEMO_EXAMPLES = [
-  {
-    product: 'Детские игрушки',
-    docs: ['Сертификат ТР ТС 008/2011', 'Протокол испытаний'],
-    time: '5-7 дней',
-    price: 'от 12 000 ₽'
-  },
-  {
-    product: 'Косметика',
-    docs: ['СГР', 'Декларация ТР ТС'],
-    time: '10-14 дней',
-    price: 'от 18 000 ₽'
-  },
-  {
-    product: 'Одежда',
-    docs: ['Декларация ТР ТС 017/2011'],
-    time: '3-5 дней',
-    price: 'от 8 000 ₽'
-  },
-];
+// Типы для опроса
+interface SurveyAnswers {
+  purpose: string;
+  purposeOther: string;
+  origin: string;
+  originOther: string;
+  companyType: string;
+  companyTypeOther: string;
+  existingDocs: string[];
+  existingDocsOther: string;
+}
 
-// Мок данных для схем (потом натянем реальные)
-const MOCK_SCHEMES = {
-  certificate: [
-    { id: '1с', name: 'Серийное', validity: '5 лет', price: '~35 000 ₽', inspection: true },
-    { id: '3с', name: 'Партия', validity: 'На партию', price: '~25 000 ₽', inspection: false },
-  ],
-  declaration: [
-    { id: '1д', name: 'Серийное', validity: '3 года', price: '~15 000 ₽', inspection: false },
-    { id: '2д', name: 'Партия', validity: 'На партию', price: '~12 000 ₽', inspection: false },
-  ],
-  sgr: [
-    { id: 'СГР', name: 'Бессрочно', validity: 'Бессрочно', price: '~45 000 ₽', inspection: false },
-  ],
-  registration: [
-    { id: 'РУ', name: 'Регистрация', validity: 'Бессрочно', price: '~150 000 ₽', inspection: true },
-  ],
-  rejection: [
-    { id: 'ОП', name: 'Отказное', validity: '1 год', price: '~5 000 ₽', inspection: false },
-  ],
-};
+interface CompanyData {
+  name: string;
+  inn: string;
+  address: string;
+  kpp?: string;
+}
 
-// Мок связанных регламентов
-const MOCK_RELATED = [
-  { code: 'ТР ТС 017/2011', name: 'Безопасность продукции лёгкой промышленности' },
-  { code: 'ТР ЕАЭС 037/2016', name: 'Ограничение опасных веществ в изделиях' },
-];
+// DaData API
+const DADATA_TOKEN = '29df0661dd768a364acd6c574fe87539eb658d4d';
 
-// Мок требований
-const MOCK_REQUIREMENTS = [
-  'Наличие маркировки на русском языке',
-  'Техническая документация от производителя',
-  'Образцы продукции для испытаний',
-  'Договор с аккредитованной лабораторией',
-];
-
-export function LiveResultPanelExtended({ result, productName, productCode, isLoading, inputQuery = '' }: LiveResultPanelProps) {
-  const [selectedScheme, setSelectedScheme] = useState(0);
-  const [modifiers, setModifiers] = useState({
-    urgent: false,
-    hasProtocols: false,
-    isImport: false,
-  });
-  const [demoIndex, setDemoIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  // Определяем состояния
-  const isTyping = inputQuery.trim().length > 0 && inputQuery.trim().length < 2;
-  const showDemo = !result && !isLoading && !isTyping && inputQuery.trim().length === 0;
-
-  // Анимация смены примеров - только когда показываем демо
-  useEffect(() => {
-    if (!showDemo) return;
-
-    const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setDemoIndex((prev) => (prev + 1) % DEMO_EXAMPLES.length);
-        setIsAnimating(false);
-      }, 300);
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [showDemo]);
-
-  const currentDemo = DEMO_EXAMPLES[demoIndex];
-
-  // Пользователь начал вводить (1 символ) - показываем подсказку
-  if (isTyping) {
-    return (
-      <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50 h-full">
-        <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-4 overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-          <div className="relative flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold text-white">Поиск...</h3>
-              <p className="text-blue-200 text-xs">Введите минимум 2 символа</p>
-            </div>
-          </div>
-        </div>
-        <div className="p-5">
-          <div className="flex items-center gap-3 p-4 bg-blue-50 border border-blue-200 rounded-xl">
-            <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-              <svg className="w-5 h-5 text-blue-500 animate-pulse" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-slate-800">Продолжайте ввод</p>
-              <p className="text-xs text-slate-500">Введено: &ldquo;{inputQuery}&rdquo;</p>
-            </div>
-          </div>
-
-          <div className="mt-4 text-center">
-            <p className="text-sm text-slate-500">Результат появится автоматически</p>
-          </div>
-        </div>
-      </div>
-    );
+async function searchCompanyByInn(query: string): Promise<CompanyData[]> {
+  try {
+    const response = await fetch('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/party', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Token ${DADATA_TOKEN}`,
+      },
+      body: JSON.stringify({ query, count: 5 }),
+    });
+    const data = await response.json();
+    return data.suggestions?.map((s: any) => ({
+      name: s.value,
+      inn: s.data.inn,
+      kpp: s.data.kpp,
+      address: s.data.address?.value || '',
+    })) || [];
+  } catch (error) {
+    console.error('DaData error:', error);
+    return [];
   }
+}
 
-  // Состояние по умолчанию — с живым примером
-  if (showDemo) {
+export function LiveResultPanelExtended({ result, productName, productCode, isLoading, inputQuery = '', onClear }: LiveResultPanelProps) {
+  // Этапы: 'initial' | 'survey' | 'contact'
+  const [stage, setStage] = useState<'initial' | 'survey' | 'contact'>('initial');
+  const [surveyStep, setSurveyStep] = useState(1);
+  const [answers, setAnswers] = useState<SurveyAnswers>({
+    purpose: '',
+    purposeOther: '',
+    origin: '',
+    originOther: '',
+    companyType: '',
+    companyTypeOther: '',
+    existingDocs: [],
+    existingDocsOther: '',
+  });
+
+  // Контактные данные
+  const [innQuery, setInnQuery] = useState('');
+  const [companySuggestions, setCompanySuggestions] = useState<CompanyData[]>([]);
+  const [selectedCompany, setSelectedCompany] = useState<CompanyData | null>(null);
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Сброс при смене результата
+  useEffect(() => {
+    if (!result) {
+      setStage('initial');
+      setSurveyStep(1);
+      setAnswers({
+        purpose: '',
+        purposeOther: '',
+        origin: '',
+        originOther: '',
+        companyType: '',
+        companyTypeOther: '',
+        existingDocs: [],
+        existingDocsOther: '',
+      });
+      setSelectedCompany(null);
+      setPhone('');
+      setEmail('');
+      setIsSubmitted(false);
+    }
+  }, [result]);
+
+  // Поиск компании по ИНН
+  useEffect(() => {
+    if (innQuery.length >= 3) {
+      setIsSearching(true);
+      const timeout = setTimeout(async () => {
+        const results = await searchCompanyByInn(innQuery);
+        setCompanySuggestions(results);
+        setIsSearching(false);
+      }, 300);
+      return () => clearTimeout(timeout);
+    } else {
+      setCompanySuggestions([]);
+    }
+  }, [innQuery]);
+
+  // Пустое состояние
+  if (!result && !isLoading) {
     return (
-      <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50 h-full">
-        {/* Заголовок */}
-        <div className="relative bg-gradient-to-r from-blue-600 to-blue-700 px-5 py-4 overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-          <div className="relative flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
+        <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white">Результат подбора</h3>
-              <p className="text-blue-200 text-xs">Документы для вашего товара</p>
+              <h3 className="text-lg font-semibold text-white">Результат подбора</h3>
+              <p className="text-slate-400 text-xs">Документы для вашего товара</p>
             </div>
           </div>
         </div>
-
-        <div className="p-5">
-          {/* Призыв к действию */}
-          <div className="flex items-center gap-3 mb-5 p-3 bg-gradient-to-r from-orange-50 to-amber-50 border border-orange-200 rounded-xl">
-            <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center flex-shrink-0">
-              <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-slate-800">Введите товар слева</p>
-              <p className="text-xs text-slate-500">и увидите результат здесь</p>
-            </div>
+        <div className="p-6 flex flex-col items-center justify-center min-h-[300px] text-center">
+          <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mb-4">
+            <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+            </svg>
           </div>
-
-          {/* Пример с анимацией */}
-          <div className="mb-4">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-medium text-slate-400 uppercase tracking-wide">Пример результата</span>
-              <div className="flex gap-1">
-                {DEMO_EXAMPLES.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`w-1.5 h-1.5 rounded-full transition-colors duration-300 ${i === demoIndex ? 'bg-blue-500' : 'bg-slate-200'}`}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className={`transition-all duration-300 ${isAnimating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
-              {/* Название товара */}
-              <div className="flex items-center gap-2 mb-3 p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg">
-                <svg className="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span className="font-semibold text-slate-800 text-sm">{currentDemo.product}</span>
-              </div>
-
-              {/* Документы */}
-              <div className="space-y-2 mb-3">
-                {currentDemo.docs.map((doc, i) => (
-                  <div key={i} className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg">
-                    <div className="w-6 h-6 rounded bg-blue-100 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-                      </svg>
-                    </div>
-                    <span className="text-sm text-slate-700">{doc}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Стоимость и сроки */}
-              <div className="grid grid-cols-2 gap-2">
-                <div className="p-2.5 bg-slate-50 rounded-lg text-center">
-                  <div className="text-xs text-slate-400 mb-0.5">Сроки</div>
-                  <div className="text-sm font-bold text-slate-800">{currentDemo.time}</div>
-                </div>
-                <div className="p-2.5 bg-slate-50 rounded-lg text-center">
-                  <div className="text-xs text-slate-400 mb-0.5">Стоимость</div>
-                  <div className="text-sm font-bold text-slate-800">{currentDemo.price}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Популярные запросы */}
-          <div>
-            <p className="text-xs text-slate-400 mb-2">Популярные запросы:</p>
-            <div className="flex flex-wrap gap-1.5">
-              {['косметика', 'БАДы', 'игрушки', 'одежда', 'маски'].map(term => (
-                <span key={term} className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-full text-xs cursor-pointer transition-colors">
-                  {term}
-                </span>
-              ))}
-            </div>
-          </div>
+          <p className="text-slate-600 font-medium mb-1">Введите название товара</p>
+          <p className="text-slate-400 text-sm">или код ТН ВЭД в поле слева</p>
         </div>
       </div>
     );
@@ -242,17 +153,17 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
   // Загрузка
   if (isLoading) {
     return (
-      <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50 h-full">
-        <div className="relative bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 px-5 py-4">
-          <div className="relative flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center">
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
+        <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
               <svg className="w-5 h-5 text-white animate-spin" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white">Анализируем...</h3>
-              <p className="text-blue-200 text-xs">Подбираем документы</p>
+              <h3 className="text-lg font-semibold text-white">Анализируем...</h3>
+              <p className="text-slate-400 text-xs">Подбираем документы</p>
             </div>
           </div>
         </div>
@@ -261,288 +172,732 @@ export function LiveResultPanelExtended({ result, productName, productCode, isLo
             <div className="h-14 bg-slate-100 rounded-xl"></div>
             <div className="h-20 bg-slate-100 rounded-xl"></div>
             <div className="h-24 bg-slate-100 rounded-xl"></div>
-            <div className="h-16 bg-slate-100 rounded-xl"></div>
           </div>
         </div>
       </div>
     );
   }
 
-  // Результат
   const doc = result?.documents[0];
-  const docType = doc?.type || 'certificate';
-  
-  const docTypeConfig: Record<string, { color: string; bgColor: string; textColor: string; label: string; fullLabel: string }> = {
-    certificate: { color: 'text-emerald-600', bgColor: 'from-emerald-500 to-green-600', textColor: 'text-emerald-700', label: 'Сертификат', fullLabel: 'СЕРТИФИКАТ СООТВЕТСТВИЯ' },
-    declaration: { color: 'text-blue-600', bgColor: 'from-blue-500 to-indigo-600', textColor: 'text-blue-700', label: 'Декларация', fullLabel: 'ДЕКЛАРАЦИЯ О СООТВЕТСТВИИ' },
-    sgr: { color: 'text-purple-600', bgColor: 'from-purple-500 to-violet-600', textColor: 'text-purple-700', label: 'СГР', fullLabel: 'СВИДЕТЕЛЬСТВО ГОС. РЕГИСТРАЦИИ' },
-    registration: { color: 'text-orange-600', bgColor: 'from-orange-500 to-amber-600', textColor: 'text-orange-700', label: 'РУ', fullLabel: 'РЕГИСТРАЦИОННОЕ УДОСТОВЕРЕНИЕ' },
-    rejection: { color: 'text-slate-600', bgColor: 'from-slate-500 to-slate-600', textColor: 'text-slate-700', label: 'Отказное', fullLabel: 'ОТКАЗНОЕ ПИСЬМО' },
+
+  // Определяем тип документа
+  const getDocTypeLabel = (type: string) => {
+    const labels: Record<string, string> = {
+      certificate: 'Сертификат соответствия',
+      declaration: 'Декларация о соответствии',
+      sgr: 'Свидетельство о гос. регистрации',
+      registration: 'Регистрационное удостоверение',
+      rejection: 'Отказное письмо',
+    };
+    return labels[type] || 'Документ';
   };
-  
-  const config = docTypeConfig[docType];
-  const schemes = MOCK_SCHEMES[docType as keyof typeof MOCK_SCHEMES] || MOCK_SCHEMES.certificate;
 
-  // Расчёт цены с модификаторами
-  const basePrice = parseInt(doc?.price?.replace(/\D/g, '') || '20000');
-  let finalPrice = basePrice;
-  if (modifiers.urgent) finalPrice *= 1.5;
-  if (modifiers.hasProtocols) finalPrice *= 0.8;
-  if (modifiers.isImport) finalPrice *= 1.15;
+  // Отправка заявки
+  const handleSubmit = async () => {
+    if (!selectedCompany || !phone) return;
 
-  return (
-    <div className="glass-white rounded-3xl shadow-premium-lg overflow-hidden border border-white/50">
-      {/* Заголовок */}
-      <div className={`relative bg-gradient-to-r ${config.bgColor} px-5 py-4 overflow-hidden`}>
-        <div className="absolute inset-0 bg-grid opacity-10"></div>
-        <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-        <div className="relative">
-          <div className="flex items-center gap-2 mb-1">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+    setIsSubmitting(true);
+
+    // Здесь будет отправка на сервер
+    const requestData = {
+      product: productName,
+      productCode,
+      documentType: doc?.type,
+      regulation: doc?.regulation,
+      answers,
+      company: selectedCompany,
+      phone,
+      email,
+      timestamp: new Date().toISOString(),
+    };
+
+    console.log('Заявка:', requestData);
+
+    // Имитация отправки
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+  };
+
+  // ЭТАП: Успешная отправка
+  if (isSubmitted) {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
+        <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 px-5 py-4">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-white">Заявка отправлена</h3>
+              <p className="text-emerald-200 text-xs">Скоро свяжемся с вами</p>
+            </div>
+          </div>
+        </div>
+        <div className="p-6 text-center">
+          <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mx-auto mb-4">
+            <svg className="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span className="text-white/90 text-xs font-medium uppercase tracking-wide">Найдено</span>
           </div>
-          <h3 className="text-base font-bold text-white truncate">{productName}</h3>
-          {productCode && <p className="text-white/70 text-xs">Код ТН ВЭД: {productCode}</p>}
+          <h4 className="text-xl font-semibold text-slate-800 mb-2">Спасибо за заявку!</h4>
+          <p className="text-slate-500 mb-6">
+            Менеджер свяжется с вами в течение 15 минут<br/>
+            и отправит подробный расчёт
+          </p>
+
+          <div className="bg-slate-50 rounded-xl p-4 mb-4 text-left">
+            <p className="text-sm text-slate-600 mb-2">Ваша заявка:</p>
+            <p className="font-medium text-slate-800">{productName}</p>
+            <p className="text-sm text-slate-500">{selectedCompany?.name}</p>
+          </div>
+
+          {onClear && (
+            <button
+              onClick={() => {
+                setIsSubmitted(false);
+                setStage('initial');
+                onClear();
+              }}
+              className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
+            >
+              ← Новый подбор
+            </button>
+          )}
         </div>
       </div>
+    );
+  }
 
-      {/* Скроллируемый контент */}
-      <div className="p-4 space-y-4 max-h-[520px] overflow-y-auto scrollbar-thin">
-        
-        {/* Тип документа */}
-        <div className="p-3 bg-slate-50 rounded-xl">
-          <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${config.bgColor} flex items-center justify-center flex-shrink-0`}>
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
-              </svg>
+  // ЭТАП 1: Предварительный результат
+  if (stage === 'initial') {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
+        <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Предварительный результат</h3>
+                <p className="text-slate-400 text-xs">Требуется уточнение</p>
+              </div>
             </div>
-            <div className="min-w-0 flex-1">
-              <div className={`font-bold text-sm ${config.textColor}`}>{config.fullLabel}</div>
-              <div className="text-slate-600 text-xs">{doc?.regulation || 'ТР ТС'}</div>
-            </div>
-          </div>
-          
-          {/* Ссылка на Гарант */}
-          <a 
-            href={`https://base.garant.ru/search/?q=${encodeURIComponent(doc?.regulation || 'ТР ТС')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 flex items-center gap-1.5 text-xs text-blue-600 hover:text-blue-700 transition-colors"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-            </svg>
-            Текст регламента на Гарант.ру →
-          </a>
-        </div>
-
-        {/* Цена и сроки */}
-        <div className="grid grid-cols-2 gap-3">
-          <div className="p-3 bg-slate-50 rounded-xl">
-            <div className="flex items-center gap-1.5 text-slate-500 mb-1">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33" />
-              </svg>
-              <span className="text-xs font-medium">Стоимость</span>
-            </div>
-            <div className="text-lg font-bold text-slate-900">от {Math.round(finalPrice).toLocaleString()} ₽</div>
-            <div className="text-xs text-slate-400">обычно ~{Math.round(finalPrice * 1.3).toLocaleString()} ₽</div>
-          </div>
-          <div className="p-3 bg-slate-50 rounded-xl">
-            <div className="flex items-center gap-1.5 text-slate-500 mb-1">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <span className="text-xs font-medium">Сроки</span>
-            </div>
-            <div className="text-lg font-bold text-slate-900">{modifiers.urgent ? 'от 3' : 'от 7'} дней</div>
-            <div className="text-xs text-slate-400">обычно ~{modifiers.urgent ? '5' : '10'} дней</div>
-          </div>
-        </div>
-
-        {/* Схемы оформления */}
-        <div>
-          <div className="flex items-center gap-1.5 text-slate-600 mb-2">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25z" />
-            </svg>
-            <span className="text-xs font-semibold uppercase tracking-wide">Схемы оформления</span>
-          </div>
-          
-          {/* Табы схем */}
-          <div className="flex gap-1 mb-2">
-            {schemes.map((scheme, idx) => (
-              <button
-                key={scheme.id}
-                onClick={() => setSelectedScheme(idx)}
-                className={`flex-1 px-2 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                  selectedScheme === idx
-                    ? `bg-gradient-to-r ${config.bgColor} text-white shadow-sm`
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                }`}
-              >
-                {scheme.id}
+            {onClear && (
+              <button onClick={onClear} className="text-slate-400 hover:text-white transition-colors">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
-            ))}
-          </div>
-          
-          {/* Детали схемы */}
-          <div className="bg-slate-50 rounded-xl p-3">
-            <div className="grid grid-cols-3 gap-2 text-center">
-              <div>
-                <div className="text-xs text-slate-400 mb-0.5">Для кого</div>
-                <div className="text-xs font-semibold text-slate-800">{schemes[selectedScheme].name}</div>
-              </div>
-              <div>
-                <div className="text-xs text-slate-400 mb-0.5">Срок действия</div>
-                <div className="text-xs font-semibold text-slate-800">{schemes[selectedScheme].validity}</div>
-              </div>
-              <div>
-                <div className="text-xs text-slate-400 mb-0.5">Цена</div>
-                <div className={`text-xs font-semibold ${config.textColor}`}>{schemes[selectedScheme].price}</div>
-              </div>
-            </div>
-            {schemes[selectedScheme].inspection && (
-              <div className="mt-2 pt-2 border-t border-slate-200 text-center">
-                <span className="text-xs text-amber-600 font-medium">⚡ Требуется инспекционный контроль</span>
-              </div>
             )}
           </div>
         </div>
 
-        {/* Важно знать */}
-        <div className="p-3 bg-amber-50 border border-amber-100 rounded-xl">
-          <div className="flex items-center gap-1.5 text-amber-700 mb-2">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
-            </svg>
-            <span className="text-xs font-semibold uppercase tracking-wide">Важно знать</span>
+        <div className="p-5">
+          {/* Найденный товар */}
+          <div className="bg-slate-50 rounded-xl p-4 mb-4">
+            <p className="text-xs text-slate-500 mb-1">Товар</p>
+            <p className="font-semibold text-slate-800">{productName}</p>
+            {productCode && <p className="text-sm text-slate-500">Код ТН ВЭД: {productCode}</p>}
           </div>
-          <ul className="space-y-1">
-            {(result?.notes?.length ? result.notes : MOCK_REQUIREMENTS).slice(0, 4).map((req, i) => (
-              <li key={i} className="flex items-start gap-2 text-xs text-amber-800">
-                <span className="text-amber-500 mt-0.5">•</span>
-                <span>{req}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        {/* Связанные регламенты */}
-        <div>
-          <div className="flex items-center gap-1.5 text-slate-600 mb-2">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-            </svg>
-            <span className="text-xs font-semibold uppercase tracking-wide">Также может потребоваться</span>
-          </div>
-          <div className="space-y-1.5">
-            {MOCK_RELATED.map((reg, i) => (
-              <a
-                key={i}
-                href={`/vidy-sertifikacii?reg=${encodeURIComponent(reg.code)}`}
-                className="flex items-center gap-2 p-2 bg-slate-50 rounded-lg hover:bg-blue-50 transition-colors group"
-              >
-                <div className="w-6 h-6 rounded bg-slate-200 group-hover:bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <svg className="w-3 h-3 text-slate-500 group-hover:text-blue-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                  </svg>
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-xs font-semibold text-slate-700 group-hover:text-blue-700">{reg.code}</div>
-                  <div className="text-xs text-slate-500 truncate">{reg.name}</div>
-                </div>
-                <svg className="w-4 h-4 text-slate-300 group-hover:text-blue-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          {/* Предварительный документ */}
+          <div className="border-2 border-dashed border-amber-200 bg-amber-50/50 rounded-xl p-4 mb-5">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0">
+                <svg className="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                 </svg>
-              </a>
-            ))}
+              </div>
+              <div>
+                <p className="text-xs text-amber-700 font-medium mb-1">Подлежит декларированию</p>
+                <p className="font-semibold text-slate-800">{getDocTypeLabel(doc?.type || 'declaration')}</p>
+                {doc?.regulation && <p className="text-sm text-slate-600">{doc.regulation}</p>}
+                <p className="text-sm text-slate-500 mt-1">+ Протокол испытаний</p>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Уточнить расчёт */}
-        <div className="p-3 bg-slate-50 rounded-xl">
-          <div className="flex items-center gap-1.5 text-slate-600 mb-3">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-            </svg>
-            <span className="text-xs font-semibold uppercase tracking-wide">Уточнить расчёт</span>
+          {/* Призыв к уточнению */}
+          <div className="text-center mb-4">
+            <p className="text-slate-600 text-sm mb-1">
+              Для точного расчёта ответьте на 4 вопроса
+            </p>
+            <p className="text-slate-400 text-xs">
+              Это займёт 30 секунд
+            </p>
           </div>
-          <div className="space-y-2">
-            <label className="flex items-center gap-2.5 cursor-pointer group">
-              <input
-                type="checkbox"
-                checked={modifiers.urgent}
-                onChange={e => setModifiers(m => ({ ...m, urgent: e.target.checked }))}
-                className="w-4 h-4 rounded border-slate-300 text-orange-500 focus:ring-orange-500"
-              />
-              <span className="text-xs text-slate-700 group-hover:text-slate-900 flex-1">Срочное оформление</span>
-              <span className="text-xs text-orange-500 font-medium">+50%</span>
-            </label>
-            <label className="flex items-center gap-2.5 cursor-pointer group">
-              <input
-                type="checkbox"
-                checked={modifiers.hasProtocols}
-                onChange={e => setModifiers(m => ({ ...m, hasProtocols: e.target.checked }))}
-                className="w-4 h-4 rounded border-slate-300 text-green-500 focus:ring-green-500"
-              />
-              <span className="text-xs text-slate-700 group-hover:text-slate-900 flex-1">Есть протоколы испытаний</span>
-              <span className="text-xs text-green-600 font-medium">−20%</span>
-            </label>
-            <label className="flex items-center gap-2.5 cursor-pointer group">
-              <input
-                type="checkbox"
-                checked={modifiers.isImport}
-                onChange={e => setModifiers(m => ({ ...m, isImport: e.target.checked }))}
-                className="w-4 h-4 rounded border-slate-300 text-blue-500 focus:ring-blue-500"
-              />
-              <span className="text-xs text-slate-700 group-hover:text-slate-900 flex-1">Импортная продукция</span>
-              <span className="text-xs text-blue-500 font-medium">+15%</span>
-            </label>
-          </div>
-        </div>
 
-        {/* CTA кнопки */}
-        <div className="space-y-2 pt-1">
-          <a
-            href={`/kontakty?product=${encodeURIComponent(productName)}&doc=${config.label}`}
-            className={`w-full py-3 bg-gradient-to-r ${config.bgColor} hover:opacity-90 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2 text-sm shadow-lg`}
+          <button
+            onClick={() => setStage('survey')}
+            className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
           >
+            Уточнить детали
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            Оформить заявку
-          </a>
-          
-          <div className="grid grid-cols-2 gap-2">
-            <a
-              href="tel:+78005505288"
-              className="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition-all flex items-center justify-center gap-1.5 text-xs"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-              Консультация
-            </a>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ЭТАП 2: Опрос
+  if (stage === 'survey') {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
+        <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                <span className="text-blue-400 font-semibold text-sm">{surveyStep}/4</span>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Уточняющие вопросы</h3>
+                <p className="text-slate-400 text-xs">Шаг {surveyStep} из 4</p>
+              </div>
+            </div>
             <button
-              className="py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-xl transition-all flex items-center justify-center gap-1.5 text-xs"
+              onClick={() => { setStage('initial'); setSurveyStep(1); }}
+              className="text-slate-400 hover:text-white transition-colors"
             >
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
-              Скачать КП
+            </button>
+          </div>
+          {/* Progress bar */}
+          <div className="mt-3 h-1 bg-slate-700 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-blue-500 transition-all duration-300"
+              style={{ width: `${(surveyStep / 4) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        <div className="p-5">
+          {/* Вопрос 1: Для чего документ */}
+          {surveyStep === 1 && (
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-semibold text-slate-800 mb-1">Для чего нужен документ?</h4>
+                <p className="text-sm text-slate-500">
+                  Это поможет подобрать оптимальный комплект документов и учесть требования вашего заказчика или площадки
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                {[
+                  { value: 'marketplace', label: 'Выход на маркетплейс', desc: 'Wildberries, Ozon, Яндекс.Маркет' },
+                  { value: 'tender', label: 'Тендер / Госзакупки', desc: '44-ФЗ, 223-ФЗ' },
+                  { value: 'customs', label: 'Таможенное оформление', desc: 'Ввоз продукции в РФ' },
+                  { value: 'contractor', label: 'Запрос от контрагента', desc: 'Торговые сети, дистрибьюторы' },
+                  { value: 'internal', label: 'Для собственных нужд', desc: 'Легализация продукции' },
+                ].map(opt => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                      answers.purpose === opt.value
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="purpose"
+                      value={opt.value}
+                      checked={answers.purpose === opt.value}
+                      onChange={(e) => setAnswers({ ...answers, purpose: e.target.value, purposeOther: '' })}
+                      className="mt-1 w-4 h-4 text-blue-600"
+                    />
+                    <div>
+                      <p className="font-medium text-slate-800">{opt.label}</p>
+                      <p className="text-xs text-slate-500">{opt.desc}</p>
+                    </div>
+                  </label>
+                ))}
+
+                {/* Другое */}
+                <label
+                  className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                    answers.purpose === 'other'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="purpose"
+                    value="other"
+                    checked={answers.purpose === 'other'}
+                    onChange={(e) => setAnswers({ ...answers, purpose: e.target.value })}
+                    className="mt-1 w-4 h-4 text-blue-600"
+                  />
+                  <div className="flex-1">
+                    <p className="font-medium text-slate-800">Другое</p>
+                    {answers.purpose === 'other' && (
+                      <input
+                        type="text"
+                        value={answers.purposeOther}
+                        onChange={(e) => setAnswers({ ...answers, purposeOther: e.target.value })}
+                        placeholder="Опишите вашу ситуацию..."
+                        className="mt-2 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        autoFocus
+                      />
+                    )}
+                  </div>
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Вопрос 2: Откуда продукция */}
+          {surveyStep === 2 && (
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-semibold text-slate-800 mb-1">Откуда продукция?</h4>
+                <p className="text-sm text-slate-500">
+                  От этого зависит схема сертификации, перечень документов и сроки оформления
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                {[
+                  { value: 'russia', label: 'Собственное производство в РФ', desc: 'Производим на территории России' },
+                  { value: 'china', label: 'Импорт из Китая', desc: 'Закупаем у китайских поставщиков' },
+                  { value: 'other_import', label: 'Импорт из другой страны', desc: 'Европа, Азия, США и др.' },
+                  { value: 'eaeu', label: 'Страны ЕАЭС', desc: 'Казахстан, Беларусь, Киргизия, Армения' },
+                ].map(opt => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                      answers.origin === opt.value
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="origin"
+                      value={opt.value}
+                      checked={answers.origin === opt.value}
+                      onChange={(e) => setAnswers({ ...answers, origin: e.target.value, originOther: '' })}
+                      className="mt-1 w-4 h-4 text-blue-600"
+                    />
+                    <div>
+                      <p className="font-medium text-slate-800">{opt.label}</p>
+                      <p className="text-xs text-slate-500">{opt.desc}</p>
+                    </div>
+                  </label>
+                ))}
+
+                <label
+                  className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                    answers.origin === 'other'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="origin"
+                    value="other"
+                    checked={answers.origin === 'other'}
+                    onChange={(e) => setAnswers({ ...answers, origin: e.target.value })}
+                    className="mt-1 w-4 h-4 text-blue-600"
+                  />
+                  <div className="flex-1">
+                    <p className="font-medium text-slate-800">Другое</p>
+                    {answers.origin === 'other' && (
+                      <input
+                        type="text"
+                        value={answers.originOther}
+                        onChange={(e) => setAnswers({ ...answers, originOther: e.target.value })}
+                        placeholder="Укажите страну или ситуацию..."
+                        className="mt-2 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        autoFocus
+                      />
+                    )}
+                  </div>
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Вопрос 3: Кем является компания */}
+          {surveyStep === 3 && (
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-semibold text-slate-800 mb-1">Кем является ваша компания?</h4>
+                <p className="text-sm text-slate-500">
+                  Влияет на схему сертификации и комплект необходимых документов
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                {[
+                  { value: 'manufacturer', label: 'Производитель', desc: 'Изготавливаем продукцию самостоятельно' },
+                  { value: 'importer', label: 'Импортёр / Поставщик', desc: 'Ввозим и реализуем продукцию' },
+                  { value: 'seller', label: 'Продавец / Дистрибьютор', desc: 'Закупаем и перепродаём' },
+                  { value: 'contract', label: 'Контрактное производство', desc: 'Производство под заказ' },
+                ].map(opt => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                      answers.companyType === opt.value
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="companyType"
+                      value={opt.value}
+                      checked={answers.companyType === opt.value}
+                      onChange={(e) => setAnswers({ ...answers, companyType: e.target.value, companyTypeOther: '' })}
+                      className="mt-1 w-4 h-4 text-blue-600"
+                    />
+                    <div>
+                      <p className="font-medium text-slate-800">{opt.label}</p>
+                      <p className="text-xs text-slate-500">{opt.desc}</p>
+                    </div>
+                  </label>
+                ))}
+
+                <label
+                  className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                    answers.companyType === 'other'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="companyType"
+                    value="other"
+                    checked={answers.companyType === 'other'}
+                    onChange={(e) => setAnswers({ ...answers, companyType: e.target.value })}
+                    className="mt-1 w-4 h-4 text-blue-600"
+                  />
+                  <div className="flex-1">
+                    <p className="font-medium text-slate-800">Другое</p>
+                    {answers.companyType === 'other' && (
+                      <input
+                        type="text"
+                        value={answers.companyTypeOther}
+                        onChange={(e) => setAnswers({ ...answers, companyTypeOther: e.target.value })}
+                        placeholder="Опишите вашу роль..."
+                        className="mt-2 w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        autoFocus
+                      />
+                    )}
+                  </div>
+                </label>
+              </div>
+            </div>
+          )}
+
+          {/* Вопрос 4: Какие документы есть */}
+          {surveyStep === 4 && (
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-semibold text-slate-800 mb-1">Какие документы уже есть?</h4>
+                <p className="text-sm text-slate-500">
+                  Если что-то есть — это может ускорить процесс и снизить стоимость
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                {[
+                  { value: 'protocols', label: 'Протоколы испытаний', desc: 'Результаты лабораторных тестов' },
+                  { value: 'tech_docs', label: 'Техническая документация', desc: 'ТУ, ГОСТ, тех. описание' },
+                  { value: 'manufacturer_docs', label: 'Документы от производителя', desc: 'Паспорт, сертификаты качества' },
+                  { value: 'contract', label: 'Контракт / Инвойс', desc: 'Договор с поставщиком' },
+                ].map(opt => (
+                  <label
+                    key={opt.value}
+                    className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                      answers.existingDocs.includes(opt.value)
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-slate-200 hover:border-slate-300'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      value={opt.value}
+                      checked={answers.existingDocs.includes(opt.value)}
+                      onChange={(e) => {
+                        const newDocs = e.target.checked
+                          ? [...answers.existingDocs.filter(d => d !== 'nothing'), opt.value]
+                          : answers.existingDocs.filter(d => d !== opt.value);
+                        setAnswers({ ...answers, existingDocs: newDocs });
+                      }}
+                      className="mt-1 w-4 h-4 text-blue-600 rounded"
+                    />
+                    <div>
+                      <p className="font-medium text-slate-800">{opt.label}</p>
+                      <p className="text-xs text-slate-500">{opt.desc}</p>
+                    </div>
+                  </label>
+                ))}
+
+                <label
+                  className={`flex items-start gap-3 p-3 rounded-xl border-2 cursor-pointer transition-all ${
+                    answers.existingDocs.includes('nothing')
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    value="nothing"
+                    checked={answers.existingDocs.includes('nothing')}
+                    onChange={(e) => {
+                      setAnswers({
+                        ...answers,
+                        existingDocs: e.target.checked ? ['nothing'] : []
+                      });
+                    }}
+                    className="mt-1 w-4 h-4 text-blue-600 rounded"
+                  />
+                  <div>
+                    <p className="font-medium text-slate-800">Ничего нет</p>
+                    <p className="text-xs text-slate-500">Начинаем с нуля</p>
+                  </div>
+                </label>
+              </div>
+
+              <div>
+                <label className="text-sm text-slate-600 block mb-1">Другие документы (если есть)</label>
+                <input
+                  type="text"
+                  value={answers.existingDocsOther}
+                  onChange={(e) => setAnswers({ ...answers, existingDocsOther: e.target.value })}
+                  placeholder="Перечислите, что ещё есть..."
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Навигация */}
+          <div className="flex gap-3 mt-6">
+            {surveyStep > 1 && (
+              <button
+                onClick={() => setSurveyStep(s => s - 1)}
+                className="flex-1 py-3 border-2 border-slate-200 text-slate-700 font-medium rounded-xl hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                </svg>
+                Назад
+              </button>
+            )}
+            <button
+              onClick={() => {
+                if (surveyStep < 4) {
+                  setSurveyStep(s => s + 1);
+                } else {
+                  setStage('contact');
+                }
+              }}
+              disabled={
+                (surveyStep === 1 && !answers.purpose) ||
+                (surveyStep === 2 && !answers.origin) ||
+                (surveyStep === 3 && !answers.companyType) ||
+                (surveyStep === 4 && answers.existingDocs.length === 0)
+              }
+              className="flex-1 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-300 disabled:to-slate-400 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
+            >
+              {surveyStep < 4 ? 'Далее' : 'Продолжить'}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ЭТАП 3: Контактные данные
+  if (stage === 'contact') {
+    return (
+      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200 h-full">
+        <div className="bg-gradient-to-r from-slate-800 to-slate-900 px-5 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-white">Почти готово</h3>
+                <p className="text-slate-400 text-xs">Последний шаг</p>
+              </div>
+            </div>
+            <button
+              onClick={() => { setSurveyStep(4); setStage('survey'); }}
+              className="text-slate-400 hover:text-white transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              </svg>
             </button>
           </div>
         </div>
 
-        {/* Подсказка */}
-        <p className="text-center text-xs text-slate-400">
-          Точную стоимость рассчитаем после анализа документов
-        </p>
+        <div className="p-5">
+          {/* Предварительный результат */}
+          <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 mb-5">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p className="font-semibold text-slate-800">{getDocTypeLabel(doc?.type || 'declaration')}</p>
+                {doc?.regulation && <p className="text-sm text-slate-600">{doc.regulation}</p>}
+                <p className="text-sm text-slate-500 mt-1">+ Протокол испытаний</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-blue-50 border border-blue-100 rounded-xl p-3 mb-5">
+            <p className="text-sm text-blue-800">
+              <span className="font-medium">Полный расчёт и рекомендации</span> отправим в течение 15 минут после получения заявки
+            </p>
+          </div>
+
+          {/* Форма контактов */}
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium text-slate-700 block mb-1.5">
+                ИНН или название компании
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={selectedCompany ? selectedCompany.name : innQuery}
+                  onChange={(e) => {
+                    setSelectedCompany(null);
+                    setInnQuery(e.target.value);
+                  }}
+                  placeholder="Введите ИНН или название..."
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                {isSearching && (
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <svg className="w-5 h-5 text-slate-400 animate-spin" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </div>
+                )}
+              </div>
+
+              {/* Подсказки */}
+              {companySuggestions.length > 0 && !selectedCompany && (
+                <div className="mt-2 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden">
+                  {companySuggestions.map((company, i) => (
+                    <button
+                      key={i}
+                      onClick={() => {
+                        setSelectedCompany(company);
+                        setInnQuery('');
+                        setCompanySuggestions([]);
+                      }}
+                      className="w-full px-4 py-3 text-left hover:bg-slate-50 border-b border-slate-100 last:border-0 transition-colors"
+                    >
+                      <p className="font-medium text-slate-800 text-sm">{company.name}</p>
+                      <p className="text-xs text-slate-500">ИНН {company.inn} • {company.address}</p>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Выбранная компания */}
+              {selectedCompany && (
+                <div className="mt-2 bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-center justify-between">
+                  <div>
+                    <p className="font-medium text-slate-800 text-sm">{selectedCompany.name}</p>
+                    <p className="text-xs text-slate-500">ИНН {selectedCompany.inn}</p>
+                  </div>
+                  <button
+                    onClick={() => setSelectedCompany(null)}
+                    className="text-slate-400 hover:text-slate-600"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-slate-700 block mb-1.5">
+                Телефон для связи <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+7 (___) ___-__-__"
+                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium text-slate-700 block mb-1.5">
+                Email <span className="text-slate-400">(необязательно)</span>
+              </label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@company.ru"
+                className="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            disabled={!selectedCompany || !phone || isSubmitting}
+            className="w-full mt-6 py-3.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-slate-300 disabled:to-slate-400 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
+          >
+            {isSubmitting ? (
+              <>
+                <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Отправляем...
+              </>
+            ) : (
+              <>
+                Получить расчёт за 15 минут
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </>
+            )}
+          </button>
+
+          <p className="text-center text-xs text-slate-400 mt-3">
+            Менеджер свяжется для уточнения деталей и отправит КП на почту
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return null;
 }
