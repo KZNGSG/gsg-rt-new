@@ -36,19 +36,27 @@ export function Header() {
           isScrolled ? 'max-h-0 py-0 opacity-0' : 'max-h-20 py-2.5 opacity-100'
         )}>
           <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-            <div className="flex items-center gap-8">
-              {/* Город */}
-              <span className="flex items-center gap-2.5 text-slate-600">
-                <span className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-sm shadow-blue-500/30">
-                  <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            {/* Адрес слева */}
+            <div className="flex items-center gap-2.5">
+              <span className="w-6 h-6 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-sm shadow-blue-500/30">
+                <svg className="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+              </span>
+              <span className="font-medium text-slate-700">{SITE_CONFIG.address.full}</span>
+            </div>
+
+            {/* Время работы и почта справа */}
+            <div className="hidden md:flex items-center gap-6">
+              <div className="flex items-center gap-2.5 text-slate-500">
+                <span className="w-6 h-6 rounded-full bg-slate-200/80 flex items-center justify-center">
+                  <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </span>
-                <span className="font-medium text-slate-700">г. {SITE_CONFIG.address.city}</span>
-              </span>
-
-              {/* Email */}
-              <a href={`mailto:${SITE_CONFIG.email}`} className="hidden sm:flex items-center gap-2.5 text-slate-600 hover:text-blue-600 transition-colors group">
+                <span className="text-slate-600">{SITE_CONFIG.workingHours}</span>
+              </div>
+              <a href={`mailto:${SITE_CONFIG.email}`} className="flex items-center gap-2.5 text-slate-600 hover:text-blue-600 transition-colors group">
                 <span className="w-6 h-6 rounded-full bg-slate-200/80 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
                   <svg className="w-3.5 h-3.5 text-slate-500 group-hover:text-blue-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
@@ -56,25 +64,6 @@ export function Header() {
                 </span>
                 {SITE_CONFIG.email}
               </a>
-
-              {/* Badge аккредитации с shimmer */}
-              <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-green-50 border border-emerald-200/60 rounded-full relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                <span className="text-xs font-semibold text-emerald-700 relative z-10">Аккредитованный орган</span>
-              </div>
-            </div>
-
-            {/* Время работы */}
-            <div className="hidden md:flex items-center gap-2.5 text-slate-500">
-              <span className="w-6 h-6 rounded-full bg-slate-200/80 flex items-center justify-center">
-                <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </span>
-              <span className="text-slate-600">{SITE_CONFIG.workingHours}</span>
             </div>
           </div>
         </div>

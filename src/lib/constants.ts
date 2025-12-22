@@ -11,10 +11,13 @@ export const SITE_CONFIG = {
   foundedYear: 2012,
   address: {
     city: 'Казань',
-    street: 'ул. Амирхана, д. 10',
-    office: 'офис 1002',
+    region: 'РТ',
+    street: 'ул. Аметьевская магистраль',
+    building: 'д. 10',
+    office: 'оф. ГОСТСЕРТГРУПП',
     zip: '420087',
     country: 'Россия',
+    full: 'РТ, г. Казань, ул. Аметьевская магистраль, д. 10, оф. ГОСТСЕРТГРУПП',
   },
   social: {
     vk: 'https://vk.com/gostsertgroup',
