@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
   GLOBAL_PRICING,
@@ -11,8 +11,28 @@ import {
   getCertificateRegulations,
   getDeclarationRegulations,
 } from '@/data/tr-ts-database';
+import seoData from '@/data/seo-pages.json';
 
-type Tab = 'overview' | 'content' | 'prices' | 'help';
+type Tab = 'overview' | 'content' | 'prices' | 'migration' | 'help';
+
+// Типы для SEO миграции
+interface OldPage {
+  oldUrl: string;
+  newUrl: string;
+  category: string;
+  title: string;
+  description: string;
+  h1: string;
+  status: 'pending' | 'in_progress' | 'done';
+  priority: 'high' | 'medium' | 'low';
+}
+
+interface City {
+  slug: string;
+  name: string;
+  prepositional: string;
+  isMain?: boolean;
+}
 
 export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<Tab>('overview');
@@ -32,11 +52,16 @@ export default function AdminPage() {
     (sum, trts) => sum + trts.salesChannels.length, 0
   );
 
+  // Данные миграции
+  const oldPages = seoData.pages as OldPage[];
+  const cities = seoData.cities as City[];
+
   const tabs = [
     { id: 'overview' as Tab, label: 'Обзор', icon: '📊' },
     { id: 'content' as Tab, label: 'Контент', icon: '📝' },
     { id: 'prices' as Tab, label: 'Цены', icon: '💰' },
-    { id: 'help' as Tab, label: 'Как редактировать', icon: '❓' },
+    { id: 'migration' as Tab, label: `Миграция (${oldPages.length})`, icon: '🔄' },
+    { id: 'help' as Tab, label: 'Помощь', icon: '❓' },
   ];
 
   return (
@@ -99,6 +124,7 @@ export default function AdminPage() {
           />
         )}
         {activeTab === 'prices' && <PricesTab />}
+        {activeTab === 'migration' && <MigrationTab pages={oldPages} cities={cities} />}
         {activeTab === 'help' && <HelpTab />}
       </div>
     </div>
@@ -668,6 +694,255 @@ function HelpTab() {
         >
           Открыть GitHub →
         </a>
+      </div>
+    </div>
+  );
+}
+
+// =============================================================================
+// ВКЛАДКА: МИГРАЦИЯ (старые страницы)
+// =============================================================================
+
+const categoryNames: Record<string, string> = {
+  main: 'Главная',
+  services: 'Виды сертификации',
+  products: 'Сертификат на товар',
+  regulations: 'ТР ТС',
+  about: 'О компании',
+  contacts: 'Контакты',
+  clients: 'Клиенты',
+  news: 'Новости',
+  other: 'Прочее',
+};
+
+function MigrationTab({ pages, cities }: { pages: OldPage[]; cities: City[] }) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const [priorityFilter, setPriorityFilter] = useState<string>('all');
+
+  // Статистика
+  const stats = useMemo(() => {
+    const total = pages.length;
+    const done = pages.filter(p => p.status === 'done').length;
+    const inProgress = pages.filter(p => p.status === 'in_progress').length;
+    const pending = pages.filter(p => p.status === 'pending').length;
+    const highPriority = pages.filter(p => p.priority === 'high' && p.status !== 'done').length;
+    return { total, done, inProgress, pending, highPriority, progress: Math.round((done / total) * 100) };
+  }, [pages]);
+
+  // Фильтрация
+  const filteredPages = useMemo(() => {
+    return pages.filter(page => {
+      const matchesSearch = page.oldUrl.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           page.title.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesStatus = statusFilter === 'all' || page.status === statusFilter;
+      const matchesCategory = categoryFilter === 'all' || page.category === categoryFilter;
+      const matchesPriority = priorityFilter === 'all' || page.priority === priorityFilter;
+      return matchesSearch && matchesStatus && matchesCategory && matchesPriority;
+    });
+  }, [pages, searchQuery, statusFilter, categoryFilter, priorityFilter]);
+
+  // Уникальные категории
+  const categories = useMemo(() => {
+    return [...new Set(pages.map(p => p.category))];
+  }, [pages]);
+
+  return (
+    <div className="space-y-6">
+      {/* Статистика */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="bg-white rounded-2xl p-5 shadow-sm">
+          <div className="text-3xl font-black text-slate-900">{stats.total}</div>
+          <div className="text-slate-500 text-sm">Всего страниц</div>
+        </div>
+        <div className="bg-white rounded-2xl p-5 shadow-sm border-l-4 border-green-500">
+          <div className="text-3xl font-black text-green-600">{stats.done}</div>
+          <div className="text-slate-500 text-sm">Готово</div>
+        </div>
+        <div className="bg-white rounded-2xl p-5 shadow-sm border-l-4 border-blue-500">
+          <div className="text-3xl font-black text-blue-600">{stats.inProgress}</div>
+          <div className="text-slate-500 text-sm">В работе</div>
+        </div>
+        <div className="bg-white rounded-2xl p-5 shadow-sm border-l-4 border-slate-300">
+          <div className="text-3xl font-black text-slate-600">{stats.pending}</div>
+          <div className="text-slate-500 text-sm">Ожидает</div>
+        </div>
+        <div className="bg-white rounded-2xl p-5 shadow-sm border-l-4 border-red-500">
+          <div className="text-3xl font-black text-red-600">{stats.highPriority}</div>
+          <div className="text-slate-500 text-sm">Высокий приоритет</div>
+        </div>
+      </div>
+
+      {/* Прогресс */}
+      <div className="bg-white rounded-2xl p-6 shadow-sm">
+        <div className="flex justify-between items-center mb-2">
+          <span className="font-medium text-slate-700">Прогресс миграции</span>
+          <span className="font-bold text-blue-600">{stats.progress}%</span>
+        </div>
+        <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all"
+            style={{ width: `${stats.progress}%` }}
+          />
+        </div>
+      </div>
+
+      {/* Города */}
+      <div className="bg-white rounded-2xl p-6 shadow-sm">
+        <h3 className="font-bold text-slate-900 mb-3">Города ({cities.length})</h3>
+        <div className="flex flex-wrap gap-2">
+          {cities.slice(0, 20).map(city => (
+            <span
+              key={city.slug || 'main'}
+              className={`px-3 py-1 rounded-full text-sm ${
+                city.isMain ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-slate-100 text-slate-600'
+              }`}
+            >
+              {city.name}
+            </span>
+          ))}
+          {cities.length > 20 && (
+            <span className="px-3 py-1 rounded-full text-sm bg-slate-200 text-slate-600">
+              +{cities.length - 20} ещё
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Фильтры */}
+      <div className="bg-white rounded-2xl p-6 shadow-sm">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          {/* Поиск */}
+          <div className="lg:col-span-2">
+            <input
+              type="text"
+              placeholder="Поиск по URL или title..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+            />
+          </div>
+
+          {/* Статус */}
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-4 py-2 border border-slate-200 rounded-lg bg-white"
+          >
+            <option value="all">Все статусы</option>
+            <option value="pending">Ожидает</option>
+            <option value="in_progress">В работе</option>
+            <option value="done">Готово</option>
+          </select>
+
+          {/* Категория */}
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="px-4 py-2 border border-slate-200 rounded-lg bg-white"
+          >
+            <option value="all">Все категории</option>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{categoryNames[cat] || cat}</option>
+            ))}
+          </select>
+
+          {/* Приоритет */}
+          <select
+            value={priorityFilter}
+            onChange={(e) => setPriorityFilter(e.target.value)}
+            className="px-4 py-2 border border-slate-200 rounded-lg bg-white"
+          >
+            <option value="all">Все приоритеты</option>
+            <option value="high">Высокий</option>
+            <option value="medium">Средний</option>
+            <option value="low">Низкий</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Таблица */}
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-slate-200 flex justify-between items-center">
+          <span className="text-slate-600">
+            Показано: <strong>{filteredPages.length}</strong> из {pages.length}
+          </span>
+        </div>
+
+        <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
+          <table className="w-full">
+            <thead className="bg-slate-50 sticky top-0">
+              <tr>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Статус</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Приоритет</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Категория</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Старый URL</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Новый URL</th>
+                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredPages.slice(0, 100).map((page, idx) => (
+                <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
+                  <td className="px-4 py-3">
+                    <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
+                      page.status === 'done' ? 'bg-green-100 text-green-700' :
+                      page.status === 'in_progress' ? 'bg-blue-100 text-blue-700' :
+                      'bg-slate-100 text-slate-600'
+                    }`}>
+                      {page.status === 'done' ? 'Готово' :
+                       page.status === 'in_progress' ? 'В работе' : 'Ожидает'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
+                      page.priority === 'high' ? 'bg-red-100 text-red-700' :
+                      page.priority === 'medium' ? 'bg-amber-100 text-amber-700' :
+                      'bg-slate-100 text-slate-600'
+                    }`}>
+                      {page.priority === 'high' ? 'Высокий' :
+                       page.priority === 'medium' ? 'Средний' : 'Низкий'}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-slate-600">
+                    {categoryNames[page.category] || page.category}
+                  </td>
+                  <td className="px-4 py-3">
+                    <code className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">
+                      {page.oldUrl}
+                    </code>
+                  </td>
+                  <td className="px-4 py-3">
+                    <code className="text-xs bg-blue-50 px-2 py-1 rounded text-blue-700">
+                      {page.newUrl}
+                    </code>
+                  </td>
+                  <td className="px-4 py-3 text-sm text-slate-700 max-w-xs truncate">
+                    {page.title}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {filteredPages.length > 100 && (
+          <div className="p-4 border-t border-slate-200 text-center text-slate-500 text-sm">
+            Показаны первые 100 из {filteredPages.length}. Используй фильтры для поиска.
+          </div>
+        )}
+      </div>
+
+      {/* Инструкция */}
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+        <h3 className="font-bold text-amber-800 mb-2">Как работать с миграцией:</h3>
+        <ol className="text-amber-700 text-sm space-y-2 list-decimal list-inside">
+          <li>Данные хранятся в <code className="bg-amber-100 px-1 rounded">src/data/seo-pages.json</code></li>
+          <li>Меняй статус страниц по мере переноса контента</li>
+          <li>Высокий приоритет — страницы с большим трафиком, переноси первыми</li>
+          <li>После переноса — настрой 301 редиректы со старых URL на новые</li>
+        </ol>
       </div>
     </div>
   );
