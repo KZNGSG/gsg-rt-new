@@ -324,6 +324,217 @@ export default async function CertificatePage({ params }: PageProps) {
                 </section>
               )}
 
+              {/* ТАБЛИЦА: Какой документ нужен для каждого товара */}
+              {trtsContent && trtsContent.products.length > 0 && trtsContent.products.some(p => p.documentType) && (
+                <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-3">
+                    <span className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </span>
+                    Какой документ нужен?
+                  </h2>
+
+                  {/* Предупреждение */}
+                  <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                    <div className="flex gap-3">
+                      <svg className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <div>
+                        <p className="text-amber-800 font-medium">Ориентировочные данные</p>
+                        <p className="text-amber-700 text-sm mt-1">
+                          Тип документа зависит от конкретного товара, возрастной группы и особенностей продукции.
+                          Точное определение — после бесплатной консультации с экспертом.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Таблица */}
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-slate-200">
+                          <th className="text-left py-3 px-4 font-semibold text-slate-700">Товар</th>
+                          <th className="text-left py-3 px-4 font-semibold text-slate-700">Документ</th>
+                          <th className="text-center py-3 px-4 font-semibold text-slate-700">
+                            <span className="hidden md:inline">Честный знак</span>
+                            <span className="md:hidden">ЧЗ</span>
+                          </th>
+                          <th className="text-center py-3 px-4 font-semibold text-slate-700">СГР</th>
+                          <th className="text-center py-3 px-4 font-semibold text-slate-700">
+                            <span className="hidden md:inline">ИСО (5 лет)</span>
+                            <span className="md:hidden">ИСО</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {trtsContent.products
+                          .filter(p => p.documentType)
+                          .sort((a, b) => b.popularity - a.popularity)
+                          .map((product) => (
+                            <tr key={product.slug} className="border-b border-slate-100 hover:bg-slate-50">
+                              <td className="py-3 px-4">
+                                <Link
+                                  href={`/sertifikat-tr-ts/${slug}/tovary/${product.slug}`}
+                                  className="font-medium text-slate-900 hover:text-blue-600"
+                                >
+                                  {product.name}
+                                </Link>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
+                                  product.documentType === 'certificate'
+                                    ? 'bg-green-100 text-green-700'
+                                    : product.documentType === 'declaration'
+                                    ? 'bg-blue-100 text-blue-700'
+                                    : product.documentType === 'sgr'
+                                    ? 'bg-purple-100 text-purple-700'
+                                    : 'bg-slate-100 text-slate-600'
+                                }`}>
+                                  <span className={`w-2 h-2 rounded-full ${
+                                    product.documentType === 'certificate'
+                                      ? 'bg-green-500'
+                                      : product.documentType === 'declaration'
+                                      ? 'bg-blue-500'
+                                      : product.documentType === 'sgr'
+                                      ? 'bg-purple-500'
+                                      : 'bg-slate-400'
+                                  }`}></span>
+                                  {product.documentType === 'certificate' && 'Сертификат'}
+                                  {product.documentType === 'declaration' && 'Декларация'}
+                                  {product.documentType === 'sgr' && 'СГР'}
+                                  {product.documentType === 'refusal' && 'Отказное'}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4 text-center">
+                                {product.extras?.chestnyznak ? (
+                                  <span className="text-green-600">✓</span>
+                                ) : (
+                                  <span className="text-slate-300">—</span>
+                                )}
+                              </td>
+                              <td className="py-3 px-4 text-center">
+                                {product.extras?.sgrRequired ? (
+                                  <span className="text-green-600">✓</span>
+                                ) : (
+                                  <span className="text-slate-300">—</span>
+                                )}
+                              </td>
+                              <td className="py-3 px-4 text-center">
+                                {product.extras?.isoAvailable ? (
+                                  <span className="text-green-600">✓</span>
+                                ) : (
+                                  <span className="text-slate-300">—</span>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Легенда */}
+                  <div className="mt-6 pt-6 border-t border-slate-100">
+                    <h3 className="font-semibold text-slate-900 mb-3">Расшифровка:</h3>
+                    <div className="grid sm:grid-cols-2 gap-3 text-sm">
+                      <div className="flex items-start gap-2">
+                        <span className="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></span>
+                        <div>
+                          <span className="font-medium text-slate-700">Сертификат</span>
+                          <span className="text-slate-500"> — обязательное подтверждение органом по сертификации</span>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></span>
+                        <div>
+                          <span className="font-medium text-slate-700">Декларация</span>
+                          <span className="text-slate-500"> — заявление производителя о соответствии</span>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-slate-700 font-medium">СГР</span>
+                        <span className="text-slate-500"> — свидетельство о гос. регистрации (контакт с кожей/пищей)</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-slate-700 font-medium">Честный знак</span>
+                        <span className="text-slate-500"> — обязательная маркировка для продажи в РФ</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-slate-700 font-medium">ИСО</span>
+                        <span className="text-slate-500"> — сертификат ISO позволяет получить сертификат на 5 лет</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="w-2 h-2 rounded-full bg-slate-400 mt-1.5 flex-shrink-0"></span>
+                        <div>
+                          <span className="font-medium text-slate-700">Отказное</span>
+                          <span className="text-slate-500"> — товар не подлежит обязательной сертификации</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <div className="mt-6 p-4 bg-blue-50 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <p className="font-medium text-blue-900">Не уверены какой документ нужен?</p>
+                      <p className="text-blue-700 text-sm">Бесплатно определим за 15 минут</p>
+                    </div>
+                    <a
+                      href="tel:88005505288"
+                      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors whitespace-nowrap"
+                    >
+                      Позвонить эксперту
+                    </a>
+                  </div>
+                </section>
+              )}
+
+              {/* FAQ: Почему сертификат/декларация */}
+              {trtsContent && trtsContent.products.some(p => p.documentReason) && (
+                <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                    <span className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center text-violet-600">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </span>
+                    Почему сертификат, а не декларация?
+                  </h2>
+                  <div className="space-y-4">
+                    {trtsContent.products
+                      .filter(p => p.documentReason)
+                      .slice(0, 6)
+                      .map((product) => (
+                        <div key={product.slug} className="p-4 bg-slate-50 rounded-xl">
+                          <div className="flex items-start gap-3">
+                            <span className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
+                              product.documentType === 'certificate'
+                                ? 'bg-green-500'
+                                : product.documentType === 'declaration'
+                                ? 'bg-blue-500'
+                                : product.documentType === 'sgr'
+                                ? 'bg-purple-500'
+                                : 'bg-slate-400'
+                            }`}></span>
+                            <div>
+                              <p className="font-medium text-slate-900">{product.name}</p>
+                              <p className="text-slate-600 text-sm mt-1">{product.documentReason}</p>
+                              {product.extras?.relatedTRTS && product.extras.relatedTRTS.length > 0 && (
+                                <p className="text-blue-600 text-sm mt-2">
+                                  + Дополнительно: {product.extras.relatedTRTS.join(', ')}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </section>
+              )}
+
               {/* Импорт и маркетплейсы */}
               {trtsContent && (trtsContent.imports.length > 0 || trtsContent.salesChannels.length > 0) && (
                 <section className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8">
