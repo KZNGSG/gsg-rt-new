@@ -116,6 +116,7 @@ export default function AdminPage() {
             totalProducts={totalProducts}
             totalImports={totalImports}
             totalChannels={totalChannels}
+            onNavigate={setActiveTab}
           />
         )}
         {activeTab === 'content' && (
@@ -133,7 +134,7 @@ export default function AdminPage() {
 }
 
 // =============================================================================
-// ВКЛАДКА: ОБЗОР
+// ВКЛАДКА: ОБЗОР (с кликабельными элементами)
 // =============================================================================
 
 function OverviewTab({
@@ -143,6 +144,7 @@ function OverviewTab({
   totalProducts,
   totalImports,
   totalChannels,
+  onNavigate,
 }: {
   certCount: number;
   declCount: number;
@@ -150,35 +152,61 @@ function OverviewTab({
   totalProducts: number;
   totalImports: number;
   totalChannels: number;
+  onNavigate: (tab: Tab) => void;
 }) {
   const totalTRTS = certCount + declCount;
   const totalPages = totalTRTS + totalProducts + totalImports + totalChannels;
 
+  // Получаем все страницы для отображения
+  const allContent = Object.entries(ALL_TRTS_CONTENT);
+
   return (
     <div className="space-y-8">
-      {/* Главные метрики */}
+      {/* Главные метрики - кликабельные */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <div className="text-4xl font-black text-blue-600">{totalPages}</div>
+        <button
+          onClick={() => onNavigate('content')}
+          className="bg-white rounded-2xl p-6 shadow-sm text-left hover:shadow-md hover:scale-[1.02] transition-all cursor-pointer group"
+        >
+          <div className="text-4xl font-black text-blue-600 group-hover:text-blue-700">{totalPages}</div>
           <div className="text-slate-600 mt-1">Всего SEO-страниц</div>
-        </div>
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <div className="text-4xl font-black text-emerald-600">{totalTRTS}</div>
+          <div className="text-blue-500 text-xs mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Нажми для просмотра →</div>
+        </button>
+        <button
+          onClick={() => onNavigate('content')}
+          className="bg-white rounded-2xl p-6 shadow-sm text-left hover:shadow-md hover:scale-[1.02] transition-all cursor-pointer group"
+        >
+          <div className="text-4xl font-black text-emerald-600 group-hover:text-emerald-700">{totalTRTS}</div>
           <div className="text-slate-600 mt-1">ТР ТС ({certCount} серт. + {declCount} декл.)</div>
-        </div>
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <div className="text-4xl font-black text-purple-600">{totalProducts}</div>
+          <div className="text-emerald-500 text-xs mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Нажми для просмотра →</div>
+        </button>
+        <button
+          onClick={() => onNavigate('content')}
+          className="bg-white rounded-2xl p-6 shadow-sm text-left hover:shadow-md hover:scale-[1.02] transition-all cursor-pointer group"
+        >
+          <div className="text-4xl font-black text-purple-600 group-hover:text-purple-700">{totalProducts}</div>
           <div className="text-slate-600 mt-1">Страниц товаров</div>
-        </div>
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <div className="text-4xl font-black text-amber-600">{totalImports + totalChannels}</div>
+          <div className="text-purple-500 text-xs mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Нажми для просмотра →</div>
+        </button>
+        <button
+          onClick={() => onNavigate('content')}
+          className="bg-white rounded-2xl p-6 shadow-sm text-left hover:shadow-md hover:scale-[1.02] transition-all cursor-pointer group"
+        >
+          <div className="text-4xl font-black text-amber-600 group-hover:text-amber-700">{totalImports + totalChannels}</div>
           <div className="text-slate-600 mt-1">Импорт + маркетплейсы</div>
-        </div>
+          <div className="text-amber-500 text-xs mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Нажми для просмотра →</div>
+        </button>
       </div>
 
-      {/* Прогресс заполнения */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm">
-        <h2 className="text-xl font-bold text-slate-900 mb-4">Прогресс заполнения</h2>
+      {/* Прогресс заполнения - кликабельный */}
+      <button
+        onClick={() => onNavigate('content')}
+        className="w-full bg-white rounded-2xl p-6 shadow-sm text-left hover:shadow-md transition-all cursor-pointer group"
+      >
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold text-slate-900">Прогресс заполнения</h2>
+          <span className="text-blue-500 text-sm opacity-0 group-hover:opacity-100 transition-opacity">Открыть контент →</span>
+        </div>
         <div className="mb-4">
           <div className="flex justify-between text-sm mb-2">
             <span className="text-slate-600">ТР ТС с товарами: {filledCount} из {totalTRTS}</span>
@@ -194,52 +222,143 @@ function OverviewTab({
         <p className="text-slate-500 text-sm">
           Заполни данные для остальных {totalTRTS - filledCount} ТР ТС чтобы получить ~{(totalTRTS - filledCount) * 15} дополнительных SEO-страниц
         </p>
-      </div>
+      </button>
 
-      {/* Структура страниц */}
+      {/* Структура страниц - кликабельные строки */}
       <div className="bg-white rounded-2xl p-6 shadow-sm">
         <h2 className="text-xl font-bold text-slate-900 mb-4">Структура сайта</h2>
         <div className="space-y-3">
-          <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+          <button
+            onClick={() => onNavigate('content')}
+            className="w-full flex items-center gap-3 p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer group"
+          >
             <span className="text-2xl">📄</span>
-            <div className="flex-1">
-              <div className="font-medium">/sertifikat-tr-ts/[название]</div>
+            <div className="flex-1 text-left">
+              <div className="font-medium group-hover:text-blue-600 transition-colors">/sertifikat-tr-ts/[название]</div>
               <div className="text-slate-500 text-sm">Основные страницы сертификатов</div>
             </div>
             <span className="font-bold text-slate-700">{certCount}</span>
-          </div>
-          <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-xl">
+            <svg className="w-5 h-5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button
+            onClick={() => onNavigate('content')}
+            className="w-full flex items-center gap-3 p-3 bg-slate-50 rounded-xl hover:bg-slate-100 transition-colors cursor-pointer group"
+          >
             <span className="text-2xl">📄</span>
-            <div className="flex-1">
-              <div className="font-medium">/deklaraciya-tr-ts/[название]</div>
+            <div className="flex-1 text-left">
+              <div className="font-medium group-hover:text-blue-600 transition-colors">/deklaraciya-tr-ts/[название]</div>
               <div className="text-slate-500 text-sm">Основные страницы деклараций</div>
             </div>
             <span className="font-bold text-slate-700">{declCount}</span>
-          </div>
-          <div className="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl">
+            <svg className="w-5 h-5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button
+            onClick={() => onNavigate('content')}
+            className="w-full flex items-center gap-3 p-3 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors cursor-pointer group"
+          >
             <span className="text-2xl">🛍️</span>
-            <div className="flex-1">
-              <div className="font-medium">/sertifikat-tr-ts/[тртс]/tovary/[товар]</div>
+            <div className="flex-1 text-left">
+              <div className="font-medium group-hover:text-indigo-600 transition-colors">/sertifikat-tr-ts/[тртс]/tovary/[товар]</div>
               <div className="text-slate-500 text-sm">Страницы товаров (куклы, конструкторы...)</div>
             </div>
             <span className="font-bold text-indigo-600">{totalProducts}</span>
-          </div>
-          <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
+            <svg className="w-5 h-5 text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button
+            onClick={() => onNavigate('content')}
+            className="w-full flex items-center gap-3 p-3 bg-amber-50 rounded-xl hover:bg-amber-100 transition-colors cursor-pointer group"
+          >
             <span className="text-2xl">🌍</span>
-            <div className="flex-1">
-              <div className="font-medium">/sertifikat-tr-ts/[тртс]/import/[страна]</div>
+            <div className="flex-1 text-left">
+              <div className="font-medium group-hover:text-amber-600 transition-colors">/sertifikat-tr-ts/[тртс]/import/[страна]</div>
               <div className="text-slate-500 text-sm">Страницы импорта (Китай, Турция...)</div>
             </div>
             <span className="font-bold text-amber-600">{totalImports}</span>
-          </div>
-          <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-xl">
+            <svg className="w-5 h-5 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button
+            onClick={() => onNavigate('content')}
+            className="w-full flex items-center gap-3 p-3 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors cursor-pointer group"
+          >
             <span className="text-2xl">🛒</span>
-            <div className="flex-1">
-              <div className="font-medium">/sertifikat-tr-ts/[тртс]/prodazha/[канал]</div>
+            <div className="flex-1 text-left">
+              <div className="font-medium group-hover:text-purple-600 transition-colors">/sertifikat-tr-ts/[тртс]/prodazha/[канал]</div>
               <div className="text-slate-500 text-sm">Страницы маркетплейсов (WB, Ozon...)</div>
             </div>
             <span className="font-bold text-purple-600">{totalChannels}</span>
+            <svg className="w-5 h-5 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Быстрые ссылки на заполненные ТР ТС */}
+      {allContent.length > 0 && (
+        <div className="bg-white rounded-2xl p-6 shadow-sm">
+          <h2 className="text-xl font-bold text-slate-900 mb-4">Заполненные ТР ТС</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {allContent.map(([slug, data]) => (
+              <Link
+                key={slug}
+                href={`/sertifikat-tr-ts/${slug}`}
+                target="_blank"
+                className="p-4 bg-green-50 border border-green-200 rounded-xl hover:bg-green-100 hover:border-green-300 transition-colors group"
+              >
+                <div className="font-medium text-green-800 group-hover:text-green-900">{data.shortName}</div>
+                <div className="text-green-600 text-sm mt-1">
+                  {data.products.length} товаров, {data.imports.length} импорт, {data.salesChannels.length} каналов
+                </div>
+                <div className="flex gap-2 mt-2">
+                  <span className="px-2 py-0.5 bg-green-200 text-green-800 rounded text-xs">{data.number}</span>
+                  <span className="text-green-500 text-xs">Открыть →</span>
+                </div>
+              </Link>
+            ))}
           </div>
+        </div>
+      )}
+
+      {/* Быстрые действия */}
+      <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
+        <h2 className="text-xl font-bold mb-4">Быстрые действия</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <button
+            onClick={() => onNavigate('content')}
+            className="p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left"
+          >
+            <div className="font-medium">Добавить товары</div>
+            <div className="text-white/70 text-sm mt-1">Заполнить ТР ТС контентом</div>
+          </button>
+          <button
+            onClick={() => onNavigate('prices')}
+            className="p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left"
+          >
+            <div className="font-medium">Настроить цены</div>
+            <div className="text-white/70 text-sm mt-1">Базовые цены и надбавки</div>
+          </button>
+          <button
+            onClick={() => onNavigate('migration')}
+            className="p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left"
+          >
+            <div className="font-medium">Миграция</div>
+            <div className="text-white/70 text-sm mt-1">400+ страниц со старого сайта</div>
+          </button>
+          <button
+            onClick={() => onNavigate('help')}
+            className="p-4 bg-white/10 hover:bg-white/20 rounded-xl transition-colors text-left"
+          >
+            <div className="font-medium">Помощь</div>
+            <div className="text-white/70 text-sm mt-1">Инструкции по работе</div>
+          </button>
         </div>
       </div>
     </div>
