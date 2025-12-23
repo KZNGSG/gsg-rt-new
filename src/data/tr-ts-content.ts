@@ -56,6 +56,72 @@ export type ImportCountry = 'china' | 'turkey' | 'europe' | 'usa' | 'other';
 export type SalesChannel = 'wildberries' | 'ozon' | 'retail' | 'wholesale' | 'export';
 
 // =============================================================================
+// РЕГИОНАЛЬНОСТЬ (для поддоменов: kazan.gsg-rt.ru, orenburg.gsg-rt.ru)
+// =============================================================================
+
+/** Федеральный округ */
+export type FederalDistrict =
+  | 'central'      // ЦФО
+  | 'northwestern' // СЗФО
+  | 'southern'     // ЮФО
+  | 'northcaucasian' // СКФО
+  | 'volga'        // ПФО
+  | 'ural'         // УФО
+  | 'siberian'     // СФО
+  | 'fareastern';  // ДФО
+
+/** Данные региона для SEO и контента */
+export interface RegionData {
+  /** Поддомен: kazan, orenburg, kirov */
+  subdomain: string;
+
+  /** Город: Казань, Оренбург, Киров */
+  city: string;
+
+  /** Город в предложном падеже: в Казани, в Оренбурге */
+  cityPrepositional: string;
+
+  /** Город в родительном падеже: Казани, Оренбурга */
+  cityGenitive: string;
+
+  /** Регион/область: Татарстан, Оренбургская область */
+  region: string;
+
+  /** Федеральный округ */
+  federalDistrict: FederalDistrict;
+
+  /** ID региона в Яндекс.Вебмастер (для привязки) */
+  yandexRegionId: number;
+
+  /** Местный телефон (если есть) */
+  phone?: string;
+
+  /** Адрес офиса/пункта выдачи */
+  address?: string;
+
+  /** Координаты для карты */
+  coordinates?: { lat: number; lng: number };
+
+  /** Население города (для приоритета) */
+  population: number;
+
+  /** Активен ли регион */
+  isActive: boolean;
+
+  /** Уникальный текст для региона (для SEO) */
+  uniqueText?: string;
+}
+
+/** Региональные SEO данные (генерируются автоматически) */
+export interface RegionalSEO {
+  title: string;
+  description: string;
+  h1: string;
+  /** Уникальный абзац для региона */
+  introText: string;
+}
+
+// =============================================================================
 // ГЛОБАЛЬНЫЕ НАСТРОЙКИ ЦЕН (редактируй здесь!)
 // =============================================================================
 
@@ -989,4 +1055,579 @@ export function getAllProductSlugs(): Array<{ trts: string; product: string }> {
   }
 
   return result;
+}
+
+// =============================================================================
+// БАЗА РЕГИОНОВ
+// =============================================================================
+
+/**
+ * БАЗА РЕГИОНОВ ДЛЯ ПОДДОМЕНОВ
+ *
+ * Основной домен: gsg-rt.ru = Казань (центральный офис)
+ * Поддомены: msk.gsg-rt.ru, spb.gsg-rt.ru и т.д.
+ *
+ * Список городов синхронизирован с gsg-rt.ru (30 городов + 3 страны)
+ */
+export const ALL_REGIONS: Record<string, RegionData> = {
+  // ---------------------------------------------------------------------------
+  // РОССИЯ: МИЛЛИОННИКИ
+  // ---------------------------------------------------------------------------
+  'msk': {
+    subdomain: 'msk',
+    city: 'Москва',
+    cityPrepositional: 'в Москве',
+    cityGenitive: 'Москвы',
+    region: 'Московская область',
+    federalDistrict: 'central',
+    yandexRegionId: 213,
+    population: 12600000,
+    isActive: true,
+    uniqueText: 'Офис ГОСТСЕРТГРУПП в Москве. Сертификация для столичного бизнеса.',
+  },
+  'spb': {
+    subdomain: 'spb',
+    city: 'Санкт-Петербург',
+    cityPrepositional: 'в Санкт-Петербурге',
+    cityGenitive: 'Санкт-Петербурга',
+    region: 'Ленинградская область',
+    federalDistrict: 'northwestern',
+    yandexRegionId: 2,
+    population: 5400000,
+    isActive: true,
+    uniqueText: 'Офис в Санкт-Петербурге. Быстрая сертификация для бизнеса Северо-Запада.',
+  },
+  'novosibirsk': {
+    subdomain: 'novosibirsk',
+    city: 'Новосибирск',
+    cityPrepositional: 'в Новосибирске',
+    cityGenitive: 'Новосибирска',
+    region: 'Новосибирская область',
+    federalDistrict: 'siberian',
+    yandexRegionId: 65,
+    population: 1630000,
+    isActive: true,
+    uniqueText: 'Крупнейший центр сертификации в Сибири. Работаем по всему СФО.',
+  },
+  'ekaterinburg': {
+    subdomain: 'ekaterinburg',
+    city: 'Екатеринбург',
+    cityPrepositional: 'в Екатеринбурге',
+    cityGenitive: 'Екатеринбурга',
+    region: 'Свердловская область',
+    federalDistrict: 'ural',
+    yandexRegionId: 54,
+    population: 1540000,
+    isActive: true,
+    uniqueText: 'Сертификация на Урале. Работаем по всему УФО.',
+  },
+  'nizhny-novgorod': {
+    subdomain: 'nizhny-novgorod',
+    city: 'Нижний Новгород',
+    cityPrepositional: 'в Нижнем Новгороде',
+    cityGenitive: 'Нижнего Новгорода',
+    region: 'Нижегородская область',
+    federalDistrict: 'volga',
+    yandexRegionId: 47,
+    population: 1250000,
+    isActive: true,
+  },
+  'chelyabinsk': {
+    subdomain: 'chelyabinsk',
+    city: 'Челябинск',
+    cityPrepositional: 'в Челябинске',
+    cityGenitive: 'Челябинска',
+    region: 'Челябинская область',
+    federalDistrict: 'ural',
+    yandexRegionId: 56,
+    population: 1190000,
+    isActive: true,
+  },
+  'samara': {
+    subdomain: 'samara',
+    city: 'Самара',
+    cityPrepositional: 'в Самаре',
+    cityGenitive: 'Самары',
+    region: 'Самарская область',
+    federalDistrict: 'volga',
+    yandexRegionId: 51,
+    population: 1160000,
+    isActive: true,
+  },
+  'rostov': {
+    subdomain: 'rostov',
+    city: 'Ростов-на-Дону',
+    cityPrepositional: 'в Ростове-на-Дону',
+    cityGenitive: 'Ростова-на-Дону',
+    region: 'Ростовская область',
+    federalDistrict: 'southern',
+    yandexRegionId: 39,
+    population: 1140000,
+    isActive: true,
+    uniqueText: 'Сертификация на Юге России. Работаем с Ростовом, Краснодаром, Волгоградом.',
+  },
+  'ufa': {
+    subdomain: 'ufa',
+    city: 'Уфа',
+    cityPrepositional: 'в Уфе',
+    cityGenitive: 'Уфы',
+    region: 'Республика Башкортостан',
+    federalDistrict: 'volga',
+    yandexRegionId: 172,
+    population: 1130000,
+    isActive: true,
+  },
+  'krasnoyarsk': {
+    subdomain: 'krasnoyarsk',
+    city: 'Красноярск',
+    cityPrepositional: 'в Красноярске',
+    cityGenitive: 'Красноярска',
+    region: 'Красноярский край',
+    federalDistrict: 'siberian',
+    yandexRegionId: 62,
+    population: 1090000,
+    isActive: true,
+  },
+  'voronezh': {
+    subdomain: 'voronezh',
+    city: 'Воронеж',
+    cityPrepositional: 'в Воронеже',
+    cityGenitive: 'Воронежа',
+    region: 'Воронежская область',
+    federalDistrict: 'central',
+    yandexRegionId: 193,
+    population: 1050000,
+    isActive: true,
+  },
+  'perm': {
+    subdomain: 'perm',
+    city: 'Пермь',
+    cityPrepositional: 'в Перми',
+    cityGenitive: 'Перми',
+    region: 'Пермский край',
+    federalDistrict: 'volga',
+    yandexRegionId: 50,
+    population: 1050000,
+    isActive: true,
+  },
+  'volgograd': {
+    subdomain: 'volgograd',
+    city: 'Волгоград',
+    cityPrepositional: 'в Волгограде',
+    cityGenitive: 'Волгограда',
+    region: 'Волгоградская область',
+    federalDistrict: 'southern',
+    yandexRegionId: 38,
+    population: 1010000,
+    isActive: true,
+  },
+  'krasnodar': {
+    subdomain: 'krasnodar',
+    city: 'Краснодар',
+    cityPrepositional: 'в Краснодаре',
+    cityGenitive: 'Краснодара',
+    region: 'Краснодарский край',
+    federalDistrict: 'southern',
+    yandexRegionId: 35,
+    population: 1000000,
+    isActive: true,
+    uniqueText: 'Сертификация в Краснодаре и крае. Работаем с сельхозпроизводителями.',
+  },
+
+  // ---------------------------------------------------------------------------
+  // РОССИЯ: КРУПНЫЕ ГОРОДА (активные на gsg-rt.ru)
+  // ---------------------------------------------------------------------------
+  'saratov': {
+    subdomain: 'saratov',
+    city: 'Саратов',
+    cityPrepositional: 'в Саратове',
+    cityGenitive: 'Саратова',
+    region: 'Саратовская область',
+    federalDistrict: 'volga',
+    yandexRegionId: 194,
+    population: 840000,
+    isActive: true,
+  },
+  'izhevsk': {
+    subdomain: 'izhevsk',
+    city: 'Ижевск',
+    cityPrepositional: 'в Ижевске',
+    cityGenitive: 'Ижевска',
+    region: 'Удмуртская Республика',
+    federalDistrict: 'volga',
+    yandexRegionId: 44,
+    population: 650000,
+    isActive: true,
+  },
+  'barnaul': {
+    subdomain: 'barnaul',
+    city: 'Барнаул',
+    cityPrepositional: 'в Барнауле',
+    cityGenitive: 'Барнаула',
+    region: 'Алтайский край',
+    federalDistrict: 'siberian',
+    yandexRegionId: 197,
+    population: 630000,
+    isActive: true,
+  },
+  'vladivostok': {
+    subdomain: 'vladivostok',
+    city: 'Владивосток',
+    cityPrepositional: 'во Владивостоке',
+    cityGenitive: 'Владивостока',
+    region: 'Приморский край',
+    federalDistrict: 'fareastern',
+    yandexRegionId: 75,
+    population: 600000,
+    isActive: true,
+    uniqueText: 'Сертификация на Дальнем Востоке. Работаем с импортом из Китая, Японии, Кореи.',
+  },
+  'irkutsk': {
+    subdomain: 'irkutsk',
+    city: 'Иркутск',
+    cityPrepositional: 'в Иркутске',
+    cityGenitive: 'Иркутска',
+    region: 'Иркутская область',
+    federalDistrict: 'siberian',
+    yandexRegionId: 63,
+    population: 620000,
+    isActive: true,
+  },
+  'yaroslavl': {
+    subdomain: 'yaroslavl',
+    city: 'Ярославль',
+    cityPrepositional: 'в Ярославле',
+    cityGenitive: 'Ярославля',
+    region: 'Ярославская область',
+    federalDistrict: 'central',
+    yandexRegionId: 16,
+    population: 600000,
+    isActive: true,
+  },
+  'orenburg': {
+    subdomain: 'orenburg',
+    city: 'Оренбург',
+    cityPrepositional: 'в Оренбурге',
+    cityGenitive: 'Оренбурга',
+    region: 'Оренбургская область',
+    federalDistrict: 'volga',
+    yandexRegionId: 48,
+    population: 570000,
+    isActive: true,
+  },
+  'kemerovo': {
+    subdomain: 'kemerovo',
+    city: 'Кемерово',
+    cityPrepositional: 'в Кемерове',
+    cityGenitive: 'Кемерова',
+    region: 'Кемеровская область',
+    federalDistrict: 'siberian',
+    yandexRegionId: 64,
+    population: 550000,
+    isActive: true,
+  },
+  'novokuznetsk': {
+    subdomain: 'novokuznetsk',
+    city: 'Новокузнецк',
+    cityPrepositional: 'в Новокузнецке',
+    cityGenitive: 'Новокузнецка',
+    region: 'Кемеровская область',
+    federalDistrict: 'siberian',
+    yandexRegionId: 64,
+    population: 540000,
+    isActive: true,
+  },
+  'astrakhan': {
+    subdomain: 'astrakhan',
+    city: 'Астрахань',
+    cityPrepositional: 'в Астрахани',
+    cityGenitive: 'Астрахани',
+    region: 'Астраханская область',
+    federalDistrict: 'southern',
+    yandexRegionId: 37,
+    population: 530000,
+    isActive: true,
+  },
+  'penza': {
+    subdomain: 'penza',
+    city: 'Пенза',
+    cityPrepositional: 'в Пензе',
+    cityGenitive: 'Пензы',
+    region: 'Пензенская область',
+    federalDistrict: 'volga',
+    yandexRegionId: 49,
+    population: 520000,
+    isActive: true,
+  },
+  'lipetsk': {
+    subdomain: 'lipetsk',
+    city: 'Липецк',
+    cityPrepositional: 'в Липецке',
+    cityGenitive: 'Липецка',
+    region: 'Липецкая область',
+    federalDistrict: 'central',
+    yandexRegionId: 9,
+    population: 510000,
+    isActive: true,
+  },
+  'kirov': {
+    subdomain: 'kirov',
+    city: 'Киров',
+    cityPrepositional: 'в Кирове',
+    cityGenitive: 'Кирова',
+    region: 'Кировская область',
+    federalDistrict: 'volga',
+    yandexRegionId: 46,
+    population: 500000,
+    isActive: true,
+  },
+
+  // ---------------------------------------------------------------------------
+  // РОССИЯ: ДОПОЛНИТЕЛЬНЫЕ ГОРОДА (с сайта gsg-rt.ru)
+  // ---------------------------------------------------------------------------
+  'vologda': {
+    subdomain: 'vologda',
+    city: 'Вологда',
+    cityPrepositional: 'в Вологде',
+    cityGenitive: 'Вологды',
+    region: 'Вологодская область',
+    federalDistrict: 'northwestern',
+    yandexRegionId: 21,
+    population: 310000,
+    isActive: true,
+  },
+  'novorossiysk': {
+    subdomain: 'novorossiysk',
+    city: 'Новороссийск',
+    cityPrepositional: 'в Новороссийске',
+    cityGenitive: 'Новороссийска',
+    region: 'Краснодарский край',
+    federalDistrict: 'southern',
+    yandexRegionId: 970,
+    population: 280000,
+    isActive: true,
+    uniqueText: 'Сертификация в Новороссийске. Работаем с морским портом и импортёрами.',
+  },
+
+  // ---------------------------------------------------------------------------
+  // СТРАНЫ СНГ
+  // ---------------------------------------------------------------------------
+  'kazakhstan': {
+    subdomain: 'kazakhstan',
+    city: 'Казахстан',
+    cityPrepositional: 'в Казахстане',
+    cityGenitive: 'Казахстана',
+    region: 'Республика Казахстан',
+    federalDistrict: 'volga', // условно, для совместимости
+    yandexRegionId: 159,
+    population: 19000000,
+    isActive: true,
+    uniqueText: 'Сертификация для Казахстана. Оформляем документы для ЕАЭС.',
+  },
+  'kyrgyzstan': {
+    subdomain: 'kyrgyzstan',
+    city: 'Киргизия',
+    cityPrepositional: 'в Киргизии',
+    cityGenitive: 'Киргизии',
+    region: 'Кыргызская Республика',
+    federalDistrict: 'volga', // условно
+    yandexRegionId: 207,
+    population: 6700000,
+    isActive: true,
+    uniqueText: 'Сертификация для Киргизии. Документы ЕАЭС для бизнеса в КР.',
+  },
+  'dubai': {
+    subdomain: 'dubai',
+    city: 'ОАЭ',
+    cityPrepositional: 'в ОАЭ',
+    cityGenitive: 'ОАЭ',
+    region: 'Объединённые Арабские Эмираты',
+    federalDistrict: 'southern', // условно
+    yandexRegionId: 0,
+    population: 10000000,
+    isActive: true,
+    uniqueText: 'Сертификация для ОАЭ. Помогаем с экспортом в Эмираты.',
+  },
+};
+
+// =============================================================================
+// ФУНКЦИИ ДЛЯ РАБОТЫ С РЕГИОНАМИ
+// =============================================================================
+
+/** Получить регион по поддомену */
+export function getRegion(subdomain: string): RegionData | undefined {
+  return ALL_REGIONS[subdomain];
+}
+
+/** Получить все активные регионы */
+export function getActiveRegions(): RegionData[] {
+  return Object.values(ALL_REGIONS)
+    .filter(r => r.isActive)
+    .sort((a, b) => b.population - a.population);
+}
+
+/** Получить регионы по федеральному округу */
+export function getRegionsByDistrict(district: FederalDistrict): RegionData[] {
+  return Object.values(ALL_REGIONS)
+    .filter(r => r.federalDistrict === district && r.isActive)
+    .sort((a, b) => b.population - a.population);
+}
+
+/**
+ * Генерация регионального SEO для любой страницы
+ *
+ * Использование:
+ * const seo = generateRegionalSEO(region, {
+ *   baseTitle: 'Сертификат на игрушки',
+ *   baseDescription: 'Оформление сертификата на игрушки',
+ *   baseH1: 'Сертификат на игрушки',
+ *   serviceName: 'сертификацию игрушек',
+ * });
+ */
+export function generateRegionalSEO(
+  region: RegionData,
+  options: {
+    baseTitle: string;
+    baseDescription: string;
+    baseH1: string;
+    serviceName: string; // "сертификацию игрушек", "оформление декларации"
+  }
+): RegionalSEO {
+  const { baseTitle, baseDescription, baseH1, serviceName } = options;
+
+  return {
+    // Title: "Сертификат на игрушки в Казани — от 15 000 ₽ | ГОСТСЕРТГРУПП"
+    title: `${baseTitle} ${region.cityPrepositional} — ${baseTitle.includes('₽') ? '' : 'от 15 000 ₽ | '}ГОСТСЕРТГРУПП`,
+
+    // Description: уникальный для региона
+    description: `${baseDescription} ${region.cityPrepositional}. Работаем по всей ${region.region}. Срок 7-14 дней. Звоните: ${region.phone || '8 800 550-52-88'}`,
+
+    // H1: "Сертификат на игрушки в Казани"
+    h1: `${baseH1} ${region.cityPrepositional}`,
+
+    // Уникальный вводный текст для региона
+    introText: generateRegionalIntro(region, serviceName),
+  };
+}
+
+/**
+ * Генерация уникального вводного текста для региона
+ * Это ключевой элемент для SEO — каждый регион получает уникальный контент
+ */
+function generateRegionalIntro(region: RegionData, serviceName: string): string {
+  // Если есть уникальный текст — используем его
+  if (region.uniqueText) {
+    return region.uniqueText;
+  }
+
+  // Генерируем по шаблонам в зависимости от федерального округа
+  const templates: Record<FederalDistrict, string[]> = {
+    central: [
+      `Оформляем ${serviceName} для компаний ${region.cityGenitive} и ${region.region}. Центральный регион — быстрая доставка документов.`,
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional}. Работаем с предприятиями ЦФО более 12 лет.`,
+    ],
+    northwestern: [
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional} и Северо-Западе. Опыт работы с морскими перевозками и импортом.`,
+      `Оформляем ${serviceName} для бизнеса ${region.cityGenitive}. Знаем специфику СЗФО.`,
+    ],
+    southern: [
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional}. Работаем с сельхозпроизводителями и курортным бизнесом ЮФО.`,
+      `Оформляем ${serviceName} для компаний Юга России. ${region.city} и весь ${region.region}.`,
+    ],
+    northcaucasian: [
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional} и СКФО. Работаем со всеми республиками Северного Кавказа.`,
+      `Оформляем ${serviceName} для предприятий ${region.cityGenitive}. Опыт работы в регионе более 10 лет.`,
+    ],
+    volga: [
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional}. Крупнейший центр сертификации в Поволжье.`,
+      `Оформляем ${serviceName} для производителей ${region.cityGenitive} и ${region.region}. Работаем по всему ПФО.`,
+    ],
+    ural: [
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional}. Работаем с промышленными предприятиями Урала.`,
+      `Оформляем ${serviceName} для бизнеса ${region.cityGenitive}. Опыт работы с металлургией и машиностроением.`,
+    ],
+    siberian: [
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional}. Крупнейший центр сертификации в Сибири.`,
+      `Оформляем ${serviceName} для компаний ${region.cityGenitive} и СФО. Быстрая доставка по всей Сибири.`,
+    ],
+    fareastern: [
+      `${serviceName.charAt(0).toUpperCase() + serviceName.slice(1)} ${region.cityPrepositional}. Специализируемся на импорте из Азии.`,
+      `Оформляем ${serviceName} для бизнеса Дальнего Востока. Опыт работы с Китаем, Японией, Кореей.`,
+    ],
+  };
+
+  const districtTemplates = templates[region.federalDistrict];
+  // Выбираем шаблон на основе хеша города (для стабильности)
+  const hash = region.city.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+  return districtTemplates[hash % districtTemplates.length];
+}
+
+/**
+ * Генерация региональных данных для страницы канала продаж
+ *
+ * Пример: kazan.gsg-rt.ru/sertifikat-tr-ts/008-igrushki/prodazha/wildberries/
+ */
+export function generateRegionalChannelSEO(
+  region: RegionData,
+  channel: TRTSSalesChannel,
+  trtsNumber: string
+): RegionalSEO {
+  return generateRegionalSEO(region, {
+    baseTitle: `${channel.seo.title.split('—')[0].trim()}`,
+    baseDescription: channel.seo.description,
+    baseH1: channel.seo.h1,
+    serviceName: `сертификаты ${trtsNumber} для ${channel.name}`,
+  });
+}
+
+/**
+ * Генерация региональных данных для страницы импорта
+ */
+export function generateRegionalImportSEO(
+  region: RegionData,
+  importData: TRTSImport,
+  trtsNumber: string
+): RegionalSEO {
+  return generateRegionalSEO(region, {
+    baseTitle: importData.seo.title.split('—')[0].trim(),
+    baseDescription: importData.seo.description,
+    baseH1: importData.seo.h1,
+    serviceName: `сертификацию товаров ${importData.nameFrom}`,
+  });
+}
+
+/**
+ * Получить соседние регионы (для перелинковки)
+ */
+export function getNearbyRegions(subdomain: string, limit: number = 5): RegionData[] {
+  const current = ALL_REGIONS[subdomain];
+  if (!current) return [];
+
+  return Object.values(ALL_REGIONS)
+    .filter(r => r.subdomain !== subdomain && r.isActive && r.federalDistrict === current.federalDistrict)
+    .sort((a, b) => b.population - a.population)
+    .slice(0, limit);
+}
+
+/**
+ * Получить все поддомены для generateStaticParams
+ */
+export function getAllRegionSubdomains(): string[] {
+  return Object.values(ALL_REGIONS)
+    .filter(r => r.isActive)
+    .map(r => r.subdomain);
+}
+
+/**
+ * Проверить, является ли домен региональным поддоменом
+ */
+export function isRegionalSubdomain(hostname: string): RegionData | null {
+  // hostname: "kazan.gsg-rt.ru" или "gsg-rt.ru"
+  const parts = hostname.split('.');
+  if (parts.length < 3) return null; // нет поддомена
+
+  const subdomain = parts[0];
+  const region = ALL_REGIONS[subdomain];
+
+  return region?.isActive ? region : null;
 }
