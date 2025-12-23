@@ -476,18 +476,38 @@ export default async function CertificatePage({ params }: PageProps) {
                     </div>
                   </div>
 
-                  {/* CTA */}
-                  <div className="mt-6 p-4 bg-blue-50 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div>
-                      <p className="font-medium text-blue-900">Не уверены какой документ нужен?</p>
-                      <p className="text-blue-700 text-sm">Бесплатно определим за 15 минут</p>
+                  {/* Не нашли свой товар */}
+                  <div className="mt-6 p-5 bg-gradient-to-br from-slate-100 to-slate-50 rounded-xl border border-slate-200">
+                    <div className="flex flex-col md:flex-row md:items-center gap-4">
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm">
+                          <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-slate-900 text-lg">Не нашли свой товар?</p>
+                        <p className="text-slate-600 text-sm mt-1">
+                          Это примеры популярных категорий. Пистолеты, машинки, музыкальные игрушки и другие —
+                          определим какой документ нужен бесплатно за 15 минут.
+                        </p>
+                      </div>
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <a
+                          href="tel:88005505288"
+                          className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors text-center whitespace-nowrap"
+                        >
+                          Позвонить
+                        </a>
+                        <a
+                          href="#form"
+                          className="px-5 py-2.5 bg-white hover:bg-slate-50 text-slate-700 font-medium rounded-xl transition-colors border border-slate-200 text-center whitespace-nowrap"
+                        >
+                          Оставить заявку
+                        </a>
+                      </div>
                     </div>
-                    <a
-                      href="tel:88005505288"
-                      className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition-colors whitespace-nowrap"
-                    >
-                      Позвонить эксперту
-                    </a>
                   </div>
                 </section>
               )}
