@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import {
   GLOBAL_PRICING,
@@ -23,6 +23,7 @@ interface OldPage {
   title: string;
   description: string;
   h1: string;
+  content?: string;
   status: 'pending' | 'in_progress' | 'done';
   priority: 'high' | 'medium' | 'low';
 }
@@ -700,7 +701,7 @@ function HelpTab() {
 }
 
 // =============================================================================
-// ВКЛАДКА: МИГРАЦИЯ (старые страницы)
+// ВКЛАДКА: МИГРАЦИЯ (старые страницы) - ПОЛНАЯ ВЕРСИЯ
 // =============================================================================
 
 const categoryNames: Record<string, string> = {
@@ -715,11 +716,29 @@ const categoryNames: Record<string, string> = {
   other: 'Прочее',
 };
 
-function MigrationTab({ pages, cities }: { pages: OldPage[]; cities: City[] }) {
+type MigrationSubTab = 'pages' | 'redirects' | 'cities' | 'analytics';
+
+function MigrationTab({ pages: initialPages, cities }: { pages: OldPage[]; cities: City[] }) {
+  const [pages, setPages] = useState<OldPage[]>(initialPages);
+  const [subTab, setSubTab] = useState<MigrationSubTab>('pages');
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const [priorityFilter, setPriorityFilter] = useState<string>('all');
+  const [selectedCity, setSelectedCity] = useState<string>('');
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
+
+  // Замена переменных города
+  const replaceCity = (text: string) => {
+    const city = cities.find(c => c.slug === selectedCity) || cities.find(c => c.isMain) || cities[0];
+    if (!city) return text;
+    return text.replace(/{city}/g, city.name).replace(/{prepositional}/g, city.prepositional);
+  };
+
+  // Обновление страницы
+  const updatePage = (oldUrl: string, updates: Partial<OldPage>) => {
+    setPages(pages.map(p => p.oldUrl === oldUrl ? { ...p, ...updates } : p));
+  };
 
   // Статистика
   const stats = useMemo(() => {
@@ -728,7 +747,10 @@ function MigrationTab({ pages, cities }: { pages: OldPage[]; cities: City[] }) {
     const inProgress = pages.filter(p => p.status === 'in_progress').length;
     const pending = pages.filter(p => p.status === 'pending').length;
     const highPriority = pages.filter(p => p.priority === 'high' && p.status !== 'done').length;
-    return { total, done, inProgress, pending, highPriority, progress: Math.round((done / total) * 100) };
+    const noDesc = pages.filter(p => !p.description).length;
+    const withContent = pages.filter(p => p.content).length;
+    const longTitle = pages.filter(p => p.title.length > 60).length;
+    return { total, done, inProgress, pending, highPriority, noDesc, withContent, longTitle, progress: Math.round((done / total) * 100) };
   }, [pages]);
 
   // Фильтрация
@@ -743,15 +765,43 @@ function MigrationTab({ pages, cities }: { pages: OldPage[]; cities: City[] }) {
     });
   }, [pages, searchQuery, statusFilter, categoryFilter, priorityFilter]);
 
+  // Редиректы
+  const redirects = useMemo(() => {
+    return pages.filter(p => p.oldUrl !== p.newUrl);
+  }, [pages]);
+
   // Уникальные категории
   const categories = useMemo(() => {
     return [...new Set(pages.map(p => p.category))];
   }, [pages]);
 
+  // Экспорт CSV
+  const exportCSV = () => {
+    const headers = ['Old URL', 'New URL', 'Category', 'Title', 'Description', 'H1', 'Status', 'Priority'];
+    const rows = pages.map(p => [p.oldUrl, p.newUrl, p.category, p.title, p.description, p.h1, p.status, p.priority]);
+    const csv = [headers, ...rows].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'seo-pages.csv';
+    a.click();
+  };
+
+  // Генерация Next.js redirects
+  const generateNextConfig = () => {
+    const redirectsConfig = pages
+      .filter(p => p.oldUrl !== p.newUrl)
+      .map(p => ({ source: p.oldUrl.replace(/\/$/, '') || '/', destination: p.newUrl || '/', permanent: true }));
+    const config = `async redirects() {\n  return ${JSON.stringify(redirectsConfig, null, 2)};\n}`;
+    navigator.clipboard.writeText(config);
+    alert('Скопировано в буфер обмена!');
+  };
+
   return (
     <div className="space-y-6">
       {/* Статистика */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-4">
         <div className="bg-white rounded-2xl p-5 shadow-sm">
           <div className="text-3xl font-black text-slate-900">{stats.total}</div>
           <div className="text-slate-500 text-sm">Всего страниц</div>
@@ -772,164 +822,434 @@ function MigrationTab({ pages, cities }: { pages: OldPage[]; cities: City[] }) {
           <div className="text-3xl font-black text-red-600">{stats.highPriority}</div>
           <div className="text-slate-500 text-sm">Высокий приоритет</div>
         </div>
-      </div>
-
-      {/* Прогресс */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm">
-        <div className="flex justify-between items-center mb-2">
-          <span className="font-medium text-slate-700">Прогресс миграции</span>
-          <span className="font-bold text-blue-600">{stats.progress}%</span>
-        </div>
-        <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all"
-            style={{ width: `${stats.progress}%` }}
-          />
+        <div className="bg-white rounded-2xl p-5 shadow-sm border-l-4 border-purple-500">
+          <div className="text-3xl font-black text-purple-600">{stats.withContent}</div>
+          <div className="text-slate-500 text-sm">С контентом</div>
         </div>
       </div>
 
-      {/* Города */}
+      {/* Прогресс + кнопки экспорта */}
       <div className="bg-white rounded-2xl p-6 shadow-sm">
-        <h3 className="font-bold text-slate-900 mb-3">Города ({cities.length})</h3>
-        <div className="flex flex-wrap gap-2">
-          {cities.slice(0, 20).map(city => (
-            <span
-              key={city.slug || 'main'}
-              className={`px-3 py-1 rounded-full text-sm ${
-                city.isMain ? 'bg-blue-100 text-blue-700 font-medium' : 'bg-slate-100 text-slate-600'
+        <div className="flex flex-wrap justify-between items-center gap-4 mb-4">
+          <div className="flex-1 min-w-[200px]">
+            <div className="flex justify-between items-center mb-2">
+              <span className="font-medium text-slate-700">Прогресс миграции</span>
+              <span className="font-bold text-blue-600">{stats.progress}%</span>
+            </div>
+            <div className="h-3 bg-slate-200 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all"
+                style={{ width: `${stats.progress}%` }}
+              />
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={exportCSV}
+              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              CSV
+            </button>
+            <button
+              onClick={generateNextConfig}
+              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              Скопировать Redirects
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Под-вкладки */}
+      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div className="flex border-b border-slate-200">
+          {[
+            { id: 'pages' as MigrationSubTab, label: 'Страницы', count: stats.total },
+            { id: 'redirects' as MigrationSubTab, label: 'Редиректы', count: redirects.length },
+            { id: 'cities' as MigrationSubTab, label: 'Города', count: cities.length },
+            { id: 'analytics' as MigrationSubTab, label: 'Аналитика' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setSubTab(tab.id)}
+              className={`px-6 py-4 font-medium text-sm transition-colors ${
+                subTab === tab.id
+                  ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50'
+                  : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              {city.name}
-            </span>
+              {tab.label}
+              {tab.count !== undefined && (
+                <span className={`ml-2 px-2 py-0.5 rounded text-xs ${
+                  subTab === tab.id ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'
+                }`}>
+                  {tab.count}
+                </span>
+              )}
+            </button>
           ))}
-          {cities.length > 20 && (
-            <span className="px-3 py-1 rounded-full text-sm bg-slate-200 text-slate-600">
-              +{cities.length - 20} ещё
-            </span>
-          )}
         </div>
-      </div>
 
-      {/* Фильтры */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {/* Поиск */}
-          <div className="lg:col-span-2">
-            <input
-              type="text"
-              placeholder="Поиск по URL или title..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
-            />
+        {/* СТРАНИЦЫ */}
+        {subTab === 'pages' && (
+          <div>
+            {/* Фильтры */}
+            <div className="p-4 border-b border-slate-200">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-3">
+                <div className="lg:col-span-2">
+                  <input
+                    type="text"
+                    placeholder="Поиск по URL или title..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+                <select
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                  className="px-3 py-2 border border-slate-200 rounded-lg bg-white text-sm"
+                >
+                  <option value="all">Все статусы</option>
+                  <option value="pending">Ожидает</option>
+                  <option value="in_progress">В работе</option>
+                  <option value="done">Готово</option>
+                </select>
+                <select
+                  value={categoryFilter}
+                  onChange={(e) => setCategoryFilter(e.target.value)}
+                  className="px-3 py-2 border border-slate-200 rounded-lg bg-white text-sm"
+                >
+                  <option value="all">Все категории</option>
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{categoryNames[cat] || cat}</option>
+                  ))}
+                </select>
+                <select
+                  value={priorityFilter}
+                  onChange={(e) => setPriorityFilter(e.target.value)}
+                  className="px-3 py-2 border border-slate-200 rounded-lg bg-white text-sm"
+                >
+                  <option value="all">Все приоритеты</option>
+                  <option value="high">Высокий</option>
+                  <option value="medium">Средний</option>
+                  <option value="low">Низкий</option>
+                </select>
+                <select
+                  value={selectedCity}
+                  onChange={(e) => setSelectedCity(e.target.value)}
+                  className="px-3 py-2 border border-slate-200 rounded-lg bg-white text-sm"
+                >
+                  <option value="">Город: {cities.find(c => c.isMain)?.name || 'Казань'}</option>
+                  {cities.filter(c => !c.isMain).map(c => (
+                    <option key={c.slug} value={c.slug}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Таблица */}
+            <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 sticky top-0">
+                  <tr>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700 w-8"></th>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700">URL</th>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700">Title / Description</th>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700 w-28">Категория</th>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700 w-28">Статус</th>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700 w-24">Приоритет</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredPages.slice(0, 100).map((page) => {
+                    const isExpanded = expandedRow === page.oldUrl;
+                    return (
+                      <React.Fragment key={page.oldUrl}>
+                        <tr
+                          className={`border-b border-slate-100 hover:bg-slate-50 cursor-pointer ${isExpanded ? 'bg-blue-50' : ''}`}
+                          onClick={() => setExpandedRow(isExpanded ? null : page.oldUrl)}
+                        >
+                          <td className="px-4 py-3">
+                            <span className={`transform transition-transform inline-block ${isExpanded ? 'rotate-180' : ''}`}>
+                              <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                              </svg>
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="font-mono text-xs text-slate-600">{page.oldUrl}</div>
+                            {page.oldUrl !== page.newUrl && (
+                              <div className="font-mono text-xs text-blue-600 mt-0.5">→ {page.newUrl}</div>
+                            )}
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="text-slate-900 truncate max-w-md" title={replaceCity(page.title)}>
+                              {replaceCity(page.title) || <span className="text-slate-400 italic">Нет title</span>}
+                            </div>
+                            <div className="text-slate-500 text-xs truncate max-w-md mt-0.5" title={replaceCity(page.description)}>
+                              {replaceCity(page.description) || <span className="text-red-400 italic">Нет description</span>}
+                            </div>
+                            {page.content && (
+                              <div className="text-green-600 text-xs mt-0.5">
+                                Контент: {page.content.length} симв.
+                              </div>
+                            )}
+                          </td>
+                          <td className="px-4 py-3 text-xs text-slate-600">
+                            {categoryNames[page.category] || page.category}
+                          </td>
+                          <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                            <select
+                              value={page.status}
+                              onChange={(e) => updatePage(page.oldUrl, { status: e.target.value as OldPage['status'] })}
+                              className={`text-xs px-2 py-1 rounded border-0 cursor-pointer ${
+                                page.status === 'done' ? 'bg-green-100 text-green-700' :
+                                page.status === 'in_progress' ? 'bg-blue-100 text-blue-700' :
+                                'bg-amber-100 text-amber-700'
+                              }`}
+                            >
+                              <option value="pending">Ожидает</option>
+                              <option value="in_progress">В работе</option>
+                              <option value="done">Готово</option>
+                            </select>
+                          </td>
+                          <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
+                            <select
+                              value={page.priority}
+                              onChange={(e) => updatePage(page.oldUrl, { priority: e.target.value as OldPage['priority'] })}
+                              className={`text-xs px-2 py-1 rounded border-0 cursor-pointer ${
+                                page.priority === 'high' ? 'bg-red-100 text-red-700' :
+                                page.priority === 'medium' ? 'bg-orange-100 text-orange-700' :
+                                'bg-slate-100 text-slate-600'
+                              }`}
+                            >
+                              <option value="high">Высокий</option>
+                              <option value="medium">Средний</option>
+                              <option value="low">Низкий</option>
+                            </select>
+                          </td>
+                        </tr>
+                        {/* Раскрытая строка для редактирования */}
+                        {isExpanded && (
+                          <tr className="bg-slate-50">
+                            <td colSpan={6} className="px-4 py-4">
+                              <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                  <label className="block text-xs font-medium text-slate-500 mb-1">
+                                    Title <span className="text-slate-400">({page.title.length}/60)</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={page.title}
+                                    onChange={(e) => updatePage(page.oldUrl, { title: e.target.value })}
+                                    className={`w-full px-3 py-2 border rounded text-sm ${page.title.length > 60 ? 'border-orange-300 bg-orange-50' : 'border-slate-200'}`}
+                                    placeholder="Title страницы"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="block text-xs font-medium text-slate-500 mb-1">H1</label>
+                                  <input
+                                    type="text"
+                                    value={page.h1}
+                                    onChange={(e) => updatePage(page.oldUrl, { h1: e.target.value })}
+                                    className="w-full px-3 py-2 border border-slate-200 rounded text-sm"
+                                    placeholder="H1 заголовок"
+                                  />
+                                </div>
+                                <div className="col-span-2">
+                                  <label className="block text-xs font-medium text-slate-500 mb-1">
+                                    Description <span className="text-slate-400">({page.description.length}/160)</span>
+                                  </label>
+                                  <textarea
+                                    value={page.description}
+                                    onChange={(e) => updatePage(page.oldUrl, { description: e.target.value })}
+                                    rows={2}
+                                    className={`w-full px-3 py-2 border rounded text-sm resize-none ${page.description.length > 160 ? 'border-orange-300 bg-orange-50' : 'border-slate-200'}`}
+                                    placeholder="Meta description"
+                                  />
+                                </div>
+                                {page.content && (
+                                  <div className="col-span-2">
+                                    <label className="block text-xs font-medium text-slate-500 mb-1">
+                                      Контент страницы <span className="text-slate-400">({page.content.length} символов)</span>
+                                    </label>
+                                    <div
+                                      className="w-full px-3 py-2 border border-slate-200 rounded text-sm bg-white max-h-64 overflow-y-auto prose prose-sm prose-slate"
+                                      dangerouslySetInnerHTML={{ __html: page.content }}
+                                    />
+                                  </div>
+                                )}
+                                <div>
+                                  <label className="block text-xs font-medium text-slate-500 mb-1">Новый URL</label>
+                                  <input
+                                    type="text"
+                                    value={page.newUrl}
+                                    onChange={(e) => updatePage(page.oldUrl, { newUrl: e.target.value })}
+                                    className="w-full px-3 py-2 border border-slate-200 rounded text-sm font-mono"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="block text-xs font-medium text-slate-500 mb-1">Категория</label>
+                                  <select
+                                    value={page.category}
+                                    onChange={(e) => updatePage(page.oldUrl, { category: e.target.value })}
+                                    className="w-full px-3 py-2 border border-slate-200 rounded text-sm"
+                                  >
+                                    {Object.entries(categoryNames).map(([id, name]) => (
+                                      <option key={id} value={id}>{name}</option>
+                                    ))}
+                                  </select>
+                                </div>
+                                {/* Google Preview */}
+                                <div className="col-span-2 mt-2 p-4 bg-white rounded border">
+                                  <div className="text-xs text-slate-500 mb-2">Превью в Google:</div>
+                                  <div className="text-blue-700 text-lg hover:underline cursor-pointer">
+                                    {replaceCity(page.title) || 'Title не задан'}
+                                  </div>
+                                  <div className="text-green-700 text-sm">gsg-rt.ru{page.newUrl}</div>
+                                  <div className="text-slate-600 text-sm mt-1 line-clamp-2">
+                                    {replaceCity(page.description) || 'Description не задан'}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {filteredPages.length > 100 && (
+              <div className="p-4 border-t border-slate-200 text-center text-slate-500 text-sm">
+                Показаны первые 100 из {filteredPages.length}. Используй фильтры для поиска.
+              </div>
+            )}
           </div>
+        )}
 
-          {/* Статус */}
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 border border-slate-200 rounded-lg bg-white"
-          >
-            <option value="all">Все статусы</option>
-            <option value="pending">Ожидает</option>
-            <option value="in_progress">В работе</option>
-            <option value="done">Готово</option>
-          </select>
+        {/* РЕДИРЕКТЫ */}
+        {subTab === 'redirects' && (
+          <div>
+            <div className="p-4 border-b border-slate-200">
+              <p className="text-sm text-slate-600">
+                Всего редиректов: <span className="font-semibold">{redirects.length}</span>
+                <span className="text-slate-400 ml-4">Нажми &quot;Скопировать Redirects&quot; для Next.js конфига</span>
+              </p>
+            </div>
+            <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-slate-50 sticky top-0">
+                  <tr>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700">Source (старый URL)</th>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700">Destination (новый URL)</th>
+                    <th className="text-left px-4 py-3 font-semibold text-slate-700 w-24">Тип</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {redirects.map((page, idx) => (
+                    <tr key={idx} className="border-b border-slate-100">
+                      <td className="px-4 py-3 font-mono text-xs text-red-600">{page.oldUrl}</td>
+                      <td className="px-4 py-3 font-mono text-xs text-green-600">{page.newUrl}</td>
+                      <td className="px-4 py-3 text-xs text-slate-500">301</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
 
-          {/* Категория */}
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-4 py-2 border border-slate-200 rounded-lg bg-white"
-          >
-            <option value="all">Все категории</option>
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{categoryNames[cat] || cat}</option>
-            ))}
-          </select>
-
-          {/* Приоритет */}
-          <select
-            value={priorityFilter}
-            onChange={(e) => setPriorityFilter(e.target.value)}
-            className="px-4 py-2 border border-slate-200 rounded-lg bg-white"
-          >
-            <option value="all">Все приоритеты</option>
-            <option value="high">Высокий</option>
-            <option value="medium">Средний</option>
-            <option value="low">Низкий</option>
-          </select>
-        </div>
-      </div>
-
-      {/* Таблица */}
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-        <div className="p-4 border-b border-slate-200 flex justify-between items-center">
-          <span className="text-slate-600">
-            Показано: <strong>{filteredPages.length}</strong> из {pages.length}
-          </span>
-        </div>
-
-        <div className="overflow-x-auto max-h-[600px] overflow-y-auto">
-          <table className="w-full">
-            <thead className="bg-slate-50 sticky top-0">
-              <tr>
-                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Статус</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Приоритет</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Категория</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Старый URL</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Новый URL</th>
-                <th className="text-left px-4 py-3 font-semibold text-slate-700 text-sm">Title</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredPages.slice(0, 100).map((page, idx) => (
-                <tr key={idx} className="border-b border-slate-100 hover:bg-slate-50">
-                  <td className="px-4 py-3">
-                    <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                      page.status === 'done' ? 'bg-green-100 text-green-700' :
-                      page.status === 'in_progress' ? 'bg-blue-100 text-blue-700' :
-                      'bg-slate-100 text-slate-600'
-                    }`}>
-                      {page.status === 'done' ? 'Готово' :
-                       page.status === 'in_progress' ? 'В работе' : 'Ожидает'}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                      page.priority === 'high' ? 'bg-red-100 text-red-700' :
-                      page.priority === 'medium' ? 'bg-amber-100 text-amber-700' :
-                      'bg-slate-100 text-slate-600'
-                    }`}>
-                      {page.priority === 'high' ? 'Высокий' :
-                       page.priority === 'medium' ? 'Средний' : 'Низкий'}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-600">
-                    {categoryNames[page.category] || page.category}
-                  </td>
-                  <td className="px-4 py-3">
-                    <code className="text-xs bg-slate-100 px-2 py-1 rounded text-slate-700">
-                      {page.oldUrl}
-                    </code>
-                  </td>
-                  <td className="px-4 py-3">
-                    <code className="text-xs bg-blue-50 px-2 py-1 rounded text-blue-700">
-                      {page.newUrl}
-                    </code>
-                  </td>
-                  <td className="px-4 py-3 text-sm text-slate-700 max-w-xs truncate">
-                    {page.title}
-                  </td>
-                </tr>
+        {/* ГОРОДА */}
+        {subTab === 'cities' && (
+          <div className="p-6">
+            <p className="text-sm text-slate-600 mb-4">
+              Переменные <code className="bg-slate-100 px-1 rounded">{'{city}'}</code> и <code className="bg-slate-100 px-1 rounded">{'{prepositional}'}</code> заменяются в title и description
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+              {cities.map((c, idx) => (
+                <div key={idx} className={`p-3 rounded-lg border text-sm ${c.isMain ? 'border-blue-300 bg-blue-50' : 'border-slate-200'}`}>
+                  <div className="font-medium text-slate-900">{c.name}</div>
+                  <div className="text-slate-500 text-xs">{c.prepositional}</div>
+                  {c.isMain && <div className="text-blue-600 text-xs mt-1">Основной</div>}
+                </div>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </div>
+          </div>
+        )}
 
-        {filteredPages.length > 100 && (
-          <div className="p-4 border-t border-slate-200 text-center text-slate-500 text-sm">
-            Показаны первые 100 из {filteredPages.length}. Используй фильтры для поиска.
+        {/* АНАЛИТИКА */}
+        {subTab === 'analytics' && (
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* По категориям */}
+              <div className="bg-slate-50 rounded-xl p-4">
+                <h3 className="font-bold text-slate-900 mb-3">По категориям</h3>
+                <div className="space-y-2">
+                  {Object.entries(categoryNames).map(([id, name]) => {
+                    const count = pages.filter(p => p.category === id).length;
+                    const done = pages.filter(p => p.category === id && p.status === 'done').length;
+                    if (count === 0) return null;
+                    return (
+                      <div key={id} className="flex justify-between items-center text-sm">
+                        <span className="text-slate-600">{name}</span>
+                        <span className="font-medium">
+                          <span className="text-green-600">{done}</span>
+                          <span className="text-slate-400">/{count}</span>
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* По статусу */}
+              <div className="bg-slate-50 rounded-xl p-4">
+                <h3 className="font-bold text-slate-900 mb-3">По статусу</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-green-600">Готово</span>
+                    <span className="font-medium">{stats.done}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-blue-600">В работе</span>
+                    <span className="font-medium">{stats.inProgress}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-amber-600">Ожидает</span>
+                    <span className="font-medium">{stats.pending}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Требуют внимания */}
+              <div className="bg-slate-50 rounded-xl p-4">
+                <h3 className="font-bold text-slate-900 mb-3">Требуют внимания</h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-red-600">Без description</span>
+                    <span className="font-medium">{stats.noDesc}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-amber-600">Высокий приоритет</span>
+                    <span className="font-medium">{stats.highPriority}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-orange-600">Длинный title (&gt;60)</span>
+                    <span className="font-medium">{stats.longTitle}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -939,9 +1259,10 @@ function MigrationTab({ pages, cities }: { pages: OldPage[]; cities: City[] }) {
         <h3 className="font-bold text-amber-800 mb-2">Как работать с миграцией:</h3>
         <ol className="text-amber-700 text-sm space-y-2 list-decimal list-inside">
           <li>Данные хранятся в <code className="bg-amber-100 px-1 rounded">src/data/seo-pages.json</code></li>
-          <li>Меняй статус страниц по мере переноса контента</li>
-          <li>Высокий приоритет — страницы с большим трафиком, переноси первыми</li>
-          <li>После переноса — настрой 301 редиректы со старых URL на новые</li>
+          <li>Кликни на строку чтобы редактировать title, description, h1</li>
+          <li>Меняй статус/приоритет прямо в таблице</li>
+          <li>Используй &quot;Скопировать Redirects&quot; для настройки 301 редиректов в Next.js</li>
+          <li>Экспортируй CSV для работы в Google Sheets</li>
         </ol>
       </div>
     </div>
