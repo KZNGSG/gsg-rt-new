@@ -606,14 +606,17 @@ export default async function CertificatePage({ params }: PageProps) {
 
               {/* Стоимость */}
               <section className="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-3">
                   <span className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center text-green-600">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </span>
-                  Стоимость сертификации
+                  Ориентировочная стоимость
                 </h2>
+                <p className="text-slate-500 text-sm mb-6 ml-13">
+                  Минимальные цены для типовых случаев. Точный расчёт — после анализа вашего товара.
+                </p>
 
                 <div className="grid md:grid-cols-3 gap-4">
                   {/* Серийное */}
@@ -622,14 +625,14 @@ export default async function CertificatePage({ params }: PageProps) {
                     <div className="text-3xl font-black text-slate-900 mb-1">
                       от {regulation.pricing.serial.price.toLocaleString('ru-RU')} ₽
                     </div>
-                    <div className="text-slate-500 text-sm mb-3">
-                      до {regulation.pricing.serial.priceMax.toLocaleString('ru-RU')} ₽
+                    <div className="text-slate-400 text-xs mb-3">
+                      за простые товары
                     </div>
                     <div className="flex items-center gap-2 text-sm text-slate-600">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      {regulation.pricing.serial.days}
+                      от {regulation.pricing.serial.days}
                     </div>
                     <div className="mt-3 text-xs text-blue-600 bg-blue-100 px-2 py-1 rounded inline-block">
                       Действует {regulation.validity.serial}
@@ -645,14 +648,14 @@ export default async function CertificatePage({ params }: PageProps) {
                     <div className="text-3xl font-black text-slate-900 mb-1">
                       от {regulation.pricing.batch.price.toLocaleString('ru-RU')} ₽
                     </div>
-                    <div className="text-slate-500 text-sm mb-3">
-                      до {regulation.pricing.batch.priceMax.toLocaleString('ru-RU')} ₽
+                    <div className="text-slate-400 text-xs mb-3">
+                      за простые товары
                     </div>
                     <div className="flex items-center gap-2 text-sm text-slate-600">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      {regulation.pricing.batch.days}
+                      от {regulation.pricing.batch.days}
                     </div>
                     <div className="mt-3 text-xs text-emerald-600 bg-emerald-100 px-2 py-1 rounded inline-block">
                       Действует {regulation.validity.batch}
@@ -666,23 +669,57 @@ export default async function CertificatePage({ params }: PageProps) {
                       <div className="text-3xl font-black text-slate-900 mb-1">
                         от {regulation.pricing.urgent.price.toLocaleString('ru-RU')} ₽
                       </div>
-                      <div className="text-slate-500 text-sm mb-3">
-                        до {regulation.pricing.urgent.priceMax.toLocaleString('ru-RU')} ₽
+                      <div className="text-slate-400 text-xs mb-3">
+                        за простые товары
                       </div>
                       <div className="flex items-center gap-2 text-sm text-slate-600">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
-                        {regulation.pricing.urgent.days}
+                        от {regulation.pricing.urgent.days}
                       </div>
                     </div>
                   )}
                 </div>
 
-                <p className="mt-6 text-slate-500 text-sm">
-                  * Точная стоимость зависит от количества наименований, наличия протоколов испытаний
-                  и выбранной схемы сертификации. Получите точный расчёт за 15 минут.
-                </p>
+                {/* Что влияет на цену */}
+                <div className="mt-6 p-4 bg-slate-50 rounded-xl">
+                  <p className="font-medium text-slate-700 mb-2">Что влияет на итоговую стоимость:</p>
+                  <ul className="text-slate-600 text-sm space-y-1">
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                      Сложность товара (электроника дороже, мягкие игрушки дешевле)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                      Количество наименований в заявке
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                      Наличие готовых протоколов испытаний
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-slate-400 rounded-full"></span>
+                      Выбранная схема сертификации
+                    </li>
+                  </ul>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-4 flex flex-col sm:flex-row gap-3">
+                  <a
+                    href="tel:88005505288"
+                    className="flex-1 text-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl transition-colors"
+                  >
+                    Узнать точную цену
+                  </a>
+                  <a
+                    href="#form"
+                    className="flex-1 text-center px-6 py-3 bg-white hover:bg-slate-50 text-slate-700 font-medium rounded-xl border border-slate-200 transition-colors"
+                  >
+                    Оставить заявку на расчёт
+                  </a>
+                </div>
               </section>
 
               {/* Этапы оформления */}
